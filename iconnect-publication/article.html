@@ -9,23 +9,27 @@
   <title id="page-title">iConnect Publication — BSCS Department Journal</title>
   <meta name="description" content="iConnect Publication — Official Publication of the BSCS Department at Capiz State University – Mambusao Satellite College." />
 
+  <!-- Canonical URL -->
+  <link rel="canonical" id="canonical-url" href="" />
+
   <!-- Open Graph Meta Tags for Facebook, Messenger, WhatsApp, Viber, Telegram, LinkedIn -->
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="iConnect Publication" />
-  <meta property="og:url" content="" />
+  <meta property="og:url" id="og-url" content="" />
   <meta property="og:title" id="og-title" content="iConnect Publication — BSCS Department Journal" />
   <meta property="og:description" id="og-desc" content="Read the latest technology, news, campus features, and research articles from the BSCS Department." />
-  <meta property="og:image" id="og-image" content="https://iconheheh.netlify.app/assets/images/articles/gallery-1.jpg" />
-  <meta property="og:image:secure_url" id="og-image-secure" content="https://iconheheh.netlify.app/assets/images/articles/gallery-1.jpg" />
+  <meta property="og:image" id="og-image" content="./assets/images/articles/gallery-1.jpg" />
+  <meta property="og:image:secure_url" id="og-image-secure" content="./assets/images/articles/gallery-1.jpg" />
   <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
   <!-- Twitter Card Link Preview Meta Tags -->
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" id="twitter-url" content="" />
   <meta name="twitter:title" id="twitter-title" content="iConnect Publication — BSCS Department Journal" />
   <meta name="twitter:description" id="twitter-desc" content="Read the latest technology, news, campus features, and research articles from the BSCS Department." />
-  <meta name="twitter:image" id="twitter-image" content="https://iconheheh.netlify.app/assets/images/articles/gallery-1.jpg" />
+  <meta name="twitter:image" id="twitter-image" content="./assets/images/articles/gallery-1.jpg" />
 
   <!-- Data Script & Client-Side Dynamic Meta Updater (runs before page paint) -->
   <script>
@@ -46,7 +50,7 @@
           var fullImgUrl = img.indexOf('://') !== -1 ? img : (origin + path + img.replace(/^\.\//, ''));
           var excerpt = (article.excerpt || (article.content || '').replace(/<[^>]*>/g, '')).slice(0, 160) + '...';
           var pageTitle = article.title + ' | iConnect Publication';
-          var pageUrl = origin + path + 'article.html?id=' + (article.id || id);
+          var pageUrl = origin + path + 'article.html?id=' + encodeURIComponent(article.id || id);
 
           // Update <title>
           document.title = pageTitle;
@@ -63,22 +67,27 @@
             if (el) el.setAttribute('content', val);
           };
 
+          // Canonical
+          var canEl = document.getElementById('canonical-url');
+          if (canEl) canEl.setAttribute('href', pageUrl);
+
           // Open Graph
           setById('og-title', pageTitle);
           setById('og-desc', excerpt);
           setById('og-image', fullImgUrl);
           setById('og-image-secure', fullImgUrl);
+          setById('og-url', pageUrl);
           setByProp('property', 'og:url', pageUrl);
 
           // Twitter Card
           setById('twitter-title', pageTitle);
           setById('twitter-desc', excerpt);
           setById('twitter-image', fullImgUrl);
+          setById('twitter-url', pageUrl);
         }
       } catch (e) {}
     })();
   </script>
-
 
   <!-- Favicon & Apple Touch Icon -->
   <link rel="icon" type="image/png" href="./assets/logo/iconnect-logo-3d.png" />
