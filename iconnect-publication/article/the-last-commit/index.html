@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#050b1a" />
-  <link rel="canonical" href="https://gleeful-granita-91fc93.netlify.app/article/the-last-commit/" />
+  <link rel="canonical" href="/article/the-last-commit/" />
 
   <title>The Last Commit | iConnect Publication</title>
   <meta name="description" content="A story of code, kindness, and a legacy that proves some endings are simply the beginning of something worth continuing...." />
@@ -14,7 +14,7 @@
   <meta property="og:site_name"         content="iConnect Publication" />
   <meta property="og:title"             content="The Last Commit | iConnect Publication" />
   <meta property="og:description"       content="A story of code, kindness, and a legacy that proves some endings are simply the beginning of something worth continuing...." />
-  <meta property="og:url"               content="https://gleeful-granita-91fc93.netlify.app/article/the-last-commit/" />
+  <meta property="og:url"               content="/article/the-last-commit/" />
   <meta property="og:image"             content="https://res.cloudinary.com/io18jc16/image/upload/v1788099045/BSCS_CAPSU_iConnect_Pubmat_18.webp" />
   <meta property="og:image:secure_url"  content="https://res.cloudinary.com/io18jc16/image/upload/v1788099045/BSCS_CAPSU_iConnect_Pubmat_18.webp" />
   <meta property="og:image:width"       content="1200" />
@@ -30,12 +30,17 @@
   <meta name="twitter:description"      content="A story of code, kindness, and a legacy that proves some endings are simply the beginning of something worth continuing...." />
   <meta name="twitter:image"            content="https://res.cloudinary.com/io18jc16/image/upload/v1788099045/BSCS_CAPSU_iConnect_Pubmat_18.webp" />
 
-  <link rel="icon" type="image/png" href="https://gleeful-granita-91fc93.netlify.app/assets/logo/iconnect-logo-3d.png" />
-  <link rel="apple-touch-icon"       href="https://gleeful-granita-91fc93.netlify.app/assets/logo/iconnect-share-thumbnail.jpg" />
+  <link rel="icon" type="image/png" href="/assets/logo/iconnect-logo-3d.png" />
+  <link rel="apple-touch-icon"       href="/assets/logo/iconnect-share-thumbnail.jpg" />
 
-  <!-- Instant redirect for browsers (crawlers don't execute JS) -->
-  <script>window.location.replace('https://gleeful-granita-91fc93.netlify.app/article.html?id=the-last-commit');</script>
-  <noscript><meta http-equiv="refresh" content="0; url=https://gleeful-granita-91fc93.netlify.app/article.html?id=the-last-commit" /></noscript>
+  <!-- Instant dynamic redirect for browsers to current origin -->
+  <script>
+    (function () {
+      var target = (window.location.origin || '') + '/article.html?id=' + encodeURIComponent('the-last-commit');
+      window.location.replace(target);
+    })();
+  </script>
+  <noscript><meta http-equiv="refresh" content="0; url=/article.html?id=the-last-commit" /></noscript>
 
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
@@ -57,7 +62,7 @@
     <div class="ic">📰</div>
     <div class="t">The Last Commit</div>
     <div class="s">iConnect Publication — Loading article…</div>
-    <a href="https://gleeful-granita-91fc93.netlify.app/article.html?id=the-last-commit" class="btn">Open Article →</a>
+    <a href="/article.html?id=the-last-commit" class="btn">Open Article →</a>
   </div>
 </body>
 </html>
