@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CAPSU Vision, Mission &amp; Guiding Principles | iConnect Publication</title>
+  <meta name="description" content="Official Vision, Mission, Goals, Guiding Principles, and Core Values of Capiz State University (CAPSU)." />
+  <meta name="theme-color" content="#050b1a" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <!-- Open Graph / Link Preview Thumbnail -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="iConnect Publication" />
+  <meta property="og:title" content="CAPSU Vision, Mission &amp; Guiding Principles | Capiz State University" />
+  <meta property="og:description" content="Explore the official Vision, Mission, Goals, Guiding Principles, and Core Values of Capiz State University." />
+  <meta property="og:image" content="./assets/logo/iconnect-share-thumbnail.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="./assets/logo/iconnect-logo-3d.png" />
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="./css/style.css?v=25" />
+</head>
+<body style="background-color: var(--bg-deep);">
+
+  <!-- Background Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navigation Bar -->
+  <header class="navbar scrolled" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand">
+        <img src="./assets/logo/iconnect-logo-3d.png" alt="iConnect Logo" class="nav-logo-img" />
+        <div class="nav-brand-text">
+          <span class="nav-brand-title">i<span>CONNECT</span></span>
+          <span class="nav-brand-sub">BSCS Publication</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+
+          <!-- Explore Dropdown for All Categories -->
+          <li class="nav-item-has-dropdown">
+            <a href="javascript:void(0)" class="nav-link">Explore</a>
+            <ul class="nav-dropdown nav-dropdown-explore" id="explore-dropdown-menu">
+              <li>
+                <a href="javascript:void(0)" class="nav-dropdown-link" onclick="onNavCategoryClick('All')">
+                  <span class="sub-title">All Stories</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Faculty Directory Direct Link -->
+          <li><a href="faculty.html" class="nav-link">Faculty Directory</a></li>
+
+          <!-- Editorial Board Direct Link -->
+          <li><a href="editorial-board.html" class="nav-link">Editorial Board</a></li>
+
+          <!-- About Dropdown -->
+          <li class="nav-item-has-dropdown">
+            <a href="about.html" class="nav-link active">About</a>
+            <ul class="nav-dropdown">
+              <li>
+                <a href="about.html" class="nav-dropdown-link">
+                  <span class="sub-title">About iConnect</span>
+                  <span class="sub-desc">Publication Overview</span>
+                </a>
+              </li>
+              <li>
+                <a href="iconnect-mvg.html" class="nav-dropdown-link">
+                  <span class="sub-title">iConnect Mission &amp; Vision</span>
+                  <span class="sub-desc">Goals &amp; Core Principles</span>
+                </a>
+              </li>
+              <li>
+                <a href="capsu-vmg.html" class="nav-dropdown-link active">
+                  <span class="sub-title">CAPSU Vision &amp; Mission</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="index.html" class="reader-back-btn desktop-only-btn" style="padding: 0.45rem 0.95rem; font-size: 0.82rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Home
+        </a>
+        <div class="nav-hamburger" id="nav-hamburger" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="container" style="padding-top: 7.5rem; padding-bottom: 6rem;">
+    
+    <!-- CAPSU Vision & Mission Section -->
+    <section class="section capsu-vmg-section" style="padding: 0; background: transparent;">
+
+      <!-- Section Header -->
+      <div class="section-header center">
+        <span class="section-tag">University Mandate &amp; Heritage</span>
+        <h2 class="section-title">CAPSU Vision &amp; Mission</h2>
+        <p class="section-desc">The official guiding vision, institutional mission, strategic goals, guiding principles, and core values of Capiz State University.</p>
+      </div>
+
+      <!-- CAPSU Identity Block -->
+      <div class="capsu-identity-block">
+        <div class="capsu-logo-ring">
+          <img src="./assets/logo/capsu-logo.jpg" alt="Capiz State University Official Seal" class="capsu-seal-img" />
+        </div>
+        <div class="capsu-identity-text">
+          <h3 class="capsu-name-headline">Capiz State University</h3>
+          <p class="capsu-name-sub">Mambusao Satellite College — BSCS Department</p>
+          <p class="capsu-location-text">Mambusao, Capiz, Philippines</p>
+        </div>
+      </div>      <!-- VMG Modal Trigger Buttons — single column, centered, large -->
+      <div class="vmg-btn-list" id="vmg-btn-list">
+        <button class="vmg-modal-btn" onclick="openVMGModal('vision')">
+          <span class="vmg-modal-btn-label">Vision</span>
+          <span class="vmg-modal-btn-arrow">→</span>
+        </button>
+        <button class="vmg-modal-btn" onclick="openVMGModal('mission')">
+          <span class="vmg-modal-btn-label">Mission</span>
+          <span class="vmg-modal-btn-arrow">→</span>
+        </button>
+        <button class="vmg-modal-btn" onclick="openVMGModal('goals')">
+          <span class="vmg-modal-btn-label">Goals</span>
+          <span class="vmg-modal-btn-arrow">→</span>
+        </button>
+        <button class="vmg-modal-btn" onclick="openVMGModal('principles')">
+          <span class="vmg-modal-btn-label">Guiding Principles</span>
+          <span class="vmg-modal-btn-arrow">→</span>
+        </button>
+        <button class="vmg-modal-btn" onclick="openVMGModal('core')">
+          <span class="vmg-modal-btn-label">Core Values</span>
+          <span class="vmg-modal-btn-arrow">→</span>
+        </button>
+      </div>
+
+      <!-- Modal Overlay (backdrop) -->
+      <div class="vmg-modal-overlay" id="vmg-modal-overlay" onclick="closeVMGModal()"></div>
+
+      <!-- Vision Modal -->
+      <div class="vmg-modal" id="vmg-modal-vision">
+        <button class="vmg-modal-close" onclick="closeVMGModal()" aria-label="Close">✕</button>
+        <div class="vmg-modal-body">
+          <div class="vmg-quote-mark">"</div>
+          <h3 class="vmg-panel-label">Vision</h3>
+          <p class="vmg-statement">Center of Academic Excellence Delivering Quality Service to all.</p>
+          <div class="vmg-accent-line"></div>
+        </div>
+      </div>
+
+      <!-- Mission Modal -->
+      <div class="vmg-modal" id="vmg-modal-mission">
+        <button class="vmg-modal-close" onclick="closeVMGModal()" aria-label="Close">✕</button>
+        <div class="vmg-modal-body">
+          <div class="vmg-quote-mark">"</div>
+          <h3 class="vmg-panel-label">Mission</h3>
+          <p class="vmg-statement">Capiz State University is committed to provide advance knowledge and innovation; develop skills, talents and values; undertake relevant research, development and extension services; promote entrepreneurship and environmental consciousness; and enhance industry collaboration and linkages with partner agencies.</p>
+          <div class="vmg-accent-line"></div>
+        </div>
+      </div>
+
+      <!-- Goals Modal -->
+      <div class="vmg-modal" id="vmg-modal-goals">
+        <button class="vmg-modal-close" onclick="closeVMGModal()" aria-label="Close">✕</button>
+        <div class="vmg-modal-body">
+          <h3 class="vmg-panel-label">Goals</h3>
+          <ul class="vmg-goals-list">
+            <li><span class="vmg-goal-num">01</span><div><strong>Globally competitive graduates</strong></div></li>
+            <li><span class="vmg-goal-num">02</span><div><strong>Institutionalized research culture</strong></div></li>
+            <li><span class="vmg-goal-num">03</span><div><strong>Responsive and sustainable extension services</strong></div></li>
+            <li><span class="vmg-goal-num">04</span><div><strong>Maximized profit of viable agro-industrial business ventures</strong></div></li>
+            <li><span class="vmg-goal-num">05</span><div><strong>Effective and efficient administration</strong></div></li>
+          </ul>
+          <div class="vmg-accent-line"></div>
+        </div>
+      </div>
+
+      <!-- Guiding Principles Modal -->
+      <div class="vmg-modal" id="vmg-modal-principles">
+        <button class="vmg-modal-close" onclick="closeVMGModal()" aria-label="Close">✕</button>
+        <div class="vmg-modal-body">
+          <h3 class="vmg-panel-label">Guiding Principles</h3>
+          <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:1.5rem;">As provided in the University Code, the operation of the University is guided by the following principles:</p>
+          <div class="vmg-goals-list">
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-navy);border-radius:var(--radius-md);padding:1.5rem;margin-bottom:1rem;">
+              <h4 style="font-family:var(--font-mono);color:var(--cheddar-yellow);font-size:1rem;margin-bottom:0.5rem;">(a) Academic Freedom</h4>
+              <p style="font-family:var(--font-body);font-size:0.92rem;color:var(--text-main);line-height:1.7;margin:0;">The University has the right and the responsibility to exercise academic freedom. Institutional academic freedom is the freedom of the university from intervention and control in the conduct of its affairs. Individual academic freedom is the right of the teacher and the student to conduct academic and scholarship inquiry and to publish the results without prior restraint or subsequent punishment.</p>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-navy);border-radius:var(--radius-md);padding:1.5rem;margin-bottom:1rem;">
+              <h4 style="font-family:var(--font-mono);color:var(--cheddar-yellow);font-size:1rem;margin-bottom:0.5rem;">(b) Responsibility</h4>
+              <p style="font-family:var(--font-body);font-size:0.92rem;color:var(--text-main);line-height:1.7;margin:0;">As a public institution supported by public funds, the University is responsible for carrying out the basic principles laid down by the Constitution of the Philippines and the University Charter and to relate its activities and offerings to the needs of the region and the nation.</p>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-navy);border-radius:var(--radius-md);padding:1.5rem;">
+              <h4 style="font-family:var(--font-mono);color:var(--cheddar-yellow);font-size:1rem;margin-bottom:0.5rem;">(c) Academic Standards</h4>
+              <p style="font-family:var(--font-body);font-size:0.92rem;color:var(--text-main);line-height:1.7;margin:0;">The University shall achieve and maintain high academic standards of instruction, research, extension, and production; and all other administrative and auxiliary activities shall be supportive of these functions.</p>
+            </div>
+          </div>
+          <div class="vmg-accent-line"></div>
+        </div>
+      </div>
+
+      <!-- Core Values Modal -->
+      <div class="vmg-modal" id="vmg-modal-core">
+        <button class="vmg-modal-close" onclick="closeVMGModal()" aria-label="Close">✕</button>
+        <div class="vmg-modal-body">
+          <h3 class="vmg-panel-label">Core Values</h3>
+          <p style="color:var(--text-muted);font-size:0.92rem;margin-bottom:1.5rem;">The university shall strive to exemplify the following core values as the foundations of all actions:</p>
+          <div class="vmg-goals-list">
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-navy);border-radius:var(--radius-md);padding:1.5rem;margin-bottom:1rem;">
+              <h4 style="font-family:var(--font-mono);color:var(--cheddar-yellow);font-size:1rem;margin-bottom:0.5rem;">(a) God-Centered</h4>
+              <p style="font-family:var(--font-body);font-size:0.92rem;color:var(--text-main);line-height:1.7;margin:0;">CapSU adheres to the greatest of all commandments. The first is to Love God with all our heart, soul, and strength. The second is Love of neighbor/fellowmen as ourselves. Everything we do in CapSU is for the honor and glory of God and for the welfare of humanity.</p>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-navy);border-radius:var(--radius-md);padding:1.5rem;margin-bottom:1rem;">
+              <h4 style="font-family:var(--font-mono);color:var(--cheddar-yellow);font-size:1rem;margin-bottom:0.5rem;">(b) Excellence</h4>
+              <p style="font-family:var(--font-body);font-size:0.92rem;color:var(--text-main);line-height:1.7;margin:0;"><em>"We excel where it counts."</em> In CapSU, all our endeavors will be undertaken to the best of our ability. Performance will be characterized by fineness, brilliance and distinction.</p>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-navy);border-radius:var(--radius-md);padding:1.5rem;margin-bottom:1rem;">
+              <h4 style="font-family:var(--font-mono);color:var(--cheddar-yellow);font-size:1rem;margin-bottom:0.5rem;">(c) Integrity</h4>
+              <p style="font-family:var(--font-body);font-size:0.92rem;color:var(--text-main);line-height:1.7;margin:0;"><em>"Honesty is the best policy."</em> All the instruction, research, extension, and production activities are in the pursuit of truth. The methodologies and approaches are scientific, credible/reliable, verifiable and dedicated to the formation of honest, honorable, righteous and productive citizens of the community.</p>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-navy);border-radius:var(--radius-md);padding:1.5rem;margin-bottom:1rem;">
+              <h4 style="font-family:var(--font-mono);color:var(--cheddar-yellow);font-size:1rem;margin-bottom:0.5rem;">(d) Transparency and Accountability</h4>
+              <p style="font-family:var(--font-body);font-size:0.92rem;color:var(--text-main);line-height:1.7;margin:0;">The Agency Transparency Seal showing the simplicity, clearness, precision and intelligibility of all our services and transactions are posted on the CapSU website: <a href="https://www.capsu.edu.ph" target="_blank" rel="noopener noreferrer" style="color:var(--cheddar-yellow);text-decoration:underline;">www.capsu.edu.ph</a>. We are responsible and accountable for our actions.</p>
+            </div>
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border-navy);border-radius:var(--radius-md);padding:1.5rem;">
+              <h4 style="font-family:var(--font-mono);color:var(--cheddar-yellow);font-size:1rem;margin-bottom:0.5rem;">(e) Dedication to Quality Service</h4>
+              <p style="font-family:var(--font-body);font-size:0.92rem;color:var(--text-main);line-height:1.7;margin:0;">We will honor our Commitment to pursue a task to its completion, devotion to duty, and loyalty to CapSU as an institution as summed up in the acronym, <strong>RACE</strong>: Responsive, Accessible, Courteous and Effective Public Service.</p>
+            </div>
+          </div>
+          <div class="vmg-accent-line"></div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3 class="footer-brand-title">i<span>CONNECT</span></h3>
+          <p style="color:var(--cheddar-yellow); font-family:var(--font-mono); font-size:0.85rem; font-weight:600; margin-bottom:0.75rem;">
+            The Official Publication of the BSCS Department
+          </p>
+          <p class="footer-brand-desc">
+            Capiz State University – Mambusao Satellite College<br />
+            Mambusao, Capiz, Philippines
+          </p>
+          <p style="font-style:italic; font-size:0.875rem; color:var(--text-subtle);">
+            "Be the voice. Be the connection. Be the next link."
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home Page</a></li>
+            <li><a href="about.html">About iConnect</a></li>
+            <li><a href="editorial-board.html">The Editorial Board</a></li>
+            <li><a href="capsu-vmg.html">CAPSU Vision &amp; Mission</a></li>
+            <li><a href="iconnect-mvg.html">iConnect Mission &amp; Vision</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Publication</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#latest-stories">Latest Stories</a></li>
+            <li><a href="editorial-board.html">Editorial Board</a></li>
+            <li><a href="index.html#network">Network Graph</a></li>
+            <li><a href="index.html#announcements">Announcements</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 iConnect Publication — BSCS Department, Capiz State University. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+    <!-- JavaScript Modules -->
+  <script src="./articles/index.js?v=1000"></script>
+  <script src="./js/slider.js?v=1000"></script>
+  <script src="./js/about.js?v=1000"></script>
+  <script src="./js/faculty.js?v=1000"></script>
+  <script src="./js/editorial.js?v=1000"></script>
+  <script src="./js/creatives.js?v=1000"></script>
+  <script src="./js/announcements.js?v=1000"></script>
+  <script src="./js/metadata.js?v=1000"></script>
+  <script src="./js/ecosystem.js?v=1000"></script>
+  <script src="./js/network.js?v=1000"></script>
+  <script src="./js/render.js?v=1000"></script>
+  <script src="./js/search.js?v=1000"></script>
+  <script src="./js/engagement.js?v=1000"></script>
+  <script src="./js/app.js?v=1000"></script>
+  <script>document.addEventListener('DOMContentLoaded', function () { if (window.initVisitorCounter) window.initVisitorCounter(); });</script>
+</body>
+</html>

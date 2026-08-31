@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iConnect Publication | Official Publication of BSCS Department</title>
+  <meta name="description" content="iConnect Publication — The Official Publication of the BSCS Department, Capiz State University – Mambusao Satellite College. Bridging Information, Innovation, and Interaction in Computer Science." />
+  <meta name="theme-color" content="#050b1a" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  
+  <!-- Open Graph / Social Media Link Preview (Messenger, Facebook, LinkedIn, Discord) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="iConnect Publication" />
+  <meta property="og:title" content="iConnect Publication | BSCS Department" />
+  <meta property="og:description" content="The Official Publication of the BSCS Department, Capiz State University – Mambusao Satellite College." />
+  <meta property="og:image" content="./assets/logo/iconnect-share-thumbnail.jpg" />
+  <meta property="og:image:secure_url" content="./assets/logo/iconnect-share-thumbnail.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1024" />
+  <meta property="og:image:height" content="1024" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="iConnect Publication | BSCS Department" />
+  <meta name="twitter:description" content="The Official Publication of the BSCS Department, Capiz State University – Mambusao Satellite College." />
+  <meta name="twitter:image" content="./assets/logo/iconnect-share-thumbnail.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="./assets/logo/iconnect-logo-3d.png" />
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="./css/style.css?v=14" />
+</head>
+<body>
+
+  <!-- Fullscreen Interactive Canvas Background -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#home" class="nav-brand">
+        <img src="./assets/logo/iconnect-logo-3d.png" alt="iConnect Logo" class="nav-logo-img" />
+        <div class="nav-brand-text">
+          <span class="nav-brand-title"><span class="i-ripple-container">i</span><span>CONNECT</span></span>
+          <span class="nav-brand-sub">Official BSCS Publication</span>
+        </div>
+      </a>
+
+      <nav>
+        
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          
+          <!-- Explore Dropdown for All Categories -->
+          <li class="nav-item-has-dropdown">
+            <a href="javascript:void(0)" class="nav-link">Explore</a>
+            <ul class="nav-dropdown nav-dropdown-explore" id="explore-dropdown-menu">
+              <li>
+                <a href="javascript:void(0)" class="nav-dropdown-link" onclick="onNavCategoryClick('All')">
+                  <span class="sub-title">All Stories</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Faculty Directory Direct Link -->
+          <li><a href="faculty.html" class="nav-link">Faculty Directory</a></li>
+
+          <!-- Editorial Board Direct Link -->
+          <li><a href="editorial-board.html" class="nav-link">Editorial Board</a></li>
+
+          <!-- About Dropdown -->
+          <li class="nav-item-has-dropdown">
+            <a href="about.html" class="nav-link">About</a>
+            <ul class="nav-dropdown">
+              <li>
+                <a href="about.html" class="nav-dropdown-link">
+                  <span class="sub-title">About iConnect</span>
+                  <span class="sub-desc">Publication Overview</span>
+                </a>
+              </li>
+              <li>
+                <a href="iconnect-mvg.html" class="nav-dropdown-link">
+                  <span class="sub-title">iConnect Mission &amp; Vision</span>
+                  <span class="sub-desc">Goals &amp; Core Principles</span>
+                </a>
+              </li>
+              <li>
+                <a href="capsu-vmg.html" class="nav-dropdown-link">
+                  <span class="sub-title">CAPSU Vision &amp; Mission</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="nav-search-btn" type="button" onclick="openSearchModal()" title="Search Stories" aria-label="Search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <div class="nav-hamburger" id="nav-hamburger" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="home">
+    <div class="hero-glow"></div>
+    <div class="container hero-content">
+      <div class="hero-logo-wrapper">
+        <img src="./assets/logo/iconnect-logo-3d.png" alt="iConnect Logo 3D" class="hero-logo-img" />
+        <img src="./assets/logo/csc-logo.webp" alt="BSCS Logo 3D" class="hero-logo-img" />
+      </div>
+
+
+      <div class="hero-institution">Capiz State University – Mambusao Satellite College</div>
+      <h1 class="hero-title">i<span>CONNECT</span></h1>
+      <h2 class="hero-subtitle">The Official Publication of the BSCS Department</h2>
+
+      <div class="hero-tagline">
+        <span>Be the voice.</span>
+        <i class="dot-sep"></i>
+        <span>Be the connection.</span>
+        <i class="dot-sep"></i>
+        <span>Be the next link.</span>
+      </div>
+
+      <div class="hero-cta">
+        <a href="#latest-stories" class="btn-primary">
+          Explore Publication
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </a>
+        <a href="#network" class="btn-secondary">
+          Network Map
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Showcase Slider Section -->
+  <section class="section" id="featured-slider" style="padding-top: 0; padding-bottom: 2rem;">
+    <div class="container">
+      <div id="showcase-slider-container">
+        <!-- Dynamic Hero Slider Rendered via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Top Editorial Highlight Section -->
+  <section class="section" id="featured">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Featured Edition</span>
+        <h2 class="section-title text-gradient-cheddar">Top Editorial Highlight</h2>
+      </div>
+
+      <div id="featured-story-container">
+        <!-- Dynamic Featured Story Rendered via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Stories Grid Section -->
+  <section class="section" id="latest-stories">
+    <div class="container">
+      <div class="section-header center">
+        <span class="section-tag">Digital Archive</span>
+        <h2 class="section-title">Latest Publication Stories</h2>
+        <p class="section-desc">Discover compelling stories, fresh perspectives, campus voices, and ideas that inform, inspire, and connect the community.</p>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar" id="category-filter-bar" style="display:flex !important; justify-content:center !important; align-items:center !important; width:100% !important; text-align:center !important; margin:0 auto 2.5rem auto !important;">
+        <!-- Dynamic Filter Tabs Rendered via JS -->
+      </div>
+
+      <!-- Articles Grid (6 articles: 3 on top, 3 at the bottom) -->
+      <div class="articles-grid" id="articles-grid">
+        <!-- Dynamic Article Cards Rendered via JS -->
+      </div>
+
+      <!-- Articles Pagination Controls (<< < 1 2 3 ... > >>) -->
+      <div class="announcements-pagination" id="articles-pagination" style="margin-top: 3rem;"></div>
+    </div>
+  </section>
+
+
+  <!-- About iConnect & Why iConnect Section -->
+  <section class="section" id="about">
+    <div class="container" id="why-iconnect-container">
+      <div class="about-grid">
+        <div>
+          <span class="section-tag">About The Publication</span>
+          <h2 class="section-title">Why <span class="text-cheddar">iConnect</span>?</h2>
+          <div class="about-text">
+            <p>
+              <strong>iConnect</strong> serves as the official student publication of the Bachelor of Science in Computer Science (BSCS) Department at <strong>Capiz State University – Mambusao Satellite College</strong>.
+            </p>
+            <div class="about-highlight">
+              "iConnect represents the connection between people, ideas, information, technology, and the community. Through journalism and creativity, we bridge voices and stories within the Computer Science community."
+            </div>
+            <p>
+              Designed as a synthesis of digital journalism and computer science innovation, iConnect provides an empowered platform for student writers, software developers, multimedia artists, and researchers to share knowledge without boundaries.
+            </p>
+          </div>
+        </div>
+
+        <div class="about-cards-stack">
+          <div class="about-feature-card">
+            <div class="feature-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+            </div>
+            <div>
+              <h3 class="feature-title">Digital Journalism</h3>
+              <p class="feature-desc">Uncompromising coverage of departmental news, regional hackathons, and student tech milestones.</p>
+            </div>
+          </div>
+
+          <div class="about-feature-card">
+            <div class="feature-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div>
+              <h3 class="feature-title">Computer Science Culture</h3>
+              <p class="feature-desc">Deep technical insights into AI, software engineering, cybersecurity, and open-source ethics.</p>
+            </div>
+          </div>
+
+          <div class="about-feature-card">
+            <div class="feature-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div>
+              <h3 class="feature-title">Empowered Student Voice</h3>
+              <p class="feature-desc">Fostering open debate, creative art, and student opinion columns that elevate the academic atmosphere.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Ecosystem Network Graph Section -->
+  <section class="section network-section" id="network">
+    <div class="container">
+      
+      <!-- Section Header (Dynamic via js/ecosystem.js) -->
+      <div class="section-header center" id="ecosystem-header">
+        <span class="section-tag">• INTERACTIVE PUBLICATION ECOSYSTEM</span>
+        <h2 class="section-title">We Connect Beyond Limits</h2>
+        <p class="section-desc">
+          The interactive web graph below visualizes the iConnect digital ecosystem — the official student publication framework of the BSCS Department at Capiz State University – Mambusao Satellite College.
+        </p>
+      </div>
+
+      <!-- Top 3 Explanatory Cards Grid (Dynamic via js/ecosystem.js) -->
+      <div id="ecosystem-top-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+        <div class="about-feature-card" style="flex-direction:column; align-items:flex-start; border-top: 4px solid #f4b41a;">
+          <span class="feature-tag" style="background:rgba(244,180,26,0.15); color:var(--cheddar-yellow); border:1px solid rgba(244,180,26,0.3); font-size:0.72rem; padding:0.2rem 0.6rem; border-radius:999px; font-family:var(--font-mono); font-weight:700; margin-bottom:0.6rem;">HEXAGONAL MESH STRUCTURE</span>
+          <h3 class="feature-title" style="font-size:1.05rem; margin-bottom:0.5rem;">Why Is It Shaped &amp; Arranged This Way?</h3>
+          <p class="feature-desc" style="font-size:0.85rem; line-height:1.5; color:var(--text-muted);">The 6 nodes form a symmetrical, interconnected mesh ring where no pillar operates in isolation. Stories crowns the apex, Students &amp; Ideas empower the wings, Technology &amp; Campus anchor the foundation, and Community grounds the base.</p>
+        </div>
+        <div class="about-feature-card" style="flex-direction:column; align-items:flex-start; border-top: 4px solid #00f0ff;">
+          <span class="feature-tag" style="background:rgba(0,240,255,0.15); color:#00f0ff; border:1px solid rgba(0,240,255,0.3); font-size:0.72rem; padding:0.2rem 0.6rem; border-radius:999px; font-family:var(--font-mono); font-weight:700; margin-bottom:0.6rem;">6 CORE PILLARS</span>
+          <h3 class="feature-title" style="font-size:1.05rem; margin-bottom:0.5rem;">What Do The Nodes Represent?</h3>
+          <p class="feature-desc" style="font-size:0.85rem; line-height:1.5; color:var(--text-muted);">The nodes represent the 6 vital channels of our publication: Students (the heartbeat), Stories (journalism), Ideas (creative vision), Technology (BSCS innovation), Campus (CAPSU life), and Community (outreach).</p>
+        </div>
+        <div class="about-feature-card" style="flex-direction:column; align-items:flex-start; border-top: 4px solid #f4b41a;">
+          <span class="feature-tag" style="background:rgba(244,180,26,0.15); color:var(--cheddar-yellow); border:1px solid rgba(244,180,26,0.3); font-size:0.72rem; padding:0.2rem 0.6rem; border-radius:999px; font-family:var(--font-mono); font-weight:700; margin-bottom:0.6rem;">DIRECTIONAL SIGNAL FLOW</span>
+          <h3 class="feature-title" style="font-size:1.05rem; margin-bottom:0.5rem;">Why Do The Animated Lines Move That Way?</h3>
+          <p class="feature-desc" style="font-size:0.85rem; line-height:1.5; color:var(--text-muted);">Click or hover any node to inspect its live data flow. Yellow Line Motion shows outgoing data streaming FROM the selected node, while Light Blue Line Motion shows incoming data flowing TOWARD it.</p>
+        </div>
+      </div>
+
+    <!-- Graph Canvas & Inspector Panel Layout -->
+    <div id="ecosystem-graph-layout" class="ecosystem-graph-grid" style="display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 2rem; margin-bottom: 3rem; align-items: stretch;">
+        
+        <!-- Left: Interactive Canvas Box Container (Matches side card height ALWAYS) -->
+        <div style="display: flex; align-items: flex-start; justify-content: center; width: 100%;">
+          <div id="ecosystem-canvas-box" style="background: rgba(10, 18, 40, 0.95); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: 20px; padding: 0.75rem; position: relative; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.6), inset 0 0 60px rgba(0,0,0,0.7), inset 0 2px 30px rgba(0,0,0,0.5); overflow: hidden; box-sizing: border-box;">
+            <canvas id="interactive-network-canvas" style="width: 100%; height: 100%; display: block; cursor: pointer;"></canvas>
+          </div>
+        </div>
+
+
+
+        <!-- Right: Inspector Side Card -->
+        <div id="ecosystem-inspector-panel" style="background: rgba(10, 18, 40, 0.95); border: 1px solid rgba(244, 180, 26, 0.3); border-radius: 20px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: flex-start; gap: 0; box-shadow: 0 20px 60px rgba(0,0,0,0.6); backdrop-filter: blur(16px); height: fit-content;">
+
+          <!-- Node title -->
+          <h3 id="insp-node-title" style="font-family:var(--font-heading); font-size:1.45rem; font-weight:800; color:var(--cheddar-yellow); margin:0 0 1rem 0; display:flex; align-items:center; gap:0.6rem;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--cheddar-yellow)" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            Students
+          </h3>
+
+          <!-- Node description -->
+          <p id="insp-node-desc" style="color:var(--text-muted); font-size:0.92rem; line-height:1.6; margin:0 0 1.5rem 0;">
+            The core heartbeat of iConnect—empowering BSCS scholars at CAPSU Mambusao to publish research, express student perspectives, and engineer digital media.
+          </p>
+
+          <!-- OUTWARD FLOW card -->
+          <div style="background:rgba(5,11,26,0.6); border:1px solid rgba(244,180,26,0.25); border-left: 4px solid #f4b41a; border-radius:14px; padding:1.15rem; margin-bottom:1rem;">
+            <span style="font-family:var(--font-mono); font-size:0.72rem; font-weight:800; color:var(--cheddar-yellow); background:rgba(244,180,26,0.15); padding:0.2rem 0.6rem; border-radius:999px; letter-spacing:0.08em; text-transform:uppercase; display:inline-block; margin-bottom:0.5rem;">OUTWARD FLOW</span>
+            <p id="insp-outflow" style="font-size:0.85rem; line-height:1.5; color:#fff; margin:0;">
+              <strong style="color:var(--cheddar-yellow);">Yellow Line Motion:</strong> Yellow signals stream student articles, code proposals, and campus insights outward into the publication network.
+            </p>
+          </div>
+
+          <!-- INWARD FLOW card -->
+          <div style="background:rgba(5,11,26,0.6); border:1px solid rgba(0,240,255,0.25); border-left: 4px solid #00f0ff; border-radius:14px; padding:1.15rem;">
+            <span style="font-family:var(--font-mono); font-size:0.72rem; font-weight:800; color:#00f0ff; background:rgba(0,240,255,0.15); padding:0.2rem 0.6rem; border-radius:999px; letter-spacing:0.08em; text-transform:uppercase; display:inline-block; margin-bottom:0.5rem;">INWARD FLOW</span>
+            <p id="insp-inflow" style="font-size:0.85rem; line-height:1.5; color:#fff; margin:0;">
+              <strong style="color:#00f0ff;">Blue Line Motion:</strong> Blue signals deliver published news stories, editorial feedback, and technical updates back to the BSCS student body.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Editorial Team Section -->
+  <section class="section" id="team">
+    <div class="container">
+      <div class="section-header center">
+        <span class="section-tag">Leadership &amp; Staff</span>
+        <h2 class="section-title">The Editorial Board</h2>
+        <p class="section-desc">Meet the student journalists, developers, and editors driving the iConnect publication network.</p>
+        <p class="profile-hint-note" style="font-style: italic; color: var(--text-subtle, #94a3b8); font-size: 0.84rem; margin: 0.65rem auto 0 auto; letter-spacing: 0.02em;">Click for Full Profile</p>
+      </div>
+
+      <!-- Adviser Card — centered alone on top row -->
+      <div class="team-adviser-row">
+        <div id="editorial-adviser-card">
+          <!-- Dynamic Adviser Card Rendered via JS -->
+        </div>
+      </div>
+
+      <!-- 5-column member grid, center-aligned when wrapping -->
+      <div class="team-grid" id="editorial-team-grid">
+        <!-- Dynamic Editorial Team Cards Rendered via JS -->
+      </div>
+    </div>
+  </section> 
+
+ 
+
+  <!-- Creatives & Multimedia Section -->
+  <section class="section" id="creatives">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Visual & Media Showcase</span>
+        <h2 class="section-title">Creatives & Multimedia Gallery</h2>
+        <p class="section-desc">Generative art, photography, graphic design, and digital publication covers.</p>
+      </div>
+
+      <div class="creatives-grid" id="creatives-grid">
+        <!-- Dynamic Gallery Items Rendered via JS -->
+      </div>
+
+      <!-- Creatives Gallery Pagination -->
+      <div class="announcements-pagination" id="creatives-pagination"></div>
+    </div>
+  </section>
+
+  <!-- Announcements Section -->
+  <section class="section" id="announcements">
+    <div class="container">
+      <div class="announcements-wrapper">
+        <div class="section-header">
+          <span class="section-tag">Bulletin Board</span>
+          <h2 class="section-title">Publication Announcements</h2>
+        </div>
+
+        <div class="announcements-grid" id="announcements-grid">
+          <!-- Dynamic Announcements Rendered via JS -->
+        </div>
+
+        <!-- Announcements Pagination Controls -->
+        <div class="announcements-pagination" id="announcements-pagination"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3 class="footer-brand-title"><span class="i-ripple-container">i</span><span>CONNECT</span></h3>
+          <p style="color:var(--cheddar-yellow); font-family:var(--font-mono); font-size:0.85rem; font-weight:600; margin-bottom:0.75rem;">
+            The Official Publication of the BSCS Department
+          </p>
+          <p class="footer-brand-desc">
+            Capiz State University – Mambusao Satellite College<br />
+            Mambusao, Capiz, Philippines
+          </p>
+          <p style="font-style:italic; font-size:0.875rem; color:var(--text-subtle);">
+            "Be the voice. Be the connection. Be the next link."
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Sections</h4>
+          <ul class="footer-links">
+            <!-- ========================================================== -->
+            <!-- FOOTER CATEGORIES — Mirror any changes from navbar above   -->
+            <!-- ========================================================== -->
+            <li><a href="#latest-stories" onclick="setCategoryFilter('News')">News</a></li>
+            <li><a href="#latest-stories" onclick="setCategoryFilter('Features')">Features</a></li>
+            <li><a href="#latest-stories" onclick="setCategoryFilter('Opinion')">Opinions</a></li>
+            <li><a href="#latest-stories" onclick="setCategoryFilter('Technology')">Technology</a></li>
+            <li><a href="#latest-stories" onclick="setCategoryFilter('Campus')">Campus</a></li>
+            <li><a href="#latest-stories" onclick="setCategoryFilter('Creatives')">Creatives</a></li>
+            <!-- ========================================================== -->
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">About</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About iConnect</a></li>
+            <li><a href="editorial-board.html">The Editorial Board</a></li>
+            <li><a href="iconnect-mvg.html">iConnect Mission &amp; Vision</a></li>
+            <li><a href="capsu-vmg.html">CAPSU Vision &amp; Mission</a></li>
+            <li><a href="#network">Network Graph</a></li>
+            <li><a href="#announcements">Announcements</a></li>
+            <li><a href="#creatives">Multimedia Gallery</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Connect</h4>
+          <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1rem;">
+            Follow iConnect on social channels or contact our editorial staff for inquiries and contributions.
+          </p>
+          <div style="display:flex; gap:0.75rem;">
+            <a href="https://facebook.com" target="_blank" rel="noopener" class="btn-secondary" style="padding:0.5rem 1rem; font-size:0.8rem;">
+              Facebook @iConnect
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 iConnect Publication. All Rights Reserved. BSCS Department, CAPSU Mambusao Satellite College.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Site Visitor Counter -->
+  <div class="site-visitor-bar" id="site-visitor-counter"></div>
+
+  <!-- Article Reader Modal (Standalone Reading Mode) -->
+  <div class="article-reader-modal" id="article-reader-modal">
+    <div class="reader-header-bar">
+      <div class="container reader-header-content">
+        <button class="reader-back-btn" type="button" onclick="closeArticleReader()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to Publication
+        </button>
+        <span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-subtle); text-transform:uppercase;">iConnect Reader Mode</span>
+      </div>
+    </div>
+
+    <div class="reader-container">
+      <span class="reader-category" id="reader-category">Technology</span>
+      <h1 class="reader-title" id="reader-title">Article Title Placeholder</h1>
+
+      <div class="reader-meta" id="reader-meta">
+        <!-- Rendered via JS -->
+      </div>
+      <p class="reader-excerpt" id="reader-modal-excerpt" style="font-style:italic; color:var(--text-muted, #94a3b8); font-size:1.05rem; line-height:1.65; margin:0 0 1.25rem 0; display:none;"></p>
+      <div id="reader-modal-engagement-bar-placeholder" style="margin-top: 0.5rem; margin-bottom: 2rem;"></div>
+
+      <div class="reader-hero-img-wrapper">
+        <img src="" alt="" class="reader-hero-img" id="reader-hero-img" />
+      </div>
+
+      <div class="reader-body-content" id="reader-body-content">
+        <!-- Rendered via JS -->
+      </div>
+
+      <div style="margin-top:4rem; padding-top:2.5rem; border-top:1px solid var(--border-navy);">
+        <h3 style="font-family:var(--font-heading); font-size:1.5rem; color:#fff; margin-bottom:1.5rem;">Related Publication Stories</h3>
+        <div class="articles-grid" id="reader-related-grid">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Modal -->
+  <div class="search-modal" id="search-modal">
+    <div class="search-box-wrapper">
+      <span class="search-input-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </span>
+      <input type="text" class="search-input" id="search-input" placeholder="Search stories, topics, authors..." autocomplete="off" />
+      <button class="search-close-btn" type="button" onclick="closeSearchModal()" aria-label="Close Search">&times;</button>
+    </div>
+
+    <div class="search-results-wrapper">
+      <p style="color:var(--text-muted); font-size:0.9rem; text-align:center;">Type above to instantly filter publication stories...</p>
+    </div>
+  </div>
+
+  <!-- Image Lightbox Modal -->
+  <div class="lightbox-modal" id="lightbox-modal" onclick="closeLightbox()">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+      <img src="" alt="" class="lightbox-img" id="lightbox-img" />
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <!-- Team Member Profile Modal -->
+  <div class="team-modal-overlay" id="team-member-modal" onclick="closeTeamModal()">
+    <div class="team-modal-card" onclick="event.stopPropagation()">
+      <button class="team-modal-close" onclick="closeTeamModal()" aria-label="Close">&times;</button>
+
+      <!-- Square Photo -->
+      <div class="tm-photo-wrap" id="tm-photo">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Details -->
+      <div class="tm-details">
+        <div class="tm-year-badge" id="tm-year">4th Year</div>
+        <h3 class="tm-name" id="tm-name">Name</h3>
+        <div class="tm-role-label" id="tm-role">Role</div>
+        <p class="tm-bio-text" id="tm-bio">Bio</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Faculty Detail Lightbox Modal -->
+  <div class="team-modal-overlay" id="faculty-member-modal" onclick="closeFacultyModal()" style="display:none; position:fixed; inset:0; background:rgba(2,6,18,0.88); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); z-index:9999; align-items:center; justify-content:center; padding:1.5rem;">
+    <div class="modal-card" onclick="event.stopPropagation()" style="background:rgba(10,18,40,0.96); border:1px solid rgba(255,255,255,0.15); border-radius:24px; max-width:620px; width:100%; padding:2.2rem; box-shadow:0 25px 80px rgba(0,0,0,0.85); position:relative; overflow:hidden; animation:modalSlideUp 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;">
+      <canvas id="fac-modal-bg-canvas" style="position:absolute; inset:0; width:100%; height:100%; border-radius:24px; pointer-events:none; z-index:0;"></canvas>
+      <div style="position:relative; z-index:1;">
+        <button type="button" onclick="closeFacultyModal()" style="position:absolute; top:0; right:0; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); color:#fff; width:36px; height:36px; border-radius:50%; font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s ease;">✕</button>
+
+        <div style="display:flex; gap:1.75rem; align-items:flex-start; margin-bottom:1.5rem; flex-wrap:wrap;">
+          <!-- Big Square Photo Wrap -->
+          <div id="fac-modal-photo-wrap" style="width:190px; height:190px; flex-shrink:0; border-radius:18px; overflow:hidden; border:3px solid var(--cheddar-yellow); background:#050b1a; box-shadow:0 12px 35px rgba(0,0,0,0.6);">
+            <img id="fac-modal-photo" src="" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" />
+          </div>
+          <div style="flex:1; min-width:220px; display:flex; flex-direction:column; justify-content:center; padding-top:0.25rem;">
+            <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; margin-bottom:0.5rem;">
+              <span id="fac-modal-dept" style="font-size:0.78rem; font-family:var(--font-mono); background:rgba(0,240,255,0.12); color:#00f0ff; padding:0.25rem 0.75rem; border-radius:8px; font-weight:700; border:1px solid rgba(0,240,255,0.25);">BSCS Department</span>
+            </div>
+            <h2 id="fac-modal-name" style="font-family:var(--font-heading); font-size:1.6rem; font-weight:800; color:#fff; margin:0 0 0.35rem 0; line-height:1.2;">Dr. Maria Santos</h2>
+            <div id="fac-modal-role" style="font-size:1rem; color:var(--cheddar-yellow); font-weight:700; margin-bottom:0.75rem;">Dean / Campus Director</div>
+            <div id="fac-modal-institution" style="font-size:0.8rem; font-family:var(--font-mono); color:var(--text-muted);">Capiz State University – Mambusao</div>
+          </div>
+        </div>
+
+        <div id="fac-modal-bio-section" style="margin-bottom:1.5rem;">
+          <h4 style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.08em; margin:0 0 0.5rem 0;">Academic Profile &amp; Specialization</h4>
+          <p id="fac-modal-bio" style="font-size:0.92rem; color:var(--text-subtle); line-height:1.6; margin:0; background:rgba(5,11,26,0.6); padding:1.1rem; border-radius:14px; border:1px solid rgba(255,255,255,0.06); max-height:180px; overflow-y:auto;"></p>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; padding-top:1rem; border-top:1px solid rgba(255,255,255,0.08); flex-wrap:wrap; gap:0.75rem;">
+          <a id="fac-modal-email-btn" href="#" style="display:inline-flex; align-items:center; gap:0.5rem; padding:0.6rem 1.25rem; background:linear-gradient(135deg, var(--cheddar-yellow) 0%, #d99100 100%); color:#050b1a; text-decoration:none; font-weight:800; font-size:0.88rem; border-radius:999px; box-shadow:0 4px 20px rgba(244,180,26,0.35);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <span id="fac-modal-email-text">Contact via Email</span>
+          </a>
+          <span id="fac-modal-footer-tag" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted);">iConnect Publication Faculty Directory</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+      <!-- JavaScript Modules -->
+  <script src="./articles/index.js?v=1000"></script>
+  <script src="./js/slider.js?v=1000"></script>
+  <script src="./js/about.js?v=1000"></script>
+  <script src="./js/faculty.js?v=1000"></script>
+  <script src="./js/editorial.js?v=1000"></script>
+  <script src="./js/creatives.js?v=1000"></script>
+  <script src="./js/announcements.js?v=1000"></script>
+  <script src="./js/metadata.js?v=1000"></script>
+  <script src="./js/ecosystem.js?v=1000"></script>
+  <script src="./js/network.js?v=1000"></script>
+  <script src="./js/render.js?v=1000"></script>
+  <script src="./js/search.js?v=1000"></script>
+  <script src="./js/engagement.js?v=1000"></script>
+  <script src="./js/app.js?v=1000"></script>
+  <script>document.addEventListener('DOMContentLoaded', function () { if (window.initVisitorCounter) window.initVisitorCounter(); });</script>
+</body>
+</html>

@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Faculty & Academic Directory Studio — iCONNECT Studio</title>
+  <meta name="description" content="Manage Faculty Members, Organizational Chart Lines, and Custom Color Tints for iConnect Publication." />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./css/style.css" />
+
+  <style>
+    /* Studio Layout Extensions */
+    .studio-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 10.5rem 1.5rem 4rem;
+    }
+
+    @media (max-width: 1300px) {
+      .studio-container {
+        padding-top: 13rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .studio-container {
+        padding-top: 15.5rem;
+      }
+    }
+
+    .studio-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      flex-wrap: wrap;
+    }
+
+    .studio-title-group h1 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0.25rem 0 0 0;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .studio-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-publish-live {
+      background: linear-gradient(135deg, var(--cheddar-yellow) 0%, #d99100 100%);
+      color: #050b1a;
+      font-weight: 700;
+      font-family: var(--font-heading);
+      border: none;
+      border-radius: 999px;
+      padding: 0.65rem 1.25rem;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(244, 180, 26, 0.3);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-publish-live:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(244, 180, 26, 0.45);
+    }
+
+    .btn-export {
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 999px;
+      padding: 0.65rem 1.25rem;
+      font-weight: 600;
+      font-family: var(--font-heading);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-export:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Asymmetric Grid Layout */
+    .studio-layout {
+      display: grid;
+      grid-template-columns: 460px 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (max-width: 1024px) {
+      .studio-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-card {
+      background: var(--bg-navy-card);
+      border: 1px solid var(--border-navy);
+      border-radius: 18px;
+      padding: 1.5rem;
+      backdrop-filter: blur(12px);
+    }
+
+    .form-group {
+      margin-bottom: 1.1rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.82rem;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.45rem;
+    }
+
+    .form-control {
+      width: 100%;
+      background: rgba(5, 11, 26, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 0.65rem 0.85rem;
+      color: #ffffff;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--cheddar-yellow);
+      box-shadow: 0 0 0 3px rgba(244, 180, 26, 0.15);
+    }
+
+    .color-swatch-group {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    .color-swatch-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .color-swatch-btn:hover {
+      transform: scale(1.2);
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 18, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-card {
+      background: var(--bg-navy-card);
+      border: 1px solid var(--border-navy);
+      border-radius: 20px;
+      max-width: 750px;
+      width: 100%;
+      padding: 2rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      position: relative;
+    }
+  </style>
+</head>
+<body style="background-color: var(--bg-deep);">
+
+  <!-- Background Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navigation Header -->
+  <header class="navbar scrolled" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand">
+        <img src="./assets/logo/iconnect-logo-3d.png" alt="iConnect Logo" class="nav-logo-img" />
+        <div class="nav-brand-text">
+          <span class="nav-brand-title">i<span>CONNECT</span></span>
+          <span class="nav-brand-sub">FACULTY STUDIO</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="publisher.html" class="nav-link">Articles</a></li>
+          <li><a href="about-studio.html" class="nav-link">Why iConnect</a></li>
+          <li><a href="ecosystem-studio.html" class="nav-link">Ecosystem</a></li>
+          <li><a href="faculty-studio.html" class="nav-link active">Faculty</a></li>
+          <li><a href="slider-studio.html" class="nav-link">Hero Slider</a></li>
+          <li><a href="editorial-studio.html" class="nav-link">Editorial</a></li>
+          <li><a href="creatives-studio.html" class="nav-link">Creatives</a></li>
+          <li><a href="announcements-studio.html" class="nav-link">Announcements</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="index.html" class="reader-back-btn" style="padding: 0.45rem 0.95rem; font-size: 0.82rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to Platform
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Studio Main Content -->
+  <main class="studio-container">
+    
+    <!-- Top Header & Actions -->
+    <div class="studio-header">
+      <div class="studio-title-group">
+        <span class="section-tag">Academic Directory &amp; Org Chart Studio</span>
+        <h1>👨‍🏫 Faculty &amp; Academic Directory Manager</h1>
+        <p style="color: var(--text-subtle); margin: 0.35rem 0 0 0; font-size: 0.92rem;">
+          Add, edit, delete faculty cards, assign Organizational Chart Lines / Tiers, and customize card color tints live.
+        </p>
+      </div>
+
+      <div class="studio-actions">
+        <button type="button" class="btn-publish-live" onclick="FacultyStudio.publishLive()">
+          ⚡ Publish Live to Website
+        </button>
+        <button type="button" class="btn-export" onclick="FacultyStudio.openExportModal()">
+          📋 Export JS Code / Download
+        </button>
+      </div>
+    </div>
+
+    <!-- Hide / Show Section Toggle Card -->
+    <div id="faculty-visibility-card" style="background: rgba(10, 18, 40, 0.95); border: 1px solid rgba(244, 180, 26, 0.3); border-radius: 16px; padding: 1.15rem 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5);"></div>
+
+    <!-- Main Workspace Layout -->
+    <div class="studio-layout">
+      
+      <!-- Left Panel: Faculty Member Form & Header Settings -->
+      <aside class="form-card">
+
+        <!-- Section Title & Header Settings Card -->
+        <div style="background: rgba(5, 11, 26, 0.7); border: 1px solid rgba(244, 180, 26, 0.3); border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem;">
+          <h3 style="font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: #fff; margin: 0 0 0.85rem 0; display: flex; align-items: center; gap: 0.5rem;">
+            ⚙️ Section Title &amp; Header Settings
+          </h3>
+
+          <form id="fac-header-form" onsubmit="event.preventDefault(); FacultyStudio.saveHeaderSettings();">
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 0.75rem; margin-bottom: 0.75rem;">
+              <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label" for="fac-header-badge" style="font-size:0.75rem;">Badge Tag</label>
+                <input type="text" id="fac-header-badge" class="form-control" placeholder="e.g. Academic Leadership & Faculty" value="Academic Leadership & Faculty" />
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label" for="fac-header-title" style="font-size:0.75rem;">Section Title *</label>
+                <input type="text" id="fac-header-title" class="form-control" placeholder="e.g. Faculty & Department Directory" value="Faculty & Department Directory" required />
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 0.75rem;">
+              <label class="form-label" for="fac-header-desc" style="font-size:0.75rem;">Section Description / Subtitle</label>
+              <textarea id="fac-header-desc" class="form-control" rows="2" placeholder="e.g. Meet the distinguished faculty members...">Meet the distinguished faculty members, department chairs, and educators of the BSCS Department.</textarea>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.85rem;">
+              <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label" for="fac-header-institution" style="font-size:0.75rem;">Campus / Institution Subtitle</label>
+                <input type="text" id="fac-header-institution" class="form-control" placeholder="e.g. Capiz State University – Mambusao Satellite College" value="Capiz State University – Mambusao Satellite College" />
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <label class="form-label" for="fac-header-footer-tag" style="font-size:0.75rem;">Modal Footer Directory Tag</label>
+                <input type="text" id="fac-header-footer-tag" class="form-control" placeholder="e.g. iConnect Publication" value="iConnect Publication" />
+              </div>
+            </div>
+
+            <div style="margin-top:0.85rem; padding-top:0.85rem; border-top:1px dashed rgba(255,255,255,0.15); margin-bottom: 0.85rem;">
+              <h4 style="font-family:var(--font-heading); font-size:0.85rem; font-weight:700; color:var(--cheddar-yellow); margin:0 0 0.65rem 0; display:flex; align-items:center; gap:0.4rem;">
+                ✨ Card Animated Background Effect &amp; Opacity
+              </h4>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                <div class="form-group" style="margin-bottom:0;">
+                  <label class="form-label" for="fac-bg-effect" style="font-size:0.75rem;">Animation Mode</label>
+                  <select id="fac-bg-effect" class="form-control" onchange="FacultyStudio.updateBgEffect(this.value)" style="font-size:0.82rem; background:#050b1a;">
+                    <option value="cyber-matrix">🌐 Cyber Matrix Grid &amp; Dots</option>
+                    <option value="digital-pulse">⚡ Digital Pulse Rings</option>
+                    <option value="quantum-rain">🌧️ Quantum Rain Matrix</option>
+                    <option value="starlight-nebula">✨ Starlight Nebula</option>
+                    <option value="hex-honeycomb">🔷 Hexagonal Honeycomb</option>
+                    <option value="neural-network">🧠 Neural Network Synapses</option>
+                    <option value="circuit-board">🔌 Sci-Fi Circuit Board</option>
+                    <option value="data-stream">🚀 Hi-Speed Data Stream</option>
+                    <option value="fiber-optic">🌊 Fiber Optic Wave Threads</option>
+                    <option value="constellation">🌌 Star Constellation Network</option>
+                    <option value="blockchain">🧊 Blockchain Data Blocks</option>
+                    <option value="signal-radar">📡 360 Signal Radar Scanner</option>
+                    <option value="network-topology">🔄 Network Topology Orbits</option>
+                    <option value="warp-speed">🌌 Sci-Fi Warp Speed</option>
+                    <option value="dna-helix">🧬 DNA Double Helix</option>
+                  </select>
+                </div>
+                <div class="form-group" style="margin-bottom:0;">
+                  <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.45rem;">
+                    <label class="form-label" for="fac-bg-opacity" style="font-size:0.75rem; margin:0;">Bg Opacity</label>
+                    <span id="fac-bg-opacity-val" style="font-size:0.75rem; font-family:var(--font-mono); color:var(--cheddar-yellow); font-weight:700;">60%</span>
+                  </div>
+                  <input type="range" id="fac-bg-opacity" min="0" max="100" value="60" oninput="FacultyStudio.updateBgOpacity(this.value)" style="width:100%; accent-color:var(--cheddar-yellow); cursor:pointer;" />
+                </div>
+              </div>
+            </div>
+
+            <button type="button" class="btn-publish-live" onclick="FacultyStudio.saveHeaderSettings()" style="width: 100%; padding: 0.55rem; font-size: 0.85rem; background: linear-gradient(135deg, var(--cheddar-yellow) 0%, #d99100 100%); justify-content: center;">
+              💾 Save Header &amp; Modal Footer Settings
+            </button>
+          </form>
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; padding-top: 0.5rem; border-top: 1px solid rgba(255,255,255,0.08);">
+          <h3 id="fac-form-title" style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: #fff; margin: 0;">
+            ➕ Add Faculty Member
+          </h3>
+          <button type="button" id="fac-cancel-btn" style="display:none; background: none; border: none; color: var(--text-subtle); font-size: 0.8rem; cursor: pointer; text-decoration: underline;">
+            🧹 Clear Form
+          </button>
+        </div>
+
+        <form id="fac-member-form">
+          <input type="hidden" id="fac-member-id" value="" />
+
+          <!-- Full Name -->
+          <div class="form-group">
+            <label class="form-label" for="fac-name">Full Name with Title *</label>
+            <input type="text" id="fac-name" class="form-control" placeholder="e.g. Prof. Art Jayson Osuyos" required />
+          </div>
+
+          <!-- Role / Position -->
+          <div class="form-group">
+            <label class="form-label" for="fac-role">Designation / Position *</label>
+            <input type="text" id="fac-role" class="form-control" placeholder="e.g. Program Chair / Faculty Adviser" required />
+          </div>
+
+          <!-- Department / Track -->
+          <div class="form-group">
+            <label class="form-label" for="fac-dept">Department / Academic Track</label>
+            <input type="text" id="fac-dept" class="form-control" placeholder="e.g. Computer Science Department" value="Computer Science Department" />
+          </div>
+
+          <!-- Org Chart Line Level / Tier Selector -->
+          <div class="form-group">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.45rem;">
+              <label class="form-label" for="fac-tier" style="margin:0;">Org Chart Line / Level Assignment *</label>
+              <button type="button" onclick="FacultyStudio.openLevelModal()" style="background:none; border:none; color:var(--cheddar-yellow); font-size:0.75rem; cursor:pointer; text-decoration:underline; font-family:var(--font-mono); font-weight:600;">
+                ⚙️ Manage Levels
+              </button>
+            </div>
+            <select id="fac-tier" class="form-control" style="background: var(--bg-deep); font-weight: 600;">
+              <!-- Dynamically populated by js/faculty-studio.js -->
+            </select>
+            <p style="font-size:0.75rem; color:var(--text-subtle); margin:0.35rem 0 0 0;">
+              Controls which row/level this card appears on in the Organizational Chart structure.
+            </p>
+          </div>
+
+          <!-- Card Color Tint Picker -->
+          <div class="form-group">
+            <label class="form-label" for="fac-tint-color">🎨 Card Accent Color Tint</label>
+            <div style="display:flex; gap:0.5rem; align-items:center;">
+              <input type="color" id="fac-tint-color" value="#00f0ff" style="width:42px; height:38px; border:none; border-radius:8px; cursor:pointer; background:none;" />
+              <div class="color-swatch-group">
+                <button type="button" class="color-swatch-btn" style="background:#f4b41a;" onclick="FacultyStudio.setTintColor('#f4b41a')"></button>
+                <button type="button" class="color-swatch-btn" style="background:#00f0ff;" onclick="FacultyStudio.setTintColor('#00f0ff')"></button>
+                <button type="button" class="color-swatch-btn" style="background:#10b981;" onclick="FacultyStudio.setTintColor('#10b981')"></button>
+                <button type="button" class="color-swatch-btn" style="background:#a855f7;" onclick="FacultyStudio.setTintColor('#a855f7')"></button>
+                <button type="button" class="color-swatch-btn" style="background:#ff6b8a;" onclick="FacultyStudio.setTintColor('#ff6b8a')"></button>
+                <button type="button" class="color-swatch-btn" style="background:#3b82f6;" onclick="FacultyStudio.setTintColor('#3b82f6')"></button>
+                <button type="button" class="color-swatch-btn" style="background:#f97316;" onclick="FacultyStudio.setTintColor('#f97316')"></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Alignment / Branching Placement -->
+          <div class="form-group">
+            <label class="form-label" for="fac-layout-style">🎯 Card Placement &amp; Alignment Mode</label>
+            <select id="fac-layout-style" class="form-control" style="background: var(--bg-deep); font-weight: 600;">
+              <option value="center" selected>👥 Side-by-Side (Grid Row with Other Cards)</option>
+              <option value="center-single">🎯 1 Card Center (Solo Centered Row Alone)</option>
+              <option value="left">⬅️ Left Branch (Offset Left with Connector Line)</option>
+              <option value="right">➡️ Right Branch (Offset Right with Connector Line)</option>
+            </select>
+          </div>
+
+          <!-- Photo File Upload or Image URL -->
+          <div class="form-group">
+            <label class="form-label">Faculty Photo</label>
+            <div style="display:flex; gap:0.75rem; align-items:center; margin-bottom:0.45rem;">
+              <input type="file" id="fac-photo-file" accept="image/*" class="form-control" style="font-size:0.8rem;" />
+            </div>
+            <input type="url" id="fac-photo-url" class="form-control" placeholder="Or paste Image URL (e.g. https://...)" />
+            <div style="margin-top:0.6rem; width:80px; height:80px; border-radius:50%; overflow:hidden; border:2px solid var(--cheddar-yellow); background:#050b1a;">
+              <img id="fac-photo-preview" src="https://res.cloudinary.com/io18jc16/image/upload/f_auto,q_auto/1" alt="Preview" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://res.cloudinary.com/io18jc16/image/upload/f_auto,q_auto/1';" />
+            </div>
+          </div>
+
+          <!-- Email Contact -->
+          <div class="form-group">
+            <label class="form-label" for="fac-email">Institutional Email</label>
+            <input type="email" id="fac-email" class="form-control" placeholder="e.g. name@capsu.edu.ph" />
+          </div>
+
+          <!-- Academic Profile -->
+          <div class="form-group">
+            <label class="form-label" for="fac-bio">Academic Profile</label>
+            <textarea id="fac-bio" class="form-control" rows="3" placeholder="Academic profile narrative, specializations, or taught courses..."></textarea>
+          </div>
+
+          <!-- Per-Member Institution & Footer Tag Overrides -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.1rem;">
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label" for="fac-institution" style="font-size:0.75rem;">Campus / Institution Subtitle</label>
+              <input type="text" id="fac-institution" class="form-control" placeholder="Default from Header Settings" />
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+              <label class="form-label" for="fac-footer-tag" style="font-size:0.75rem;">Modal Footer Directory Tag</label>
+              <input type="text" id="fac-footer-tag" class="form-control" placeholder="Default from Header Settings" />
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" id="fac-submit-btn" class="btn-publish-live" style="width: 100%; justify-content: center; padding: 0.75rem;">
+            ➕ Save Faculty Card
+          </button>
+        </form>
+
+        <!-- ⚙️ Org Chart Display Settings -->
+        <div style="margin-top:1.5rem; background:rgba(244,180,26,0.05); border:1px solid rgba(244,180,26,0.18); border-radius:14px; padding:1rem 1.1rem;">
+          <div style="font-family:var(--font-mono); font-size:0.72rem; font-weight:700; color:var(--cheddar-yellow); text-transform:uppercase; letter-spacing:0.07em; margin-bottom:0.85rem; display:flex; align-items:center; gap:0.4rem;">
+            🔗 Connector Lines
+          </div>
+
+          <!-- Desktop Lines Row -->
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.6rem;">
+            <span style="font-size:0.82rem; color:#c8d0e0; font-family:var(--font-mono); display:flex; align-items:center; gap:0.4rem;">🖥 Desktop View</span>
+            <button
+              type="button"
+              id="fac-toggle-desktop"
+              onclick="FacultyStudio.toggleLines('desktop')"
+              style="
+                width:52px; height:28px; border-radius:999px;
+                background:rgba(255,255,255,0.1); border:1.5px solid rgba(255,255,255,0.2);
+                position:relative; cursor:pointer; transition:all 0.22s ease; flex-shrink:0;
+                outline:none;
+              "
+              aria-label="Toggle desktop connector lines"
+            >
+              <span id="fac-toggle-desktop-thumb" style="
+                position:absolute; top:3px; left:3px;
+                width:20px; height:20px; border-radius:50%;
+                background:rgba(255,255,255,0.45); transition:all 0.22s ease;
+                display:block; pointer-events:none;
+              "></span>
+            </button>
+          </div>
+
+          <!-- Mobile Lines Row -->
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <span style="font-size:0.82rem; color:#c8d0e0; font-family:var(--font-mono); display:flex; align-items:center; gap:0.4rem;">📱 Mobile View</span>
+            <button
+              type="button"
+              id="fac-toggle-mobile"
+              onclick="FacultyStudio.toggleLines('mobile')"
+              style="
+                width:52px; height:28px; border-radius:999px;
+                background:rgba(255,255,255,0.1); border:1.5px solid rgba(255,255,255,0.2);
+                position:relative; cursor:pointer; transition:all 0.22s ease; flex-shrink:0;
+                outline:none;
+              "
+              aria-label="Toggle mobile connector lines"
+            >
+              <span id="fac-toggle-mobile-thumb" style="
+                position:absolute; top:3px; left:3px;
+                width:20px; height:20px; border-radius:50%;
+                background:rgba(255,255,255,0.45); transition:all 0.22s ease;
+                display:block; pointer-events:none;
+              "></span>
+            </button>
+          </div>
+
+          <p style="font-size:0.72rem; color:var(--text-subtle); margin:0.75rem 0 0 0; line-height:1.5;">
+            Lines appear on the published Faculty page. Toggle separately for each screen size.
+          </p>
+        </div>
+
+        <div style="margin-top: 1rem; text-align: center;">
+          <button type="button" onclick="FacultyStudio.resetToDefaults()" style="background:none; border:none; color:var(--text-subtle); font-size:0.78rem; cursor:pointer; text-decoration:underline;">
+            🔄 Reset Faculty Directory to Defaults
+          </button>
+        </div>
+      </aside>
+
+      <!-- Right Panel: Live Organizational Chart Preview -->
+      <main>
+        <div style="margin-bottom:1.1rem;">
+          <h3 style="font-family:var(--font-heading); font-size:1.25rem; font-weight:700; color:#fff; margin:0 0 0.2rem 0;">
+            📊 Live Organizational Chart Preview
+          </h3>
+          <span style="font-size:0.8rem; color:var(--text-subtle); font-family:var(--font-mono);">
+            Cards grouped by Level — use ← sidebar to toggle connector lines
+          </span>
+        </div>
+
+        <div id="fac-preview-list">
+          <!-- Dynamically populated by js/faculty-studio.js -->
+        </div>
+      </main>
+
+    </div>
+  </main>
+
+  <!-- Export Code Modal -->
+  <div class="modal-overlay" id="fac-export-modal">
+    <div class="modal-card">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+        <h3 style="font-family: var(--font-heading); font-size: 1.3rem; color: #fff; margin: 0;">
+          📋 Faculty Directory JS Export Code
+        </h3>
+        <button type="button" onclick="FacultyStudio.closeExportModal()" style="background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer;">✕</button>
+      </div>
+      <p style="color: var(--text-subtle); font-size: 0.88rem; margin-bottom: 1rem;">
+        Copy or download this generated JavaScript file code and save it as <code>js/faculty.js</code> in your project repository before deploying.
+      </p>
+      <pre id="fac-export-code" style="background: #050b1a; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 1rem; color: var(--cheddar-yellow); font-family: var(--font-mono); font-size: 0.82rem; max-height: 340px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; margin-bottom: 1.25rem;"></pre>
+      
+      <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+        <button type="button" class="btn-export" onclick="FacultyStudio.copyExportCode()">📋 Copy Code</button>
+        <button type="button" class="btn-publish-live" onclick="FacultyStudio.downloadUpdatedFacultyJS()">💾 Download faculty.js</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Manage Org Chart Levels Modal -->
+  <div class="modal-overlay" id="fac-level-modal">
+    <div class="modal-card">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+        <h3 style="font-family: var(--font-heading); font-size: 1.25rem; color: #fff; margin: 0; display:flex; align-items:center; gap:0.5rem;">
+          ⚙️ Manage Org Chart Lines / Levels
+        </h3>
+        <button type="button" onclick="FacultyStudio.closeLevelModal()" style="background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer;">✕</button>
+      </div>
+      <p style="color: var(--text-subtle); font-size: 0.88rem; margin-bottom: 1.25rem;">
+        Add new custom levels, rename existing level titles, or delete unused Org Chart lines.
+      </p>
+
+      <!-- Add New Level Form -->
+      <div style="display: flex; gap: 0.75rem; margin-bottom: 1.5rem;">
+        <input type="text" id="fac-new-level-input" class="form-control" placeholder="e.g. Visiting Professors &amp; Industry Mentors" style="flex:1;" />
+        <button type="button" class="btn-publish-live" onclick="FacultyStudio.addLevel()" style="padding:0.6rem 1.1rem; flex-shrink:0;">
+          ➕ Add Level
+        </button>
+      </div>
+
+      <!-- Levels List -->
+      <div id="fac-levels-list" style="display:flex; flex-direction:column; gap:0.75rem; max-height:300px; overflow-y:auto; padding-right:0.3rem;">
+        <!-- Dynamically rendered by js/faculty-studio.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+    <!-- JavaScript Modules -->
+  <script src="./js/faculty.js?v=1000"></script>
+  <script src="./js/metadata.js?v=1000"></script>
+  <script src="./js/studio-visibility.js?v=1000"></script>
+  <script src="./js/faculty-studio.js?v=1000"></script>
+  <script src="./js/app.js?v=1000"></script>
+</body>
+</html>

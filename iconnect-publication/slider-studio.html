@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050b1a" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <title>Hero Slider Studio Manager | iConnect Publication</title>
+  <meta name="description" content="Official Hero Slider Studio Manager for iConnect Publication. Customize homepage hero slides, headlines, badges, photos, and links." />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="./assets/logo/iconnect-logo-3d.png" />
+  <link rel="apple-touch-icon" href="./assets/logo/iconnect-share-thumbnail.jpg" />
+
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="./css/style.css?v=33" />
+
+  <style>
+    /* Studio Header & Layout Styling */
+    .studio-header {
+      background: rgba(10, 18, 40, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(244, 180, 26, 0.25);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.65rem 0;
+    }
+    .studio-nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    .nav-brand-box {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      border: 1px solid transparent;
+    }
+    .nav-links a:hover {
+      color: var(--cheddar-yellow);
+      background: rgba(244, 180, 26, 0.1);
+      border-color: rgba(244, 180, 26, 0.2);
+    }
+    .nav-links a.active {
+      color: var(--cheddar-yellow);
+      background: rgba(244, 180, 26, 0.18);
+      border-color: rgba(244, 180, 26, 0.4);
+    }
+
+    /* Asymmetric Grid: 1.6fr Left (Input Form) / 1fr Right (Slides List Preview) */
+    .studio-grid-layout {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    @media (max-width: 1024px) {
+      .studio-grid-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .studio-card {
+      background: var(--bg-navy-card);
+      border: 1px solid rgba(244, 180, 26, 0.25);
+      border-radius: 18px;
+      padding: 2rem;
+      box-shadow: 0 16px 50px rgba(0,0,0,0.6);
+    }
+    .studio-card-header {
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .studio-title {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .form-section-title {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--cheddar-yellow);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 1.5rem 0 0.85rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    .form-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-subtle);
+      margin-bottom: 0.45rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      box-sizing: border-box;
+      background: rgba(5, 11, 26, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 10px;
+      padding: 0.85rem 1.1rem;
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--cheddar-yellow);
+      box-shadow: 0 0 0 3px rgba(244, 180, 26, 0.2);
+    }
+    .btn-studio {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--cheddar-yellow) 0%, #e09b07 100%);
+      color: #050b1a;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.85rem 1.75rem;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-studio:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(244, 180, 26, 0.35);
+    }
+    .btn-secondary-studio {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .btn-secondary-studio:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: none;
+    }
+    .preview-box {
+      width: 100%;
+      height: 230px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #050b1a;
+      border: 1px solid rgba(244, 180, 26, 0.3);
+      margin-top: 0.6rem;
+      position: relative;
+    }
+    .preview-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .preview-overlay-tag {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 0.75rem;
+      background: rgba(5, 11, 26, 0.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      padding: 0.3rem 0.75rem;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body style="background-color: var(--bg-deep);">
+
+  <!-- Studio Header Navigation -->
+  <header class="studio-header">
+    <div class="studio-nav-container">
+      <div class="nav-brand-box">
+        <a href="index.html" class="nav-brand" style="text-decoration:none;">
+          <img src="./assets/logo/iconnect-logo-3d.png" alt="iConnect Logo" class="nav-logo-img" style="height:34px;" />
+          <div class="nav-brand-text">
+            <span class="nav-brand-title" style="font-size:1.15rem;"><span class="i-ripple-container">i</span><span>CONNECT</span></span>
+            <span class="nav-brand-sub" style="font-size:0.65rem;">HERO SLIDER STUDIO</span>
+          </div>
+        </a>
+      </div>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="publisher.html" class="nav-link">Articles</a></li>
+          <li><a href="about-studio.html" class="nav-link">Why iConnect</a></li>
+          <li><a href="ecosystem-studio.html" class="nav-link">Ecosystem</a></li>
+          <li><a href="faculty-studio.html" class="nav-link">Faculty</a></li>
+          <li><a href="slider-studio.html" class="nav-link active">Hero Slider</a></li>
+          <li><a href="editorial-studio.html" class="nav-link">Editorial</a></li>
+          <li><a href="creatives-studio.html" class="nav-link">Creatives</a></li>
+          <li><a href="announcements-studio.html" class="nav-link">Announcements</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <a href="index.html" class="reader-back-btn" style="padding: 0.4rem 0.85rem; font-size: 0.8rem; text-decoration:none;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to Platform
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main style="max-width: 1400px; margin: 0 auto; padding: 2rem 1.5rem 5rem 1.5rem;">
+
+    <!-- Intro Banner -->
+    <div style="margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 style="font-family: var(--font-heading); font-size: 2rem; color: #fff; margin: 0 0 0.35rem 0;">
+          🎠 Hero Slider Studio Manager
+        </h1>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin: 0; max-width: 750px;">
+          Customize front page showcase slides independently of articles. Set headlines, category badges, descriptions, background photos, and action button links.
+        </p>
+      </div>
+
+      <!-- Action Buttons Top Bar -->
+      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        <button id="publish-slides-btn" class="btn-studio">
+          🚀 Publish Live
+        </button>
+        <button id="download-slider-js-btn" class="btn-studio btn-secondary-studio">
+          💾 Download slider.js
+        </button>
+        <button id="reset-slides-btn" class="btn-studio btn-secondary-studio" style="color: #ff6b8a; border-color: rgba(255,107,138,0.3);">
+          🔄 Reset Defaults
+        </button>
+      </div>
+    </div>
+
+    <!-- Hide / Show Section Toggle Card -->
+    <div id="slider-visibility-card" style="background: rgba(10, 18, 40, 0.95); border: 1px solid rgba(244, 180, 26, 0.3); border-radius: 16px; padding: 1.15rem 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5);"></div>
+
+    <!-- Asymmetric 62% / 38% Grid Layout -->
+    <div class="studio-grid-layout">
+
+      <!-- LEFT COLUMN: WIDE & SPACIOUS INPUT FORM (62% width) -->
+      <div>
+        <div class="studio-card">
+          <div class="studio-card-header">
+            <h2 class="studio-title">
+              <span>✨</span> Add or Edit Hero Slide
+            </h2>
+            <span style="font-size: 0.78rem; font-family: var(--font-mono); color: var(--text-subtle);">Form Editor</span>
+          </div>
+
+          <form id="slide-form">
+
+            <!-- Section 1: Headline & Badge -->
+            <div class="form-section-title">
+              <span>📌</span> Slide Headline &amp; Category Badge
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="slide-title">Slide Headline Title *</label>
+              <input type="text" id="slide-title" class="form-input" placeholder="e.g. CapSU Mambusao Reinforces Campus Safety Through Security Awareness Training..." required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="slide-badge">Category Badge / Subtitle Tag</label>
+              <input type="text" id="slide-badge" class="form-input" placeholder="e.g. Featured Story, Campus Security, Technology Frontier" value="Featured Story" />
+            </div>
+
+            <!-- Section 2: Excerpt & Description -->
+            <div class="form-section-title">
+              <span>📝</span> Slide Excerpt &amp; Summary Text
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="slide-excerpt">Excerpt / Short Description</label>
+              <textarea id="slide-excerpt" class="form-textarea" rows="4" placeholder="Write a short summary paragraph describing this showcase feature story..."></textarea>
+            </div>
+
+            <!-- Section 3: Background Photo Upload & URL -->
+            <div class="form-section-title">
+              <span>🖼️</span> Hero Background Photo
+            </div>
+
+            <div class="form-group">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0.75rem;">
+                <div>
+                  <label class="form-label" for="slide-image-file">📁 Upload Photo File:</label>
+                  <input type="file" id="slide-image-file" accept="image/*" class="form-input" style="padding: 0.55rem 0.8rem;" />
+                </div>
+                <div>
+                  <label class="form-label" for="slide-image-url">🌐 Or Paste Image URL:</label>
+                  <input type="url" id="slide-image-url" class="form-input" placeholder="https://example.com/photo.jpg" value="assets/images/articles/gallery-1.jpg" />
+                </div>
+              </div>
+
+              <!-- Large Live Image Preview Box -->
+              <div class="preview-box">
+                <img id="slide-image-preview" src="assets/images/articles/gallery-1.jpg" alt="Hero Slide Preview" class="preview-img" onerror="this.src='assets/images/articles/gallery-1.jpg';" />
+                <div class="preview-overlay-tag">📷 Live Background Photo Preview</div>
+              </div>
+            </div>
+
+            <!-- Form Submit / Cancel Action Buttons -->
+            <div style="display: flex; gap: 1rem; margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,0.08);">
+              <button type="submit" id="slide-submit-btn" class="btn-studio" style="flex: 1; padding: 0.95rem;">
+                ✨ Add Slide to Hero
+              </button>
+              <button type="button" id="slide-cancel-btn" class="btn-studio btn-secondary-studio" style="display: none; padding: 0.95rem 1.5rem;">
+                Cancel
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: ACTIVE SLIDES LIST PREVIEW (38% width) -->
+      <div>
+        <div class="studio-card">
+          <div class="studio-card-header">
+            <h2 class="studio-title">
+              <span>🖼️</span> Active Showcase Slides
+            </h2>
+            <span style="font-size: 0.78rem; font-family: var(--font-mono); color: var(--cheddar-yellow);">Live Order</span>
+          </div>
+
+          <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0; margin-bottom: 1.25rem; line-height: 1.5;">
+            Reorder slides using <strong>▲ / ▼</strong>. Click <strong>✏️ Edit</strong> to load into the form, or <strong>🗑</strong> to delete.
+          </p>
+
+          <div id="slides-list">
+            <!-- Dynamic slides list rendered via js/slider-studio.js -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer style="background: rgba(5,11,26,0.95); border-top: 1px solid rgba(255,255,255,0.1); padding: 2rem 0; color: var(--text-muted); font-size: 0.88rem; text-align: center;">
+    <div class="container">
+      &copy; 2026 iConnect Publication — Hero Slider Studio Manager
+    </div>
+  </footer>
+
+  <!-- JavaScript datastores & studio script -->
+    <!-- JavaScript Modules -->
+  <script src="./js/slider.js?v=1000"></script>
+  <script src="./js/metadata.js?v=1000"></script>
+  <script src="./js/studio-visibility.js?v=1000"></script>
+  <script src="./js/slider-studio.js?v=1000"></script>
+  <script src="./js/app.js?v=1000"></script>
+</body>
+</html>
+

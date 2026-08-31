@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Editorial Board | iConnect Publication</title>
+  <meta name="description" content="Meet the student journalists, developers, and editors driving the iConnect publication network at Capiz State University – Mambusao Satellite College." />
+  <meta name="theme-color" content="#050b1a" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="iConnect Publication" />
+  <meta property="og:title" content="The Editorial Board | iConnect Publication" />
+  <meta property="og:description" content="Meet the student journalists, developers, and editors driving the iConnect publication network." />
+  <meta property="og:image" content="./assets/logo/iconnect-share-thumbnail.jpg" />
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Editorial Board | iConnect Publication" />
+  <meta name="twitter:description" content="Meet the student journalists, developers, and editors driving the iConnect publication network." />
+  <meta name="twitter:image" content="./assets/logo/iconnect-share-thumbnail.jpg" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="./assets/logo/iconnect-logo-3d.png" />
+  <link rel="apple-touch-icon" href="./assets/logo/iconnect-share-thumbnail.jpg" />
+
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="./css/style.css?v=42" />
+  <link rel="stylesheet" href="./css/publisher.css?v=42" />
+</head>
+<body style="background-color: var(--bg-deep);">
+
+  <!-- Background Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navigation Bar -->
+  <header class="navbar scrolled" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand">
+        <img src="./assets/logo/iconnect-logo-3d.png" alt="iConnect Logo" class="nav-logo-img" />
+        <div class="nav-brand-text">
+          <span class="nav-brand-title">i<span>CONNECT</span></span>
+          <span class="nav-brand-sub">BSCS Publication</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+
+          <!-- Explore Dropdown for All Categories -->
+          <li class="nav-item-has-dropdown">
+            <a href="javascript:void(0)" class="nav-link">Explore</a>
+            <ul class="nav-dropdown nav-dropdown-explore" id="explore-dropdown-menu">
+              <li>
+                <a href="javascript:void(0)" class="nav-dropdown-link" onclick="onNavCategoryClick('All')">
+                  <span class="sub-title">All Stories</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Faculty Directory Direct Link -->
+          <li><a href="faculty.html" class="nav-link">Faculty Directory</a></li>
+
+          <!-- Editorial Board Direct Link -->
+          <li><a href="editorial-board.html" class="nav-link active">Editorial Board</a></li>
+
+          <!-- About Dropdown -->
+          <li class="nav-item-has-dropdown">
+            <a href="about.html" class="nav-link">About</a>
+            <ul class="nav-dropdown">
+              <li>
+                <a href="about.html" class="nav-dropdown-link">
+                  <span class="sub-title">About iConnect</span>
+                  <span class="sub-desc">Publication Overview</span>
+                </a>
+              </li>
+              <li>
+                <a href="iconnect-mvg.html" class="nav-dropdown-link">
+                  <span class="sub-title">iConnect Mission &amp; Vision</span>
+                  <span class="sub-desc">Goals &amp; Core Principles</span>
+                </a>
+              </li>
+              <li>
+                <a href="capsu-vmg.html" class="nav-dropdown-link">
+                  <span class="sub-title">CAPSU Vision &amp; Mission</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="index.html" class="reader-back-btn desktop-only-btn" style="padding: 0.45rem 0.95rem; font-size: 0.82rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Home
+        </a>
+        <div class="nav-hamburger" id="nav-hamburger" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="container" style="padding-top: 7.5rem; padding-bottom: 6rem;">
+
+    <!-- Editorial Board Section -->
+    <section class="section" id="team" style="padding: 0; background: transparent;">
+      <div class="container">
+        
+        <!-- Section Header -->
+        <div class="section-header center">
+          <span class="section-tag">Leadership &amp; Staff</span>
+          <h1 class="section-title">The Editorial Board</h1>
+          <p class="section-desc">Meet the student journalists, developers, and editors driving the iConnect publication network.</p>
+          <p class="profile-hint-note" style="font-style: italic; color: var(--text-subtle, #94a3b8); font-size: 0.84rem; margin: 0.65rem auto 0 auto; letter-spacing: 0.02em;">Click for Full Profile</p>
+
+          <!-- Glassmorphic Share Bar for Editorial Board -->
+          <div class="editorial-share-bar" style="display: flex; justify-content: center; align-items: center; gap: 0.75rem; margin-top: 1.25rem; flex-wrap: wrap;">
+            <button type="button" class="category-glass-btn editorial-share-trigger" onclick="toggleEditorialShareModal(event)" style="padding: 0.55rem 1.25rem; font-size: 0.86rem; border-color: rgba(244,180,26,0.4); box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
+              <span class="cat-drop-icon" style="width: 22px; height: 22px;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--cheddar-yellow)" stroke-width="2.2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+              </span>
+              <span>Share Editorial Board</span>
+            </button>
+
+            <!-- Quick Direct Copy Button -->
+            <button type="button" id="ed-quick-copy-btn" class="category-glass-btn" onclick="copyEditorialBoardLink()" style="padding: 0.55rem 1rem; font-size: 0.86rem; background: rgba(244,180,26,0.12); border-color: rgba(244,180,26,0.3); color: var(--cheddar-yellow);">
+              📋 Copy Link
+            </button>
+          </div>
+        </div>
+
+        <!-- Adviser Card — centered alone on top row -->
+        <div class="team-adviser-row">
+          <div id="editorial-adviser-card">
+            <!-- Dynamic Adviser Card Rendered via JS -->
+          </div>
+        </div>
+
+        <!-- 5-column member grid, center-aligned when wrapping -->
+        <div class="team-grid" id="editorial-team-grid">
+          <!-- Dynamic Editorial Team Cards Rendered via JS -->
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Team Member Profile Modal -->
+  <div class="team-modal-overlay" id="team-member-modal" onclick="closeTeamModal()">
+    <div class="team-modal-card" onclick="event.stopPropagation()">
+      <button class="team-modal-close" onclick="closeTeamModal()" aria-label="Close">&times;</button>
+
+      <!-- Square Photo -->
+      <div class="tm-photo-wrap" id="tm-photo">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Details -->
+      <div class="tm-details">
+        <div class="tm-year-badge" id="tm-year">4th Year</div>
+        <h3 class="tm-name" id="tm-name">Name</h3>
+        <div class="tm-role-label" id="tm-role">Role</div>
+        <p class="tm-bio-text" id="tm-bio">Bio</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Editorial Board Share Modal -->
+  <div class="export-panel-modal" id="editorial-share-modal" onclick="closeEditorialShareModal()">
+    <div class="export-panel-card" style="max-width: 480px; text-align: center; position: relative;" onclick="event.stopPropagation()">
+      <button type="button" class="vmg-modal-close" onclick="closeEditorialShareModal()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.35rem; color: #fff; cursor: pointer;">✕</button>
+      
+      <div style="width: 50px; height: 50px; border-radius: 50%; background: rgba(244,180,26,0.15); border: 2px solid var(--cheddar-yellow); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--cheddar-yellow)" stroke-width="2.2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+      </div>
+
+      <h3 style="font-family: var(--font-heading); font-size: 1.35rem; font-weight: 800; color: #fff; margin-bottom: 0.35rem;">
+        Share The Editorial Board
+      </h3>
+      <p style="color: var(--text-muted); font-size: 0.88rem; margin-bottom: 1.5rem; line-height: 1.4;">
+        Share the student journalists, editors, and innovators of iConnect Publication with your network!
+      </p>
+
+      <!-- Social Grid -->
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.5rem;">
+        <button type="button" class="btn-share-social share-fb" onclick="shareEditorialTo('facebook')" style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem; padding: 0.85rem 0.5rem; border-radius: 12px; background: rgba(24, 119, 242, 0.15); border: 1px solid rgba(24, 119, 242, 0.3); color: #fff; cursor: pointer; transition: all 0.2s ease;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          <span style="font-size: 0.78rem; font-weight: 600;">Facebook</span>
+        </button>
+
+        <button type="button" class="btn-share-social share-msg" onclick="shareEditorialTo('messenger')" style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem; padding: 0.85rem 0.5rem; border-radius: 12px; background: rgba(0, 132, 255, 0.15); border: 1px solid rgba(0, 132, 255, 0.3); color: #fff; cursor: pointer; transition: all 0.2s ease;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#0084ff"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.093.303 2.246.464 3.443.464 6.627 0 12-4.975 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26 6.559-6.963 3.13 3.259 5.889-3.259-6.56 6.963z"/></svg>
+          <span style="font-size: 0.78rem; font-weight: 600;">Messenger</span>
+        </button>
+
+        <button type="button" class="btn-share-social share-wa" onclick="shareEditorialTo('whatsapp')" style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem; padding: 0.85rem 0.5rem; border-radius: 12px; background: rgba(37, 211, 102, 0.15); border: 1px solid rgba(37, 211, 102, 0.3); color: #fff; cursor: pointer; transition: all 0.2s ease;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#25d366"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+          <span style="font-size: 0.78rem; font-weight: 600;">WhatsApp</span>
+        </button>
+
+        <button type="button" class="btn-share-social share-tw" onclick="shareEditorialTo('twitter')" style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem; padding: 0.85rem 0.5rem; border-radius: 12px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); color: #fff; cursor: pointer; transition: all 0.2s ease;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#ffffff"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <span style="font-size: 0.78rem; font-weight: 600;">X / Twitter</span>
+        </button>
+
+        <button type="button" class="btn-share-social share-tg" onclick="shareEditorialTo('telegram')" style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem; padding: 0.85rem 0.5rem; border-radius: 12px; background: rgba(0, 136, 204, 0.15); border: 1px solid rgba(0, 136, 204, 0.3); color: #fff; cursor: pointer; transition: all 0.2s ease;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#0088cc"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18.716-.962 4.084-1.362 5.753-.169.707-.433.943-.688.966-.554.051-.974-.366-1.51-.717-.839-.55-1.313-.892-2.128-1.429-.941-.62-.331-.96.205-1.517.14-.146 2.574-2.359 2.622-2.562.006-.025.011-.122-.047-.174-.059-.052-.145-.034-.208-.02-.089.02-1.503.955-4.244 2.805-.402.277-.765.412-1.091.405-.359-.008-1.05-.203-1.564-.37-.63-.205-1.131-.314-1.087-.663.023-.182.273-.369.749-.562 2.932-1.277 4.888-2.119 5.867-2.528 2.793-1.164 3.374-1.366 3.753-1.372.083-.001.27.02.39.119.102.083.13.195.143.274-.002.062.007.241-.005.371z"/></svg>
+          <span style="font-size: 0.78rem; font-weight: 600;">Telegram</span>
+        </button>
+
+        <button type="button" class="btn-share-social share-li" onclick="shareEditorialTo('linkedin')" style="display: flex; flex-direction: column; align-items: center; gap: 0.35rem; padding: 0.85rem 0.5rem; border-radius: 12px; background: rgba(10, 102, 194, 0.15); border: 1px solid rgba(10, 102, 194, 0.3); color: #fff; cursor: pointer; transition: all 0.2s ease;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#0a66c2"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+          <span style="font-size: 0.78rem; font-weight: 600;">LinkedIn</span>
+        </button>
+      </div>
+
+      <!-- Copy Link Field -->
+      <div style="display: flex; gap: 0.5rem;">
+        <input type="text" id="editorial-share-link-input" readonly class="form-control" style="font-family: var(--font-mono); font-size: 0.82rem; background: rgba(0,0,0,0.5); border-color: rgba(244,180,26,0.3); color: #fff;" />
+        <button type="button" id="ed-modal-copy-btn" class="btn-primary" onclick="copyEditorialBoardLink()" style="white-space: nowrap; padding: 0.65rem 1.15rem; font-size: 0.85rem;">
+          📋 Copy
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3 class="footer-brand-title"><span class="i-ripple-container">i</span><span>CONNECT</span></h3>
+          <p style="color:var(--cheddar-yellow); font-family:var(--font-mono); font-size:0.85rem; font-weight:600; margin-bottom:0.75rem;">
+            The Official Publication of the BSCS Department
+          </p>
+          <p class="footer-brand-desc">
+            Capiz State University – Mambusao Satellite College<br />
+            Mambusao, Capiz, Philippines
+          </p>
+          <p style="font-style:italic; font-size:0.875rem; color:var(--text-subtle);">
+            "Be the voice. Be the connection. Be the next link."
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#latest-stories">Latest Stories</a></li>
+            <li><a href="about.html">About iConnect</a></li>
+            <li><a href="editorial-board.html">The Editorial Board</a></li>
+            <li><a href="capsu-vmg.html">CAPSU Vision &amp; Mission</a></li>
+            <li><a href="iconnect-mvg.html">iConnect Mission &amp; Vision</a></li>
+            <li><a href="faculty.html">Faculty Directory</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Publication Streams</h4>
+          <ul class="footer-links">
+            <li><a href="index.html?cat=Technology">Technology &amp; AI</a></li>
+            <li><a href="index.html?cat=News">Departmental News</a></li>
+            <li><a href="index.html?cat=Campus">Campus Features</a></li>
+            <li><a href="index.html#announcements">Announcements</a></li>
+            <li><a href="index.html#creatives">Multimedia Gallery</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 iConnect Publication — BSCS Department, Capiz State University. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Modules -->
+  <script src="./articles/index.js?v=1000"></script>
+  <script src="./js/slider.js?v=1000"></script>
+  <script src="./js/about.js?v=1000"></script>
+  <script src="./js/faculty.js?v=1000"></script>
+  <script src="./js/editorial.js?v=1000"></script>
+  <script src="./js/creatives.js?v=1000"></script>
+  <script src="./js/announcements.js?v=1000"></script>
+  <script src="./js/metadata.js?v=1000"></script>
+  <script src="./js/ecosystem.js?v=1000"></script>
+  <script src="./js/network.js?v=1000"></script>
+  <script src="./js/render.js?v=1000"></script>
+  <script src="./js/search.js?v=1000"></script>
+  <script src="./js/engagement.js?v=1000"></script>
+  <script src="./js/app.js?v=1000"></script>
+  <script>
+    function getEditorialBoardShareUrl() {
+      return window.location.origin + window.location.pathname;
+    }
+
+    function toggleEditorialShareModal(event) {
+      if (event) event.stopPropagation();
+      var modal = document.getElementById('editorial-share-modal');
+      var input = document.getElementById('editorial-share-link-input');
+      if (input) input.value = getEditorialBoardShareUrl();
+
+      // If mobile supports native share, prefer native share sheet
+      if (navigator.share && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        navigator.share({
+          title: document.title || 'The Editorial Board | iConnect Publication',
+          url: getEditorialBoardShareUrl()
+        }).catch(function () {});
+        return;
+      }
+
+      if (modal) modal.classList.add('open');
+    }
+
+    function closeEditorialShareModal() {
+      var modal = document.getElementById('editorial-share-modal');
+      if (modal) modal.classList.remove('open');
+    }
+
+    function copyEditorialBoardLink() {
+      var url = getEditorialBoardShareUrl();
+      var triggerBtn = document.getElementById('ed-quick-copy-btn');
+      var modalBtn = document.getElementById('ed-modal-copy-btn');
+
+      function showSuccess() {
+        if (triggerBtn) { triggerBtn.textContent = '✓ Copied!'; setTimeout(function () { triggerBtn.textContent = '📋 Copy Link'; }, 2200); }
+        if (modalBtn) { modalBtn.textContent = '✓ Copied!'; setTimeout(function () { modalBtn.textContent = '📋 Copy'; }, 2200); }
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(showSuccess).catch(function () {
+          fallbackCopy(url);
+          showSuccess();
+        });
+      } else {
+        fallbackCopy(url);
+        showSuccess();
+      }
+    }
+
+    function fallbackCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
+
+    function shareEditorialTo(platform) {
+      var url = getEditorialBoardShareUrl();
+      var title = document.title || 'The Editorial Board | iConnect Publication';
+      if (typeof window.shareToSocial === 'function') {
+        window.shareToSocial(platform, url, title);
+      } else {
+        var encUrl = encodeURIComponent(url);
+        var encTitle = encodeURIComponent(title);
+        if (platform === 'facebook') window.open('https://www.facebook.com/sharer/sharer.php?u=' + encUrl, '_blank');
+        else if (platform === 'twitter') window.open('https://twitter.com/intent/tweet?url=' + encUrl + '&text=' + encTitle, '_blank');
+        else if (platform === 'whatsapp') window.open('https://api.whatsapp.com/send?text=' + encTitle + '%20' + encUrl, '_blank');
+        else if (platform === 'telegram') window.open('https://t.me/share/url?url=' + encUrl + '&text=' + encTitle, '_blank');
+        else if (platform === 'linkedin') window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encUrl, '_blank');
+        else if (platform === 'messenger') window.open('https://www.facebook.com/dialog/send?link=' + encUrl + '&app_id=296896974127027&redirect_uri=' + encUrl, '_blank');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.initVisitorCounter) window.initVisitorCounter();
+      if (typeof window.getMergedEditorialHeader === 'function') {
+        var h = window.getMergedEditorialHeader();
+        if (h && h.thumbnail) {
+          var ogImg = document.querySelector('meta[property="og:image"]');
+          if (ogImg) ogImg.setAttribute('content', h.thumbnail);
+          var twImg = document.querySelector('meta[name="twitter:image"]');
+          if (twImg) twImg.setAttribute('content', h.thumbnail);
+        }
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeEditorialShareModal();
+    });
+  </script>
+</body>
+</html>

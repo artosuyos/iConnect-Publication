@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ecosystem Graph Studio | iConnect Publication</title>
+  <meta name="description" content="Ecosystem Graph Studio Manager — Add, Edit, Delete Graph Nodes, Reposition Coordinates, Customize Animated Moving Lines & Colors, and Edit Explanatory Cards live." />
+  <meta name="theme-color" content="#050b1a" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <!-- Favicon & Apple Touch Icon -->
+  <link rel="icon" type="image/png" href="./assets/logo/iconnect-logo-3d.png" />
+  <link rel="apple-touch-icon" href="./assets/logo/iconnect-share-thumbnail.jpg" />
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="./css/style.css?v=42" />
+  <link rel="stylesheet" href="./css/publisher.css?v=42" />
+
+  <style>
+    /* Studio specific glassmorphism styling */
+    .studio-container {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 10.5rem 1.5rem 5rem;
+    }
+    @media (max-width: 768px) {
+      .studio-container {
+        padding-top: 13rem;
+      }
+    }
+
+    .studio-tabs-bar {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 2rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+
+    .tab-btn {
+      padding: 0.75rem 1.25rem;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, rgba(244, 180, 26, 0.2), rgba(0, 240, 255, 0.15));
+      border-color: var(--cheddar-yellow);
+      color: var(--cheddar-yellow);
+      box-shadow: 0 4px 16px rgba(244, 180, 26, 0.2);
+    }
+
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+      animation: fadeIn 0.25s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .studio-graph-layout {
+      display: grid;
+      grid-template-columns: 1fr 440px;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (max-width: 1100px) {
+      .studio-graph-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .canvas-preview-card {
+      background: rgba(10, 18, 40, 0.92);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      position: sticky;
+      top: 6rem;
+    }
+
+    .canvas-wrapper-box {
+      width: 100%;
+      height: 480px;
+      border-radius: 14px;
+      background: #050b1a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .studio-canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: crosshair;
+    }
+
+    .form-card {
+      background: rgba(10, 18, 40, 0.95);
+      border: 1px solid rgba(244, 180, 26, 0.25);
+      border-radius: 20px;
+      padding: 1.75rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(16px);
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--cheddar-yellow);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.45rem;
+      font-weight: 600;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      transition: all 0.2s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--cheddar-yellow);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 12px rgba(244, 180, 26, 0.25);
+    }
+
+    .node-item-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .node-item-card:hover {
+      border-color: var(--cheddar-yellow);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    /* Modal Display Rules */
+    .export-panel-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 3000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      overflow-y: auto;
+    }
+
+    .export-panel-modal.open {
+      display: flex !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+
+    .export-panel-card {
+      background: rgba(10, 18, 40, 0.98);
+      border: 1px solid rgba(244, 180, 26, 0.3);
+      border-radius: 20px;
+      padding: 2rem;
+      width: 100%;
+      max-width: 680px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.8);
+    }
+  </style>
+</head>
+<body style="background-color: var(--bg-deep);">
+
+  <!-- Background Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navigation Header -->
+  <header class="navbar scrolled" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand">
+        <img src="./assets/logo/iconnect-logo-3d.png" alt="iConnect Logo" class="nav-logo-img" />
+        <div class="nav-brand-text">
+          <span class="nav-brand-title"><span class="i-ripple-container">i</span><span>CONNECT</span></span>
+          <span class="nav-brand-sub">ECOSYSTEM STUDIO</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="publisher.html" class="nav-link">Articles</a></li>
+          <li><a href="about-studio.html" class="nav-link">Why iConnect</a></li>
+          <li><a href="ecosystem-studio.html" class="nav-link active">Ecosystem</a></li>
+          <li><a href="faculty-studio.html" class="nav-link">Faculty</a></li>
+          <li><a href="slider-studio.html" class="nav-link">Hero Slider</a></li>
+          <li><a href="editorial-studio.html" class="nav-link">Editorial</a></li>
+          <li><a href="creatives-studio.html" class="nav-link">Creatives</a></li>
+          <li><a href="announcements-studio.html" class="nav-link">Announcements</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="index.html" class="reader-back-btn" style="padding: 0.45rem 0.95rem; font-size: 0.82rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to Platform
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Studio Main Content -->
+  <main class="studio-container">
+    
+    <!-- Top Header & Actions -->
+    <div class="studio-top-header" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.25rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+      <div class="studio-title-group">
+        <span class="section-tag">Interactive Mesh &amp; Signal Flow Studio</span>
+        <h1 style="font-family: var(--font-heading); font-size: 1.85rem; font-weight: 800; color: #fff; margin: 0.25rem 0 0 0;">🌐 Ecosystem Graph Studio Manager</h1>
+        <p style="color: var(--text-subtle); margin: 0.35rem 0 0 0; font-size: 0.92rem; max-width: 800px;">
+          Customize the interactive web graph visualizing the iConnect digital ecosystem. Add, edit, delete nodes, drag node coordinates, adjust animated line motion colors, direction &amp; speed, and manage top explanatory cards.
+        </p>
+      </div>
+
+      <div class="studio-actions" style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+        <button type="button" class="btn-publish-live" onclick="EcosystemStudio.publishLive()">
+          ⚡ Publish Live to Website
+        </button>
+        <button type="button" class="btn-export" onclick="EcosystemStudio.openExportModal()">
+          📋 Export JS Code / Download
+        </button>
+        <button type="button" class="btn-export" onclick="EcosystemStudio.resetDefaults()" style="background: rgba(239, 68, 68, 0.15); color: #ff6b8a; border-color: rgba(255, 107, 138, 0.3);">
+          🔄 Reset Defaults
+        </button>
+      </div>
+    </div>
+
+    <!-- Hide / Show Section Toggle Card -->
+    <div id="ecosystem-visibility-card" style="background: rgba(10, 18, 40, 0.95); border: 1px solid rgba(244, 180, 26, 0.3); border-radius: 16px; padding: 1.15rem 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; box-shadow: 0 10px 30px rgba(0,0,0,0.5);"></div>
+
+    <!-- Studio Tabs Navigation -->
+    <div class="studio-tabs-bar">
+      <button type="button" class="tab-btn active" onclick="EcosystemStudio.switchTab('nodes-tab', this)">
+        🌐 Nodes &amp; Connection Lines Manager
+      </button>
+      <button type="button" class="tab-btn" onclick="EcosystemStudio.switchTab('cards-tab', this)">
+        🃏 Top Explanatory Cards Manager
+      </button>
+      <button type="button" class="tab-btn" onclick="EcosystemStudio.switchTab('header-tab', this)">
+        ⚙️ Section Title &amp; Subtitle Settings
+      </button>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- TAB 1: NODES & ANIMATED CONNECTIONS EDITOR                          -->
+    <!-- =================================================================== -->
+    <div id="nodes-tab" class="tab-pane active">
+      <div class="studio-graph-layout">
+
+        <!-- Live Graph Preview Canvas (Interactive Drag/Select) -->
+        <div class="canvas-preview-card">
+          
+          <!-- Node Dragging Lock Toggle Bar -->
+          <div style="background: rgba(5, 11, 26, 0.8); border: 1px solid rgba(244, 180, 26, 0.25); border-radius: 12px; padding: 0.75rem 1rem; margin-bottom: 0.75rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
+            <div>
+              <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--cheddar-yellow); font-weight: 700; text-transform: uppercase;">🔒 Node Placement Position Control</span>
+              <p style="font-size: 0.75rem; color: var(--text-subtle); margin: 2px 0 0 0;">Keep original mesh layout or unlock to reposition nodes.</p>
+            </div>
+            <button type="button" id="drag-toggle-btn" onclick="EcosystemStudio.toggleAllowDrag()" style="padding: 0.4rem 0.85rem; border-radius: 8px; font-size: 0.78rem; font-weight: 700; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: #fff;">
+              🔒 Dragging OFF (Original Layout)
+            </button>
+          </div>
+
+          <!-- Canvas Background Animation Effect Selector -->
+          <div style="background: rgba(5, 11, 26, 0.8); border: 1px solid rgba(0, 240, 255, 0.25); border-radius: 12px; padding: 0.85rem 1rem; margin-bottom: 1rem;">
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.75rem; margin-bottom:0.75rem;">
+              <div>
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: #00f0ff; font-weight: 700; text-transform: uppercase;">🎨 Canvas Background Animation Effect</span>
+                <p style="font-size: 0.75rem; color: var(--text-subtle); margin: 2px 0 0 0;">Choose 1 of 15 animated background styles inside graph box.</p>
+              </div>
+              <select id="eco-bg-effect" class="form-control" onchange="EcosystemStudio.updateBgEffect(this.value)" style="width: auto; min-width: 260px; padding: 0.4rem 0.75rem; font-size: 0.8rem; background-color: #0b152c !important; color: #ffffff !important;">
+                <option value="cyber-matrix">1. 🌐 Cyber Matrix &amp; Particles (Default)</option>
+                <option value="digital-pulse">2. 💫 Digital Pulse Waves (Expanding Rings)</option>
+                <option value="quantum-rain">3. 🌧️ Quantum Rain Stream (Matrix Binary)</option>
+                <option value="starlight-nebula">4. ✨ Starlight Nebula Glow (Shimmering Stars)</option>
+                <option value="hex-honeycomb">5. ⬢ Geometric Hex Honeycomb (Honeycomb Grid)</option>
+                <option value="neural-network">6. 🧠 Neural Network Web (Synaptic Mesh)</option>
+                <option value="circuit-board">7. 🔌 Circuit Board Traces (PCB Routes)</option>
+                <option value="data-stream">8. 📡 Data Stream Flow (Packet River)</option>
+                <option value="fiber-optic">9. 💡 Fiber Optic Beams (Light Pulses)</option>
+                <option value="constellation">10. 🌌 Constellation Map (Star Links)</option>
+                <option value="blockchain">11. ⛓️ Blockchain Nodes (Chain Network)</option>
+                <option value="signal-radar">12. 📶 Signal Radar Sweep (Arc Scan)</option>
+                <option value="network-topology">13. 🕸️ Network Topology (Mesh Tree)</option>
+                <option value="warp-speed">14. 🚀 Warp Speed Streams (Hyperspace Lines)</option>
+                <option value="dna-helix">15. 🧬 DNA Helix Spiral (Double Helix)</option>
+              </select>
+            </div>
+            <!-- Opacity Sliders -->
+            <div style="display:flex; flex-direction:column; gap:0.5rem; margin-top:0.5rem;">
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <span style="font-family:var(--font-mono); font-size:0.72rem; color:#94a3b8; white-space:nowrap; min-width:130px;">🔆 Canvas Effect Opacity:</span>
+                <input type="range" id="eco-bg-opacity" min="0" max="100" value="60" step="5"
+                  oninput="EcosystemStudio.updateBgOpacity(this.value)"
+                  style="flex:1; accent-color:#00f0ff; cursor:pointer;">
+                <span id="eco-bg-opacity-val" style="font-family:var(--font-mono); font-size:0.72rem; color:#00f0ff; min-width:34px; text-align:right;">60%</span>
+              </div>
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <span style="font-family:var(--font-mono); font-size:0.72rem; color:#94a3b8; white-space:nowrap; min-width:130px;">🕸️ Subtle Paths Opacity:</span>
+                <input type="range" id="eco-path-opacity" min="0" max="100" value="20" step="5"
+                  oninput="EcosystemStudio.updatePathOpacity(this.value)"
+                  style="flex:1; accent-color:#f4b41a; cursor:pointer;">
+                <span id="eco-path-opacity-val" style="font-family:var(--font-mono); font-size:0.72rem; color:#f4b41a; min-width:34px; text-align:right;">20%</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.75rem;">
+            <span style="font-family:var(--font-mono); font-size:0.78rem; color:var(--cheddar-yellow); font-weight:700; text-transform:uppercase; letter-spacing:0.08em;">
+              ✨ Live Graph Interactive Canvas Preview
+            </span>
+            <span style="font-size:0.75rem; color:var(--text-subtle);">Click node to edit!</span>
+          </div>
+
+          <div class="canvas-wrapper-box">
+            <canvas id="studio-graph-canvas" class="studio-canvas"></canvas>
+          </div>
+
+          <!-- Quick Node List Badges -->
+          <div style="margin-top:1rem; display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center;" id="studio-nodes-badge-list">
+            <!-- Rendered by JS -->
+          </div>
+
+          <!-- Studio Side Inspector Card Live Preview -->
+          <div style="margin-top:1.25rem; border-top:1px solid rgba(255,255,255,0.08); padding-top:1rem;">
+            <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cheddar-yellow); font-weight:700; text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:0.75rem;">
+              📋 Selected Node Side Inspector Card Preview
+            </span>
+            <div id="studio-inspector-panel" style="background: rgba(5, 11, 26, 0.85); border: 1px solid rgba(244, 180, 26, 0.3); border-radius: 16px; padding: 1.5rem; backdrop-filter: blur(12px);">
+              <!-- Rendered dynamically by EcosystemStudio.renderStudioInspectorCard() -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Control Forms: Node Form & Connection Form -->
+        <div>
+          
+          <!-- Add / Edit Node Form Card -->
+          <aside class="form-card" style="margin-bottom:1.5rem;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+              <h3 id="node-form-title" style="font-family:var(--font-heading); font-size:1.15rem; font-weight:700; color:#fff; margin:0;">
+                ➕ Add New Graph Node
+              </h3>
+              <button type="button" onclick="EcosystemStudio.resetNodeForm()" style="background:none; border:none; color:var(--text-subtle); font-size:0.8rem; cursor:pointer; text-decoration:underline;">
+                🧹 Clear
+              </button>
+            </div>
+
+            <form id="node-editor-form" onsubmit="event.preventDefault(); EcosystemStudio.saveNode();">
+              <input type="hidden" id="node-id" value="" />
+
+              <!-- Node Label -->
+              <div class="form-group">
+                <label class="form-label" for="node-label">Node Name / Label *</label>
+                <input type="text" id="node-label" class="form-control" placeholder="e.g. Research & Innovation" required oninput="EcosystemStudio.updateNodeDraftLive()" />
+              </div>
+
+              <!-- Node Color -->
+              <div class="form-group">
+                <label class="form-label" for="node-color">🎨 Node Glow & Accent Color</label>
+                <div style="display:flex; gap:0.6rem; align-items:center;">
+                  <input type="color" id="node-color" value="#00f0ff" style="width:42px; height:38px; border:none; border-radius:8px; cursor:pointer; background:none;" onchange="EcosystemStudio.updateNodeDraftLive()" />
+                  <div style="display:flex; gap:0.35rem;">
+                    <button type="button" class="toolbar-btn" onclick="document.getElementById('node-color').value='#f4b41a'; EcosystemStudio.updateNodeDraftLive();" style="background:#f4b41a; color:#050b1a; font-weight:700; padding:0.25rem 0.5rem; font-size:0.75rem;">Yellow</button>
+                    <button type="button" class="toolbar-btn" onclick="document.getElementById('node-color').value='#00f0ff'; EcosystemStudio.updateNodeDraftLive();" style="background:#00f0ff; color:#050b1a; font-weight:700; padding:0.25rem 0.5rem; font-size:0.75rem;">Cyan</button>
+                    <button type="button" class="toolbar-btn" onclick="document.getElementById('node-color').value='#10b981'; EcosystemStudio.updateNodeDraftLive();" style="background:#10b981; color:#050b1a; font-weight:700; padding:0.25rem 0.5rem; font-size:0.75rem;">Emerald</button>
+                    <button type="button" class="toolbar-btn" onclick="document.getElementById('node-color').value='#a855f7'; EcosystemStudio.updateNodeDraftLive();" style="background:#a855f7; color:#fff; font-weight:700; padding:0.25rem 0.5rem; font-size:0.75rem;">Purple</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Position Sliders (X% and Y%) -->
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:1rem;">
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label" for="node-x">X Position: <span id="node-x-val">30%</span></label>
+                  <input type="range" id="node-x" min="0.05" max="0.95" step="0.01" value="0.30" class="form-control" style="padding:0.2rem;" oninput="document.getElementById('node-x-val').textContent=Math.round(this.value*100)+'%'; EcosystemStudio.updateNodeDraftLive();" />
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label" for="node-y">Y Position: <span id="node-y-val">50%</span></label>
+                  <input type="range" id="node-y" min="0.05" max="0.95" step="0.01" value="0.50" class="form-control" style="padding:0.2rem;" oninput="document.getElementById('node-y-val').textContent=Math.round(this.value*100)+'%'; EcosystemStudio.updateNodeDraftLive();" />
+                </div>
+              </div>
+
+              <!-- Side Inspector Details -->
+              <div class="form-group">
+                <label class="form-label" for="node-desc">Side Card Description</label>
+                <textarea id="node-desc" class="form-control" rows="2" placeholder="Description shown in inspector card on right..." oninput="EcosystemStudio.updateNodeDraftLive()"></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="node-outgoing">Outward Flow Motion Text (Yellow Signal)</label>
+                <input type="text" id="node-outgoing" class="form-control" placeholder="e.g. Yellow signals stream student articles..." oninput="EcosystemStudio.updateNodeDraftLive()" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="node-incoming">Inward Flow Motion Text (Blue Signal)</label>
+                <input type="text" id="node-incoming" class="form-control" placeholder="e.g. Blue signals deliver published news..." oninput="EcosystemStudio.updateNodeDraftLive()" />
+              </div>
+
+              <div style="display:flex; gap:0.6rem; margin-top:1.25rem;">
+                <button type="button" id="node-save-btn" class="btn-save-member" onclick="EcosystemStudio.saveNode()">
+                  ➕ Save Node
+                </button>
+                <button type="button" id="node-delete-btn" class="btn-export" style="display:none; background:rgba(239,68,68,0.2); color:#f87171; border-color:rgba(239,68,68,0.4);" onclick="EcosystemStudio.deleteSelectedNode()">
+                  🗑 Delete Node
+                </button>
+              </div>
+            </form>
+          </aside>
+
+          <!-- Animated Connection Lines Manager Form Card -->
+          <aside class="form-card">
+            <h3 style="font-family:var(--font-heading); font-size:1.1rem; font-weight:700; color:#fff; margin:0 0 1rem 0; display:flex; align-items:center; gap:0.5rem;">
+              ⚡ Animated Connection Line Manager
+            </h3>
+
+            <!-- Add Connection Form -->
+            <div style="background:rgba(5,11,26,0.6); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:1rem; margin-bottom:1.25rem;">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label" for="conn-from" style="font-size:0.75rem;">From Node *</label>
+                  <select id="conn-from" class="form-control" style="font-size:0.85rem; padding:0.5rem;">
+                    <!-- Options -->
+                  </select>
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label" for="conn-to" style="font-size:0.75rem;">To Node *</label>
+                  <select id="conn-to" class="form-control" style="font-size:0.85rem; padding:0.5rem;">
+                    <!-- Options -->
+                  </select>
+                </div>
+              </div>
+
+              <div style="display:grid; grid-template-columns:1fr 1.2fr; gap:0.75rem; margin-bottom:0.85rem;">
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label" for="conn-color" style="font-size:0.75rem;">Signal Line Color</label>
+                  <select id="conn-color" class="form-control" style="font-size:0.85rem; padding:0.5rem;">
+                    <option value="#f4b41a">🟡 Yellow Motion Pulse</option>
+                    <option value="#00f0ff">🔵 Light Blue Motion Pulse</option>
+                    <option value="#10b981">🟢 Emerald Motion Pulse</option>
+                    <option value="#a855f7">🟣 Purple Motion Pulse</option>
+                  </select>
+                </div>
+                <div class="form-group" style="margin:0;">
+                  <label class="form-label" for="conn-direction" style="font-size:0.75rem;">Flow Direction</label>
+                  <select id="conn-direction" class="form-control" style="font-size:0.85rem; padding:0.5rem;">
+                    <option value="outgoing">➡️ Outgoing (From -> To)</option>
+                    <option value="incoming">⬅️ Incoming (To -> From)</option>
+                    <option value="both">↔️ Bi-Directional (Both)</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="button" class="btn-publish-live" onclick="EcosystemStudio.addConnection()" style="width:100%; padding:0.55rem; font-size:0.85rem; justify-content:center;">
+                ⚡ Add Animated Connection Line
+              </button>
+            </div>
+
+            <!-- Existing Connections List -->
+            <div id="studio-connections-list" style="display:flex; flex-direction:column; gap:0.5rem; max-height:220px; overflow-y:auto; padding-right:0.25rem;">
+              <!-- Rendered by JS -->
+            </div>
+          </aside>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- TAB 2: TOP EXPLANATORY CARDS MANAGER                                -->
+    <!-- =================================================================== -->
+    <div id="cards-tab" class="tab-pane">
+      <div style="display:grid; grid-template-columns:420px 1fr; gap:2rem; align-items:start;">
+        
+        <!-- Add/Edit Explanatory Card Form -->
+        <aside class="form-card">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+            <h3 id="topcard-form-title" style="font-family:var(--font-heading); font-size:1.15rem; font-weight:700; color:#fff; margin:0;">
+              ➕ Add Explanatory Card
+            </h3>
+            <button type="button" onclick="EcosystemStudio.resetTopCardForm()" style="background:none; border:none; color:var(--text-subtle); font-size:0.8rem; cursor:pointer; text-decoration:underline;">
+              🧹 Clear
+            </button>
+          </div>
+
+          <form id="topcard-editor-form" onsubmit="event.preventDefault(); EcosystemStudio.saveTopCard();">
+            <input type="hidden" id="topcard-id" value="" />
+
+            <div class="form-group">
+              <label class="form-label" for="topcard-badge">Badge Label Tag *</label>
+              <input type="text" id="topcard-badge" class="form-control" placeholder="e.g. HEXAGONAL MESH STRUCTURE" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="topcard-title">Card Question / Title *</label>
+              <input type="text" id="topcard-title" class="form-control" placeholder="e.g. Why Is It Shaped & Arranged This Way?" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="topcard-content">Card Description Content *</label>
+              <textarea id="topcard-content" class="form-control" rows="4" placeholder="Enter explanation text..." required></textarea>
+            </div>
+
+            <div style="display:flex; gap:0.6rem; margin-top:1.25rem;">
+              <button type="button" id="topcard-save-btn" class="btn-save-member" onclick="EcosystemStudio.saveTopCard()">
+                ➕ Save Card
+              </button>
+              <button type="button" id="topcard-delete-btn" class="btn-export" style="display:none; background:rgba(239,68,68,0.2); color:#f87171; border-color:rgba(239,68,68,0.4);" onclick="EcosystemStudio.deleteSelectedTopCard()">
+                🗑 Delete
+              </button>
+            </div>
+          </form>
+        </aside>
+
+        <!-- Explanatory Cards Grid Preview & List -->
+        <div>
+          <h3 style="font-family:var(--font-heading); font-size:1.15rem; font-weight:700; color:#fff; margin:0 0 1rem 0;">
+            🃏 Top Explanatory Cards List
+          </h3>
+          <div id="top-cards-studio-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.25rem;">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- TAB 3: SECTION TITLE & SUBTITLE SETTINGS                            -->
+    <!-- =================================================================== -->
+    <div id="header-tab" class="tab-pane">
+      <div class="form-card" style="max-width:750px; margin:0 auto;">
+        <h3 style="font-family:var(--font-heading); font-size:1.25rem; font-weight:700; color:#fff; margin:0 0 1.25rem 0; display:flex; align-items:center; gap:0.5rem;">
+          ⚙️ Ecosystem Section Header &amp; Subtitle Settings
+        </h3>
+
+        <form id="ecosystem-header-form" onsubmit="event.preventDefault(); EcosystemStudio.saveHeaderSettings();">
+          <div class="form-group">
+            <label class="form-label" for="eco-header-badge">Badge Tag</label>
+            <input type="text" id="eco-header-badge" class="form-control" placeholder="e.g. INTERACTIVE PUBLICATION ECOSYSTEM" value="INTERACTIVE PUBLICATION ECOSYSTEM" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="eco-header-title">Section Title *</label>
+            <input type="text" id="eco-header-title" class="form-control" placeholder="e.g. We Connect Beyond Limits" value="We Connect Beyond Limits" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="eco-header-subtitle">Section Description / Subtitle</label>
+            <textarea id="eco-header-subtitle" class="form-control" rows="3" placeholder="e.g. The interactive web graph below visualizes the iConnect digital ecosystem...">The interactive web graph below visualizes the iConnect digital ecosystem — the official student publication framework of the BSCS Department at Capiz State University – Mambusao Satellite College.</textarea>
+          </div>
+
+          <div class="form-group" style="border-top:1px solid rgba(255,255,255,0.08); padding-top:1.25rem; margin-top:1.25rem;">
+            <label class="form-label" for="eco-bg-effect-settings">🎨 Canvas Background Animation Effect (15 Styles)</label>
+            <select id="eco-bg-effect-settings" class="form-control" onchange="EcosystemStudio.updateBgEffect(this.value)" style="margin-bottom:0.75rem;">
+              <option value="cyber-matrix">1. 🌐 Cyber Matrix &amp; Particles (Default Classic Mesh)</option>
+              <option value="digital-pulse">2. 💫 Digital Pulse Waves (Expanding Sonic Rings)</option>
+              <option value="quantum-rain">3. 🌧️ Quantum Rain Stream (Downward Matrix Binary Trails)</option>
+              <option value="starlight-nebula">4. ✨ Starlight Nebula Glow (Ambient Shimmering Starfield)</option>
+              <option value="hex-honeycomb">5. ⬢ Geometric Hex Honeycomb (Pulsating Grid Outline)</option>
+              <option value="neural-network">6. 🧠 Neural Network Web (Synaptic Mesh Connections)</option>
+              <option value="circuit-board">7. 🔌 Circuit Board Traces (PCB Route Lines &amp; Nodes)</option>
+              <option value="data-stream">8. 📡 Data Stream Flow (Flowing Packet River)</option>
+              <option value="fiber-optic">9. 💡 Fiber Optic Beams (Shooting Light Pulses)</option>
+              <option value="constellation">10. 🌌 Constellation Map (Star Link Network)</option>
+              <option value="blockchain">11. ⛓️ Blockchain Nodes (Chain Block Network)</option>
+              <option value="signal-radar">12. 📶 Signal Radar Sweep (Arc Scan Animation)</option>
+              <option value="network-topology">13. 🕸️ Network Topology (Mesh Tree Structure)</option>
+              <option value="warp-speed">14. 🚀 Warp Speed Streams (Hyperspace Light Lines)</option>
+              <option value="dna-helix">15. 🧬 DNA Helix Spiral (Double Helix Rotation)</option>
+            </select>
+            <!-- Opacity Sliders -->
+            <label class="form-label" style="margin-top:0.5rem;">🔆 Canvas Background Effect Opacity</label>
+            <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.6rem;">
+              <input type="range" id="eco-bg-opacity-settings" min="0" max="100" value="60" step="5"
+                oninput="EcosystemStudio.updateBgOpacity(this.value)"
+                style="flex:1; accent-color:#00f0ff; cursor:pointer;">
+              <span id="eco-bg-opacity-val-settings" style="font-family:var(--font-mono); font-size:0.72rem; color:#00f0ff; min-width:34px; text-align:right;">60%</span>
+            </div>
+
+            <label class="form-label" style="margin-top:0.35rem;">🕸️ Subtle Background Connecting Paths Opacity</label>
+            <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.35rem;">
+              <input type="range" id="eco-path-opacity-settings" min="0" max="100" value="20" step="5"
+                oninput="EcosystemStudio.updatePathOpacity(this.value)"
+                style="flex:1; accent-color:#f4b41a; cursor:pointer;">
+              <span id="eco-path-opacity-val-settings" style="font-family:var(--font-mono); font-size:0.72rem; color:#f4b41a; min-width:34px; text-align:right;">20%</span>
+            </div>
+            <p style="font-size:0.75rem; color:var(--text-subtle); margin:0.35rem 0 0 0;">
+              Controls the animated background canvas style, effect intensity, and subtle path line opacity inside the graph box.
+            </p>
+          </div>
+
+          <button type="button" class="btn-publish-live" onclick="EcosystemStudio.saveHeaderSettings()" style="width:100%; padding:0.75rem; font-size:0.95rem; justify-content:center;">
+            💾 Save Header Settings
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Export Code Modal -->
+  <div class="export-panel-modal" id="eco-export-modal">
+    <div class="export-panel-card">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem;">
+        <div>
+          <span class="step-num">CODEBASE COMMIT GENERATOR</span>
+          <h2 style="font-family:var(--font-heading); font-size:1.4rem; font-weight:800; color:#fff; margin:0.25rem 0 0 0;">Export Ecosystem Graph Data for `js/ecosystem.js`</h2>
+        </div>
+        <button type="button" class="vmg-modal-close" onclick="EcosystemStudio.closeExportModal()">✕</button>
+      </div>
+
+      <div class="step-box">
+        <div class="step-num">STEP 1</div>
+        <div class="step-title">Copy JS Code or Download Updated File</div>
+        <div class="step-desc">Click "Copy JS Object" to copy, or click "Download Updated ecosystem.js" to get the standalone file automatically!</div>
+        <pre class="code-output-block" id="eco-export-code"></pre>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <button type="button" class="btn-export" id="eco-copy-code-btn" onclick="EcosystemStudio.copyExportCode()" style="padding:0.6rem 1.25rem; font-size:0.88rem;">
+            📋 Copy JS Object
+          </button>
+          <button type="button" class="btn-export" onclick="EcosystemStudio.downloadUpdatedEcosystemJS()" style="padding:0.6rem 1.25rem; font-size:0.88rem; background:linear-gradient(135deg, #10b981, #059669);">
+            💾 Download Updated `ecosystem.js`
+          </button>
+        </div>
+      </div>
+
+      <div style="text-align:right; margin-top:1.5rem;">
+        <button type="button" class="toolbar-btn" onclick="EcosystemStudio.closeExportModal()" style="padding:0.6rem 1.25rem;">Close Modal</button>
+      </div>
+    </div>
+  </div>
+
+    <!-- JavaScript Modules -->
+  <script src="./js/ecosystem.js?v=1000"></script>
+  <script src="./js/metadata.js?v=1000"></script>
+  <script src="./js/studio-visibility.js?v=1000"></script>
+  <script src="./js/ecosystem-studio.js?v=1000"></script>
+  <script src="./js/app.js?v=1000"></script>
+</body>
+</html>

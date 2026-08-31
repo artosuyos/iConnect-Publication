@@ -1,0 +1,539 @@
+/* ==========================================================================
+   iCONNECT PUBLISHER — EDITORIAL WORKSPACE STYLES
+   Sole Publisher Dashboard matching iConnect Navy & Cheddar Visual Identity
+   ========================================================================== */
+
+@import url('./style.css');
+
+/* --- Publisher Layout --- */
+.publisher-page {
+  background: var(--bg-deep);
+  min-height: 100vh;
+  padding-bottom: 6rem;
+  color: var(--text-main);
+}
+
+.publisher-header {
+  background: rgba(5, 11, 26, 0.95);
+  border-bottom: 1px solid var(--border-navy-light);
+  padding: 1.5rem 0;
+  backdrop-filter: blur(20px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.publisher-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.publisher-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.publisher-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--cheddar-yellow);
+  background: rgba(244, 180, 26, 0.12);
+  border: 1px solid rgba(244, 180, 26, 0.3);
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--radius-full);
+}
+
+/* --- Studio Navigation Bar Links --- */
+.nav-links {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0.2rem 0 !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+  -webkit-overflow-scrolling: touch !important;
+  max-width: 100% !important;
+}
+
+.nav-links::-webkit-scrollbar {
+  display: none !important;
+}
+
+.nav-links li {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  flex-shrink: 0 !important;
+}
+
+.nav-links .nav-link,
+.nav-links a {
+  display: inline-flex !important;
+  align-items: center !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.76rem !important;
+  font-weight: 600 !important;
+  color: var(--text-muted) !important;
+  text-decoration: none !important;
+  padding: 0.3rem 0.65rem !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  white-space: nowrap !important;
+  transition: all 0.2s ease !important;
+  flex-shrink: 0 !important;
+}
+
+.nav-links .nav-link:hover,
+.nav-links a:hover {
+  color: var(--cheddar-yellow) !important;
+  background: rgba(244, 180, 26, 0.1) !important;
+  border-color: rgba(244, 180, 26, 0.25) !important;
+}
+
+.nav-links .nav-link.active,
+.nav-links a.active {
+  color: var(--cheddar-yellow) !important;
+  background: rgba(244, 180, 26, 0.18) !important;
+  border-color: rgba(244, 180, 26, 0.4) !important;
+}
+
+.nav-links .nav-link.active,
+.nav-links a.active {
+  color: var(--cheddar-yellow) !important;
+  background: rgba(244, 180, 26, 0.18) !important;
+  border-color: rgba(244, 180, 26, 0.4) !important;
+}
+
+.publisher-grid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+/* --- Form Sidebar Controls --- */
+.publisher-sidebar {
+  background: rgba(10, 17, 40, 0.75);
+  border: 1px solid var(--border-navy);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  height: fit-content;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--cheddar-yellow);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(5, 11, 26, 0.8);
+  border: 1px solid var(--border-navy-light);
+  border-radius: var(--radius-md);
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--cheddar-yellow);
+  box-shadow: 0 0 12px rgba(244, 180, 26, 0.25);
+}
+
+.form-select option {
+  background-color: #0b152c !important;
+  color: #ffffff !important;
+}
+
+.form-select option:hover,
+.form-select option:focus,
+.form-select option:checked {
+  background-color: #162447 !important;
+  color: var(--cheddar-yellow) !important;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.slug-preview {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-sm);
+  word-break: break-all;
+}
+
+.image-dropzone {
+  border: 2px dashed var(--border-navy-light);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  text-align: center;
+  cursor: pointer;
+  background: rgba(5, 11, 26, 0.5);
+  transition: all var(--transition-fast);
+}
+
+.image-dropzone:hover {
+  border-color: var(--cheddar-yellow);
+  background: rgba(244, 180, 26, 0.05);
+}
+
+.image-preview-img {
+  width: 100%;
+  max-height: 160px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  margin-top: 0.75rem;
+  border: 1px solid var(--border-navy);
+}
+
+/* --- Editor Main Area --- */
+.publisher-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.editor-card {
+  background: rgba(10, 17, 40, 0.75);
+  border: 1px solid var(--border-navy);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Rich Text Editor Toolbar */
+.editor-toolbar {
+  background: rgba(5, 11, 26, 0.95);
+  border-bottom: 1px solid var(--border-navy);
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.toolbar-btn {
+  padding: 0.45rem 0.75rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-navy);
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 0.825rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all var(--transition-fast);
+}
+
+.toolbar-btn:hover {
+  background: rgba(244, 180, 26, 0.15);
+  border-color: var(--cheddar-yellow);
+  color: var(--cheddar-yellow);
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border-navy-light);
+  margin: 0 0.25rem;
+}
+
+/* Editor Canvas */
+.editor-canvas {
+  min-height: 480px;
+  padding: 2.5rem;
+  outline: none;
+  font-size: 1.15rem;
+  line-height: 1.85;
+  color: #cbd5e1;
+}
+
+.editor-canvas:empty::before {
+  content: 'Start writing your article story here... Highlight text to format or use the toolbar above.';
+  color: var(--text-subtle);
+  font-style: italic;
+}
+
+.editor-canvas h2 {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 2rem 0 1rem 0;
+}
+
+.editor-canvas h3 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--cheddar-yellow);
+  margin: 1.5rem 0 0.75rem 0;
+}
+
+.editor-canvas blockquote {
+  border-left: 4px solid var(--cheddar-yellow);
+  background: rgba(244, 180, 26, 0.06);
+  padding: 1.25rem 1.5rem;
+  margin: 1.75rem 0;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: #f1f5f9;
+}
+
+.editor-canvas ul, .editor-canvas ol {
+  margin: 1.25rem 0 1.5rem 2rem;
+}
+
+.editor-canvas li {
+  margin-bottom: 0.5rem;
+}
+
+.editor-canvas a {
+  color: var(--cheddar-yellow);
+  text-decoration: underline;
+}
+
+.editor-canvas figure {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.editor-canvas figure img {
+  border-radius: var(--radius-md);
+  max-height: 420px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.editor-canvas figcaption {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Action Control Bar */
+.publisher-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(10, 17, 40, 0.75);
+  border: 1px solid var(--border-navy);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 2rem;
+  backdrop-filter: blur(16px);
+}
+
+.btn-export {
+  background: linear-gradient(135deg, var(--cheddar-yellow) 0%, #ffea85 100%);
+  color: #030712;
+  font-family: var(--font-mono);
+  font-weight: 800;
+  padding: 0.85rem 2rem;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 20px rgba(244, 180, 26, 0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all var(--transition-fast);
+}
+
+.btn-export:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(244, 180, 26, 0.6);
+}
+
+/* Step-by-Step Export Confirmation Panel */
+.export-panel-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 350;
+  background: rgba(3, 7, 18, 0.95);
+  backdrop-filter: blur(24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-fast);
+  padding: 2rem;
+}
+
+.export-panel-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.export-panel-card {
+  background: rgba(10, 17, 40, 0.95);
+  border: 1px solid var(--border-cheddar);
+  border-radius: var(--radius-xl);
+  padding: 2.5rem;
+  max-width: 760px;
+  width: 100%;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 35px rgba(244, 180, 26, 0.2);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.step-box {
+  background: rgba(5, 11, 26, 0.7);
+  border: 1px solid var(--border-navy);
+  border-left: 4px solid var(--cheddar-yellow);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.step-num {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--cheddar-yellow);
+  text-transform: uppercase;
+}
+
+.step-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0.25rem 0 0.4rem 0;
+}
+
+.step-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.code-output-block {
+  background: #02040a;
+  border: 1px solid var(--border-navy);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.825rem;
+  color: #a7f3d0;
+  max-height: 200px;
+  overflow-y: auto;
+  margin: 1rem 0;
+  white-space: pre-wrap;
+}
+
+/* My Articles Management Panel */
+.my-articles-section {
+  margin-top: 4rem;
+}
+
+.articles-tab-bar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-navy);
+  padding-bottom: 0.75rem;
+}
+
+.draft-card {
+  background: rgba(10, 17, 40, 0.6);
+  border: 1px solid var(--border-navy);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all var(--transition-fast);
+}
+
+.draft-card:hover {
+  border-color: var(--border-cheddar);
+  background: rgba(10, 17, 40, 0.9);
+}
+
+@media (max-width: 992px) {
+  .publisher-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Publisher Article Datastore Pagination --- */
+.pub-pagination {
+  margin-top: 1.5rem;
+}
+
+.pub-page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  height: 34px;
+  padding: 0 0.55rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-navy);
+  background: rgba(10, 17, 40, 0.7);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.pub-page-btn:hover:not(:disabled) {
+  border-color: var(--cheddar-yellow);
+  color: var(--cheddar-yellow);
+  background: rgba(244, 180, 26, 0.12);
+  transform: translateY(-1px);
+}
+
+.pub-page-btn.active {
+  background: var(--cheddar-yellow) !important;
+  color: #050b1a !important;
+  border-color: var(--cheddar-yellow) !important;
+  font-weight: 800 !important;
+  box-shadow: 0 0 12px rgba(244, 180, 26, 0.35);
+}
+
+.pub-page-btn:disabled {
+  opacity: 0.35 !important;
+  cursor: not-allowed !important;
+  pointer-events: none !important;
+}
+

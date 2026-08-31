@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iConnect Mission &amp; Vision | BSCS Department Publication</title>
+  <meta name="description" content="The Mission, Vision, and Core Principles of iConnect Publication — the official BSCS Department publication of Capiz State University Mambusao." />
+  <meta name="theme-color" content="#050b1a" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="iConnect Publication" />
+  <meta property="og:title" content="iConnect Mission &amp; Vision | BSCS Department" />
+  <meta property="og:description" content="Explore the mission, vision, and guiding principles of iConnect — bridging journalism, technology, and community at CAPSU." />
+  <meta property="og:image" content="./assets/logo/iconnect-share-thumbnail.jpg" />
+
+  <link rel="icon" type="image/png" href="./assets/logo/iconnect-logo-3d.png" />
+  <link rel="stylesheet" href="./css/style.css?v=25" />
+
+  <style>
+    /* ── iConnect MVG page-specific styles ── */
+    .imvg-hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 3rem 0 2.5rem;
+    }
+    .imvg-logo-wrap {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 1.5rem;
+      position: relative;
+    }
+    .imvg-logo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 22px rgba(244,180,26,0.45));
+    }
+    .imvg-tagline {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cheddar-yellow);
+      opacity: 0.8;
+      margin-bottom: 0.5rem;
+    }
+    .imvg-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+      margin: 3rem 0;
+    }
+    .imvg-card {
+      background: var(--bg-navy-elevated);
+      border: 1px solid var(--border-navy-light);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .imvg-card:hover {
+      border-color: rgba(244,180,26,0.45);
+      transform: translateY(-3px);
+    }
+    .imvg-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--cheddar-yellow), transparent);
+      border-radius: 4px 0 0 4px;
+    }
+    .imvg-card-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cheddar-yellow);
+      margin-bottom: 0.75rem;
+    }
+    .imvg-card-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+      font-family: var(--font-display);
+    }
+    .imvg-card-body {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: var(--text-muted);
+    }
+    .imvg-quote {
+      font-size: 3rem;
+      line-height: 1;
+      color: var(--cheddar-yellow);
+      opacity: 0.3;
+      font-family: Georgia, serif;
+      position: absolute;
+      top: 1rem; right: 1.25rem;
+    }
+    .imvg-principles {
+      margin-top: 3.5rem;
+    }
+    .imvg-principles-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .imvg-principle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+    .imvg-principle-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border-navy);
+      border-radius: var(--radius-md);
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+      transition: border-color 0.2s;
+    }
+    .imvg-principle-item:hover {
+      border-color: rgba(244,180,26,0.3);
+    }
+    .imvg-principle-icon {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+      display: block;
+      color: var(--cheddar-yellow);
+      opacity: 0.85;
+    }
+    .imvg-principle-name {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+    .imvg-principle-desc {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .imvg-fullwidth-card {
+      grid-column: 1 / -1;
+    }
+    @media (max-width: 768px) {
+      .imvg-cards {
+        grid-template-columns: 1fr;
+      }
+      .imvg-card-title {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body style="background-color: var(--bg-deep);">
+
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navigation Bar -->
+  <header class="navbar scrolled" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand">
+        <img src="./assets/logo/iconnect-logo-3d.png" alt="iConnect Logo" class="nav-logo-img" />
+        <div class="nav-brand-text">
+          <span class="nav-brand-title">i<span>CONNECT</span></span>
+          <span class="nav-brand-sub">BSCS Publication</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+
+          <!-- Explore Dropdown for All Categories -->
+          <li class="nav-item-has-dropdown">
+            <a href="javascript:void(0)" class="nav-link">Explore</a>
+            <ul class="nav-dropdown nav-dropdown-explore" id="explore-dropdown-menu">
+              <li>
+                <a href="javascript:void(0)" class="nav-dropdown-link" onclick="onNavCategoryClick('All')">
+                  <span class="sub-title">All Stories</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Faculty Directory Direct Link -->
+          <li><a href="faculty.html" class="nav-link">Faculty Directory</a></li>
+
+          <!-- Editorial Board Direct Link -->
+          <li><a href="editorial-board.html" class="nav-link">Editorial Board</a></li>
+
+          <!-- About Dropdown -->
+          <li class="nav-item-has-dropdown">
+            <a href="about.html" class="nav-link active">About</a>
+            <ul class="nav-dropdown">
+              <li>
+                <a href="about.html" class="nav-dropdown-link">
+                  <span class="sub-title">About iConnect</span>
+                  <span class="sub-desc">Publication Overview</span>
+                </a>
+              </li>
+              <li>
+                <a href="iconnect-mvg.html" class="nav-dropdown-link active">
+                  <span class="sub-title">iConnect Mission &amp; Vision</span>
+                  <span class="sub-desc">Goals &amp; Core Principles</span>
+                </a>
+              </li>
+              <li>
+                <a href="capsu-vmg.html" class="nav-dropdown-link">
+                  <span class="sub-title">CAPSU Vision &amp; Mission</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="index.html" class="reader-back-btn desktop-only-btn" style="padding: 0.45rem 0.95rem; font-size: 0.82rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Home
+        </a>
+        <div class="nav-hamburger" id="nav-hamburger" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container" style="padding-top: 7.5rem; padding-bottom: 6rem;">
+
+    <section style="padding: 0; background: transparent;">
+
+      <!-- Hero -->
+      <div class="imvg-hero">
+        <div class="imvg-logo-wrap">
+          <img src="./assets/logo/iconnect-logo-3d.png" alt="iConnect Logo" />
+        </div>
+        <div class="imvg-tagline">Publication Identity</div>
+        <h1 class="section-title" style="margin-bottom: 0.75rem;">
+          <span class="text-gradient-cheddar">iConnect</span> Mission &amp; Vision
+        </h1>
+        <p class="section-desc" style="max-width: 640px; margin: 0 auto;">
+          The guiding purpose, aspirational direction, and foundational principles that shape every story, feature, and creative output published under the iConnect banner.
+        </p>
+      </div>
+
+      <!-- Vision & Mission Cards -->
+      <div class="imvg-cards">
+
+        <!-- Vision -->
+        <div class="imvg-card">
+          <div class="imvg-quote">"</div>
+          <div class="imvg-card-label">Vision</div>
+          <div class="imvg-card-title">To Be the Leading Digital Voice of the BSCS Community</div>
+          <p class="imvg-card-body">
+            iConnect envisions itself as the foremost digital publication platform that empowers Computer Science students to articulate ideas, document breakthroughs, and amplify authentic voices — fostering a generation of technically skilled and socially conscious communicators who bridge technology and journalism.
+          </p>
+        </div>
+
+        <!-- Mission -->
+        <div class="imvg-card">
+          <div class="imvg-quote">"</div>
+          <div class="imvg-card-label">Mission</div>
+          <div class="imvg-card-title">To Connect, Inform, Inspire, and Innovate</div>
+          <p class="imvg-card-body">
+            iConnect is committed to delivering accurate, creative, and technologically forward journalism that reflects the dynamic culture of the BSCS Department. We provide an open platform where students, educators, and the wider community can share knowledge, explore ideas, and celebrate the intersection of computer science and human expression — without barriers, without boundaries.
+          </p>
+        </div>
+
+        <!-- Goals - full width -->
+        <div class="imvg-card imvg-fullwidth-card">
+          <div class="imvg-card-label">Publication Goals</div>
+          <div class="imvg-card-title" style="margin-bottom: 1.5rem;">What We Strive For</div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+            <div style="border-left: 2px solid var(--cheddar-yellow); padding-left: 1rem;">
+              <strong style="display:block; color: var(--text-main); margin-bottom: 0.3rem; font-family: var(--font-mono); font-size: 0.85rem;">01 — Accuracy</strong>
+              <p style="font-size: 0.875rem; color: var(--text-muted); margin: 0; line-height: 1.6;">Maintain the highest standard of factual, well-researched, and balanced reporting in every article.</p>
+            </div>
+            <div style="border-left: 2px solid var(--cheddar-yellow); padding-left: 1rem;">
+              <strong style="display:block; color: var(--text-main); margin-bottom: 0.3rem; font-family: var(--font-mono); font-size: 0.85rem;">02 — Creativity</strong>
+              <p style="font-size: 0.875rem; color: var(--text-muted); margin: 0; line-height: 1.6;">Push the boundaries of digital journalism through design, interactivity, and multimedia storytelling.</p>
+            </div>
+            <div style="border-left: 2px solid var(--cheddar-yellow); padding-left: 1rem;">
+              <strong style="display:block; color: var(--text-main); margin-bottom: 0.3rem; font-family: var(--font-mono); font-size: 0.85rem;">03 — Inclusivity</strong>
+              <p style="font-size: 0.875rem; color: var(--text-muted); margin: 0; line-height: 1.6;">Ensure every BSCS student has an equal opportunity to publish, contribute, and be heard.</p>
+            </div>
+            <div style="border-left: 2px solid var(--cheddar-yellow); padding-left: 1rem;">
+              <strong style="display:block; color: var(--text-main); margin-bottom: 0.3rem; font-family: var(--font-mono); font-size: 0.85rem;">04 — Innovation</strong>
+              <p style="font-size: 0.875rem; color: var(--text-muted); margin: 0; line-height: 1.6;">Continuously evolve our platform with modern web technologies, AI-assisted tools, and responsive design.</p>
+            </div>
+            <div style="border-left: 2px solid var(--cheddar-yellow); padding-left: 1rem;">
+              <strong style="display:block; color: var(--text-main); margin-bottom: 0.3rem; font-family: var(--font-mono); font-size: 0.85rem;">05 — Community</strong>
+              <p style="font-size: 0.875rem; color: var(--text-muted); margin: 0; line-height: 1.6;">Build a lasting community of student journalists, developers, and creatives united by the love of CS and storytelling.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Core Principles -->
+      <div class="imvg-principles">
+        <div class="imvg-principles-header">
+          <span class="section-tag">Foundational Principles</span>
+          <h2 class="section-title" style="font-size: 1.8rem;">What Guides Every Story We Tell</h2>
+        </div>
+        <div class="imvg-principle-grid">
+          <div class="imvg-principle-item">
+            <span class="imvg-principle-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </span>
+            <div class="imvg-principle-name">Truth First</div>
+            <p class="imvg-principle-desc">We verify before we publish. Accuracy and integrity are non-negotiable in every piece we produce.</p>
+          </div>
+          <div class="imvg-principle-item">
+            <span class="imvg-principle-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+            </span>
+            <div class="imvg-principle-name">Open Expression</div>
+            <p class="imvg-principle-desc">We provide a free, inclusive, and open space where student voices are heard, amplified, and respected.</p>
+          </div>
+          <div class="imvg-principle-item">
+            <span class="imvg-principle-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </span>
+            <div class="imvg-principle-name">Tech-Driven</div>
+            <p class="imvg-principle-desc">We harness modern web technologies to deliver journalism that is interactive, accessible, and forward-looking.</p>
+          </div>
+          <div class="imvg-principle-item">
+            <span class="imvg-principle-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            </span>
+            <div class="imvg-principle-name">Timeliness</div>
+            <p class="imvg-principle-desc">We deliver relevant, current, and timely coverage of events, innovations, and stories within the BSCS community.</p>
+          </div>
+          <div class="imvg-principle-item">
+            <span class="imvg-principle-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+            <div class="imvg-principle-name">Community First</div>
+            <p class="imvg-principle-desc">Every story serves our community. We listen, engage, and create content that matters to our readers.</p>
+          </div>
+          
+           
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3 class="footer-brand-title">i<span>CONNECT</span></h3>
+          <p style="color:var(--cheddar-yellow); font-family:var(--font-mono); font-size:0.85rem; font-weight:600; margin-bottom:0.75rem;">
+            The Official Publication of the BSCS Department
+          </p>
+          <p class="footer-brand-desc">
+            Capiz State University – Mambusao Satellite College<br />
+            Mambusao, Capiz, Philippines
+          </p>
+          <p style="font-style:italic; font-size:0.875rem; color:var(--text-subtle);">
+            "Be the voice. Be the connection. Be the next link."
+          </p>
+        </div>
+        <div>
+          <h4 class="footer-heading">About</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About iConnect</a></li>
+            <li><a href="editorial-board.html">The Editorial Board</a></li>
+            <li><a href="iconnect-mvg.html">iConnect Mission &amp; Vision</a></li>
+            <li><a href="capsu-vmg.html">CAPSU Vision &amp; Mission</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Publication</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#latest-stories">Latest Stories</a></li>
+            <li><a href="index.html#network">Network Graph</a></li>
+            <li><a href="index.html#announcements">Announcements</a></li>
+            <li><a href="index.html#creatives">Multimedia Gallery</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 iConnect Publication — BSCS Department, Capiz State University. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+    <!-- JavaScript Modules -->
+  <script src="./articles/index.js?v=1000"></script>
+  <script src="./js/slider.js?v=1000"></script>
+  <script src="./js/about.js?v=1000"></script>
+  <script src="./js/faculty.js?v=1000"></script>
+  <script src="./js/editorial.js?v=1000"></script>
+  <script src="./js/creatives.js?v=1000"></script>
+  <script src="./js/announcements.js?v=1000"></script>
+  <script src="./js/metadata.js?v=1000"></script>
+  <script src="./js/ecosystem.js?v=1000"></script>
+  <script src="./js/network.js?v=1000"></script>
+  <script src="./js/render.js?v=1000"></script>
+  <script src="./js/search.js?v=1000"></script>
+  <script src="./js/engagement.js?v=1000"></script>
+  <script src="./js/app.js?v=1000"></script>
+  <script>document.addEventListener('DOMContentLoaded', function () { if (window.initVisitorCounter) window.initVisitorCounter(); });</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+# iConnect Publication — Netlify Configuration
+# =====================================================
+# This file configures Netlify hosting for the iConnect Publication static site.
+
+[build]
+  command = "node generate-article-pages.js"
+  publish = "."
+
+# ---------------------------------------------------------------------------
+# Pretty URL routing for article share links
+# ---------------------------------------------------------------------------
+# The article/[slug]/index.html files are static pre-rendered stub pages that
+# contain article-specific OG meta tags for social sharing crawlers.
+#
+# These pages automatically redirect browsers to article.html?id=[slug]
+# while letting social crawlers (Facebook, WhatsApp, Telegram, Discord, etc.)
+# read the static OG meta tags BEFORE any JavaScript executes.
+# ---------------------------------------------------------------------------
+
+[[redirects]]
+  # Fallback: if someone navigates to article.html with no ?id param, 
+  # send them to the homepage.
+  from   = "/article.html"
+  to     = "/index.html"
+  status = 302
+  conditions = {Query = {id = ""}}
+
+# ---------------------------------------------------------------------------
+# Security & performance headers
+# ---------------------------------------------------------------------------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options       = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy       = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/article/*"
+  [headers.values]
+    # Allow Facebook/WhatsApp crawlers to follow the article stub pages
+    X-Robots-Tag = "index, follow"
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/article.html"
+  [headers.values]
+    # Prevent aggressive caching of the main article page (it's dynamic via JS)
+    Cache-Control = "public, max-age=60"

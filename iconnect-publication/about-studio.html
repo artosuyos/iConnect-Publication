@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050b1a" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <title>Why iConnect Studio Manager | iConnect Publication</title>
+  <meta name="description" content="Official Why iConnect / About Studio Manager for iConnect Publication. Customize homepage narrative, quotes, feature cards, icons, and colors." />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="./assets/logo/iconnect-logo-3d.png" />
+  <link rel="apple-touch-icon" href="./assets/logo/iconnect-share-thumbnail.jpg" />
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="./css/style.css?v=42" />
+  <link rel="stylesheet" href="./css/publisher.css?v=42" />
+
+  <style>
+    .studio-page-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 5rem;
+    }
+
+    .studio-tabs-bar {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 2rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+
+    .tab-btn {
+      padding: 0.75rem 1.25rem;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, rgba(244, 180, 26, 0.2), rgba(0, 240, 255, 0.15));
+      border-color: var(--cheddar-yellow);
+      color: var(--cheddar-yellow);
+      box-shadow: 0 4px 16px rgba(244, 180, 26, 0.2);
+    }
+
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+      animation: fadeIn 0.25s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .studio-split-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (max-width: 1080px) {
+      .studio-split-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .studio-panel-card {
+      background: var(--bg-navy-card);
+      border: 1px solid rgba(244, 180, 26, 0.22);
+      border-radius: 18px;
+      padding: 1.75rem;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+    }
+
+    .live-preview-box {
+      background: radial-gradient(circle at 10% 20%, rgba(10, 25, 60, 0.6) 0%, rgba(5, 11, 26, 0.95) 90%);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: 18px;
+      padding: 2rem 1.75rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+      position: sticky;
+      top: 6.5rem;
+    }
+
+    .live-preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .live-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+      display: inline-block;
+      margin-right: 0.35rem;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================================
+       STUDIO TOP NAVIGATION BAR
+       ========================================================================= -->
+  <header class="publisher-header" style="padding:0; position:sticky; top:0; z-index:1000; background:rgba(5,11,26,0.98); border-bottom:1px solid var(--border-navy); backdrop-filter:blur(16px);">
+    
+    <!-- Row 1: Main Bar -->
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:0.65rem 1.5rem; border-bottom:1px solid rgba(255,255,255,0.06); flex-wrap:wrap; gap:0.75rem;">
+      <div style="display:flex; align-items:center; gap:0.75rem;">
+        <img src="./assets/logo/iconnect-logo-3d.png" alt="iConnect Logo" style="width:34px; height:34px; object-fit:contain;" />
+        <div>
+          <span style="font-family:var(--font-heading); font-size:1.15rem; font-weight:800; color:#fff; letter-spacing:0.02em;">
+            i<span style="color:var(--cheddar-yellow);">CONNECT</span> STUDIO
+          </span>
+          <span style="font-family:var(--font-mono); font-size:0.72rem; color:var(--text-subtle); margin-left:0.5rem; text-transform:uppercase; letter-spacing:0.08em; background:rgba(244,180,26,0.12); padding:0.15rem 0.5rem; border-radius:4px; border:1px solid rgba(244,180,26,0.25);">
+            💡 Why iConnect Section Manager
+          </span>
+        </div>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+        <button type="button" class="toolbar-btn" onclick="AboutStudio.resetToDefaults()" title="Reset to Factory Defaults" style="font-size:0.8rem; color:#ff6b8a; border-color:rgba(255,107,138,0.3);">
+          ↺ Reset Defaults
+        </button>
+        <button type="button" class="toolbar-btn" onclick="AboutStudio.openExportModal()" style="font-size:0.8rem; color:#a78bfa; border-color:rgba(167,139,250,0.3);">
+          📋 Export JS
+        </button>
+        <a href="index.html#about" target="_blank" class="toolbar-btn" style="text-decoration:none; font-size:0.8rem; color:#00f0ff; border-color:rgba(0,240,255,0.3);">
+          👁 View Homepage
+        </a>
+        <a href="about.html" target="_blank" class="toolbar-btn" style="text-decoration:none; font-size:0.8rem; color:var(--cheddar-yellow); border-color:rgba(244,180,26,0.3);">
+          📄 View About Page
+        </a>
+        <button type="button" class="btn-export" onclick="AboutStudio.publishLive()" style="padding:0.45rem 1.1rem; font-size:0.85rem;">
+          🚀 Publish Live
+        </button>
+        <a href="publisher.html" class="toolbar-btn" style="text-decoration:none; color:var(--text-muted); font-size:0.8rem;">
+          ← Articles Workspace
+        </a>
+      </div>
+    </div>
+
+    <!-- Row 2: Studio Navigation Links -->
+    <div style="display:flex; align-items:center; gap:0.35rem; padding:0.45rem 1.5rem; flex-wrap:nowrap; overflow-x:auto; background:rgba(0,0,0,0.15);">
+      <span style="font-family:var(--font-mono); font-size:0.65rem; color:var(--text-subtle); text-transform:uppercase; letter-spacing:0.08em; margin-right:0.35rem; white-space:nowrap; flex-shrink:0;">Studios:</span>
+
+      <a href="publisher.html"            class="toolbar-btn" style="text-decoration:none; font-size:0.78rem; padding:0.25rem 0.65rem; flex-shrink:0;">📰 Articles</a>
+      <a href="about-studio.html"         class="toolbar-btn active" style="text-decoration:none; color:var(--cheddar-yellow); font-size:0.78rem; padding:0.25rem 0.65rem; border-color:var(--cheddar-yellow); background:rgba(244,180,26,0.18); flex-shrink:0;">💡 Why iConnect</a>
+      <a href="ecosystem-studio.html"     class="toolbar-btn" style="text-decoration:none; color:#00f0ff;              font-size:0.78rem; padding:0.25rem 0.65rem; flex-shrink:0;">🌐 Ecosystem</a>
+      <a href="faculty-studio.html"       class="toolbar-btn" style="text-decoration:none; color:var(--cheddar-yellow); font-size:0.78rem; padding:0.25rem 0.65rem; flex-shrink:0;">👨‍🏫 Faculty</a>
+      <a href="slider-studio.html"        class="toolbar-btn" style="text-decoration:none; color:var(--cheddar-yellow); font-size:0.78rem; padding:0.25rem 0.65rem; flex-shrink:0;">🎠 Hero Slider</a>
+      <a href="editorial-studio.html"     class="toolbar-btn" style="text-decoration:none; color:var(--cheddar-yellow); font-size:0.78rem; padding:0.25rem 0.65rem; flex-shrink:0;">👥 Editorial</a>
+      <a href="creatives-studio.html"     class="toolbar-btn" style="text-decoration:none; color:#a78bfa;               font-size:0.78rem; padding:0.25rem 0.65rem; flex-shrink:0;">🎨 Creatives</a>
+      <a href="announcements-studio.html" class="toolbar-btn" style="text-decoration:none; color:#ff6b8a;               font-size:0.78rem; padding:0.25rem 0.65rem; flex-shrink:0;">📢 Announcements</a>
+    </div>
+
+  </header>
+
+  <!-- =========================================================================
+       MAIN STUDIO WORKSPACE
+       ========================================================================= -->
+  <main class="studio-page-container">
+
+    <!-- Tab Buttons -->
+    <div class="studio-tabs-bar">
+      <button type="button" class="tab-btn active" id="tab-btn-narrative" onclick="AboutStudio.switchTab('narrative')">
+        ✍️ Narrative &amp; Information
+      </button>
+      <button type="button" class="tab-btn" id="tab-btn-cards" onclick="AboutStudio.switchTab('cards')">
+        🗂️ Feature Cards Manager
+      </button>
+      <button type="button" class="tab-btn" id="tab-btn-code" onclick="AboutStudio.switchTab('code')">
+        💾 Codebase File Export
+      </button>
+    </div>
+
+    <!-- Asymmetric Split Layout (Editor on Left, Live Preview on Right) -->
+    <div class="studio-split-layout">
+      
+      <!-- LEFT COLUMN: Studio Controls -->
+      <div>
+
+        <!-- TAB 1: Narrative & Information -->
+        <div class="tab-pane active" id="tab-pane-narrative">
+          <div class="studio-panel-card">
+            <h3 style="font-family:var(--font-heading); font-size:1.3rem; font-weight:800; color:#fff; margin:0 0 1.25rem 0; display:flex; align-items:center; gap:0.5rem;">
+              <span>✍️</span> Section Narrative &amp; Quote Box
+            </h3>
+
+            <!-- Section Tag -->
+            <div class="form-group" style="margin-bottom:1.15rem;">
+              <label class="form-label" for="why-section-tag">Section Badge / Tag</label>
+              <input type="text" id="why-section-tag" class="form-input" placeholder="e.g. About The Publication" />
+            </div>
+
+            <!-- Title Breakdown -->
+            <div style="display:grid; grid-template-columns:1fr 1.5fr 1fr; gap:0.75rem; margin-bottom:1.15rem;">
+              <div class="form-group" style="margin:0;">
+                <label class="form-label" for="why-title-prefix">Title Prefix</label>
+                <input type="text" id="why-title-prefix" class="form-input" placeholder="e.g. Why" />
+              </div>
+              <div class="form-group" style="margin:0;">
+                <label class="form-label" for="why-title-highlight">Highlighted Word</label>
+                <input type="text" id="why-title-highlight" class="form-input" placeholder="e.g. iConnect" />
+              </div>
+              <div class="form-group" style="margin:0;">
+                <label class="form-label" for="why-title-suffix">Suffix</label>
+                <input type="text" id="why-title-suffix" class="form-input" placeholder="e.g. ?" />
+              </div>
+            </div>
+
+            <!-- Highlight Word Color -->
+            <div class="form-group" style="margin-bottom:1.15rem;">
+              <label class="form-label" for="why-highlight-color">Title Highlight Color</label>
+              <div style="display:flex; align-items:center; gap:0.75rem;">
+                <input type="color" id="why-highlight-color" value="#f4b41a" style="width:48px; height:38px; border-radius:8px; border:1px solid rgba(255,255,255,0.2); background:transparent; cursor:pointer;" />
+                <span style="font-family:var(--font-mono); font-size:0.85rem; color:var(--text-muted);">Pick any color for the highlighted word</span>
+              </div>
+            </div>
+
+            <!-- Paragraph 1 -->
+            <div class="form-group" style="margin-bottom:1.15rem;">
+              <label class="form-label" for="why-paragraph-1">Opening Paragraph (HTML allowed)</label>
+              <textarea id="why-paragraph-1" class="form-textarea" rows="3" placeholder="Enter introductory paragraph..."></textarea>
+            </div>
+
+            <!-- Highlight Quote Box -->
+            <div style="background:rgba(5,11,26,0.65); padding:1.25rem; border-radius:12px; border:1px solid var(--border-navy); margin-bottom:1.15rem;">
+              <div class="form-group" style="margin-bottom:0.75rem;">
+                <label class="form-label" for="why-quote-text">Featured Quote / Mission Statement (Inside Highlight Box)</label>
+                <textarea id="why-quote-text" class="form-textarea" rows="4" placeholder="Enter publication statement..."></textarea>
+              </div>
+
+              <div class="form-group" style="margin:0;">
+                <label class="form-label" for="why-quote-color">Quote Left Border Accent Color</label>
+                <div style="display:flex; align-items:center; gap:0.75rem;">
+                  <input type="color" id="why-quote-color" value="#f4b41a" style="width:48px; height:38px; border-radius:8px; border:1px solid rgba(255,255,255,0.2); background:transparent; cursor:pointer;" />
+                  <span style="font-family:var(--font-mono); font-size:0.85rem; color:var(--text-muted);">Accent border color</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paragraph 2 -->
+            <div class="form-group" style="margin-bottom:1.5rem;">
+              <label class="form-label" for="why-paragraph-2">Closing Paragraph (HTML allowed)</label>
+              <textarea id="why-paragraph-2" class="form-textarea" rows="3" placeholder="Enter synthesis / closing paragraph..."></textarea>
+            </div>
+
+            <button type="button" class="btn-export" onclick="AboutStudio.publishLive()" style="width:100%; justify-content:center; padding:0.85rem;">
+              🚀 Save &amp; Publish Changes Live
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 2: Feature Cards Manager -->
+        <div class="tab-pane" id="tab-pane-cards">
+          <div class="studio-panel-card">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem; flex-wrap:wrap; gap:0.5rem;">
+              <div>
+                <h3 style="font-family:var(--font-heading); font-size:1.3rem; font-weight:800; color:#fff; margin:0;">
+                  🗂️ Pillar &amp; Feature Cards
+                </h3>
+                <p style="font-size:0.85rem; color:var(--text-muted); margin:0.25rem 0 0 0;">
+                  Add, reorder, edit titles, descriptions, icons, and custom colors.
+                </p>
+              </div>
+              <button type="button" class="btn-export" onclick="AboutStudio.openCardModal()" style="font-size:0.85rem; padding:0.55rem 1rem;">
+                + Add New Card
+              </button>
+            </div>
+
+            <!-- Dynamic List of Cards -->
+            <div id="why-cards-list" style="display:flex; flex-direction:column; gap:0.75rem; margin-bottom:1.5rem;">
+              <!-- Rendered via js/about-studio.js -->
+            </div>
+
+            <button type="button" class="btn-export" onclick="AboutStudio.publishLive()" style="width:100%; justify-content:center; padding:0.85rem;">
+              🚀 Save &amp; Publish Cards Live
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 3: Codebase Commit & Export -->
+        <div class="tab-pane" id="tab-pane-code">
+          <div class="studio-panel-card">
+            <h3 style="font-family:var(--font-heading); font-size:1.3rem; font-weight:800; color:#fff; margin:0 0 0.5rem 0;">
+              💾 Codebase Commit Generator
+            </h3>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem;">
+              Export clean JavaScript or download an updated <code>js/about.js</code> file to commit your changes permanently to your Git repository or Netlify deployment.
+            </p>
+
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-bottom:1.25rem;">
+              <button type="button" class="btn-export" id="why-btn-copy" onclick="AboutStudio.copyExportCode()" style="padding:0.6rem 1.25rem; font-size:0.88rem;">
+                📋 Copy JS Object
+              </button>
+              <button type="button" class="btn-export" onclick="AboutStudio.downloadUpdatedAboutJS()" style="padding:0.6rem 1.25rem; font-size:0.88rem; background:linear-gradient(135deg, #10b981, #059669);">
+                📥 Download `about.js` File
+              </button>
+            </div>
+
+            <pre id="why-export-code" style="background:#020612; border:1px solid var(--border-navy); padding:1.25rem; border-radius:12px; font-family:var(--font-mono); font-size:0.82rem; color:#38bdf8; max-height:420px; overflow:auto; white-space:pre-wrap;"></pre>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: Real-Time Live Preview Pane -->
+      <div>
+        <div class="live-preview-box">
+          <div class="live-preview-header">
+            <div style="display:flex; align-items:center;">
+              <span class="live-dot"></span>
+              <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cheddar-yellow); text-transform:uppercase; letter-spacing:0.1em; font-weight:700;">
+                Live Homepage Section Preview
+              </span>
+            </div>
+            <span style="font-size:0.75rem; color:var(--text-subtle);">Auto-updates as you type</span>
+          </div>
+
+          <!-- Section Container Rendered Live -->
+          <div id="about-live-preview">
+            <!-- Rendered dynamically via js/about-studio.js -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- =========================================================================
+       ADD / EDIT FEATURE CARD MODAL
+       ========================================================================= -->
+  <div class="export-panel-modal" id="why-card-modal">
+    <div class="export-panel-card" style="max-width:580px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+        <div>
+          <span class="step-num">PILLAR &amp; FEATURE BUILDER</span>
+          <h2 style="font-family:var(--font-heading); font-size:1.4rem; font-weight:800; color:#fff; margin:0.2rem 0 0 0;" id="why-modal-card-heading">
+            Add New Feature Card
+          </h2>
+        </div>
+        <button type="button" class="vmg-modal-close" onclick="AboutStudio.closeCardModal()">✕</button>
+      </div>
+
+      <!-- Title -->
+      <div class="form-group" style="margin-bottom:1rem;">
+        <label class="form-label" for="card-input-title">Card Title *</label>
+        <input type="text" id="card-input-title" class="form-input" placeholder="e.g. Digital Journalism" required />
+      </div>
+
+      <!-- Description -->
+      <div class="form-group" style="margin-bottom:1rem;">
+        <label class="form-label" for="card-input-desc">Card Description</label>
+        <textarea id="card-input-desc" class="form-textarea" rows="3" placeholder="Enter description of this pillar..."></textarea>
+      </div>
+
+      <!-- Icon Selector & Preview -->
+      <div style="display:grid; grid-template-columns:1fr 70px; gap:1rem; align-items:end; margin-bottom:1rem;">
+        <div class="form-group" style="margin:0;">
+          <label class="form-label" for="card-input-icon">Icon Symbol</label>
+          <select id="card-input-icon" class="form-select" onchange="AboutStudio.updateCardModalIconPreview()">
+            <option value="broadcast">📡 Broadcast / Radio / Journalism</option>
+            <option value="monitor">🖥️ Monitor / Computer Culture</option>
+            <option value="users">👥 Users / Community Voice</option>
+            <option value="terminal">⌨️ Terminal / Software Engineering</option>
+            <option value="cpu">🧠 CPU / Quantum AI Tech</option>
+            <option value="shield">🛡️ Shield / Security &amp; Ethics</option>
+            <option value="sparkles">✨ Sparkles / Innovation</option>
+            <option value="book">📖 Book / Publication &amp; Press</option>
+            <option value="rocket">🚀 Rocket / Speed &amp; Future</option>
+            <option value="globe">🌐 Globe / Global Network</option>
+            <option value="lightbulb">💡 Lightbulb / Ideas &amp; Insight</option>
+            <option value="heart">❤️ Heart / Student Passion</option>
+          </select>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center;">
+          <span style="font-size:0.72rem; color:var(--text-subtle); margin-bottom:0.25rem;">Preview</span>
+          <div id="card-modal-icon-preview" style="width:48px; height:48px; border-radius:10px; border:1px solid rgba(244,180,26,0.3); background:rgba(244,180,26,0.15); color:var(--cheddar-yellow); display:flex; align-items:center; justify-content:center;">
+            <!-- Icon SVG -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Color Palette Customizer -->
+      <div class="form-group" style="margin-bottom:1.5rem;">
+        <label class="form-label">Card Accent Color &amp; Glow</label>
+        
+        <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.65rem;" id="card-color-presets">
+          <!-- Populated via JS -->
+        </div>
+
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <input type="color" id="card-input-color" value="#f4b41a" onchange="AboutStudio.updateCardModalIconPreview()" style="width:48px; height:38px; border-radius:8px; border:1px solid rgba(255,255,255,0.2); background:transparent; cursor:pointer;" />
+          <span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-muted);">Custom hex color for icon, border, and glow</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display:flex; gap:0.75rem;">
+        <button type="button" class="toolbar-btn" onclick="AboutStudio.closeCardModal()" style="padding:0.75rem 1.25rem; flex:1;">
+          Cancel
+        </button>
+        <button type="button" class="btn-export" onclick="AboutStudio.saveCardFromModal()" style="padding:0.75rem 1.5rem; flex:2; justify-content:center;">
+          ✓ Save Card
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       EXPORT JS CODE MODAL
+       ========================================================================= -->
+  <div class="export-panel-modal" id="why-export-modal">
+    <div class="export-panel-card" style="max-width:760px;">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem; border-bottom:1px solid var(--border-navy); padding-bottom:0.75rem;">
+        <div>
+          <span class="step-num">CODEBASE COMMIT GENERATOR</span>
+          <h2 style="font-family:var(--font-heading); font-size:1.4rem; font-weight:800; color:#fff; margin:0.2rem 0 0 0;">
+            Export Data for `js/about.js`
+          </h2>
+        </div>
+        <button type="button" class="vmg-modal-close" onclick="AboutStudio.closeExportModal()">✕</button>
+      </div>
+
+      <div class="step-box">
+        <div class="step-num">STEP 1</div>
+        <div class="step-title">Copy JS Code or Download Updated File</div>
+        <div class="step-desc">Click "Copy JS Object" to copy the data, or click "Download about.js" to download the updated file to commit your changes permanently!</div>
+        <pre class="code-output-block" id="why-modal-export-code" style="background:#020612; border:1px solid var(--border-navy); padding:1.25rem; border-radius:12px; font-family:var(--font-mono); font-size:0.82rem; color:#38bdf8; max-height:360px; overflow:auto; white-space:pre-wrap; margin:1rem 0;"></pre>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <button type="button" class="btn-export" id="why-modal-btn-copy" onclick="AboutStudio.copyExportCode(true)" style="padding:0.6rem 1.25rem; font-size:0.88rem;">
+            📋 Copy JS Object
+          </button>
+          <button type="button" class="btn-export" onclick="AboutStudio.downloadUpdatedAboutJS()" style="padding:0.6rem 1.25rem; font-size:0.88rem; background:linear-gradient(135deg, #10b981, #059669);">
+            💾 Download Updated `about.js`
+          </button>
+        </div>
+      </div>
+
+      <div class="step-box" style="margin-top:1rem;">
+        <div class="step-num">STEP 2</div>
+        <div class="step-title">Update `js/about.js` in your Repository</div>
+        <div class="step-desc">Replace <code>js/about.js</code> in your project repository with the downloaded file, then push to Git or deploy to Netlify.</div>
+      </div>
+
+      <div style="text-align:right; margin-top:1.25rem;">
+        <button type="button" class="toolbar-btn" onclick="AboutStudio.closeExportModal()" style="padding:0.6rem 1.25rem;">Close Modal</button>
+      </div>
+    </div>
+  </div>
+
+    <!-- JavaScript Modules -->
+  <script src="./js/about.js?v=1000"></script>
+  <script src="./js/metadata.js?v=1000"></script>
+  <script src="./js/studio-visibility.js?v=1000"></script>
+  <script src="./js/about-studio.js?v=1000"></script>
+  <script src="./js/app.js?v=1000"></script>
+</body>
+</html>

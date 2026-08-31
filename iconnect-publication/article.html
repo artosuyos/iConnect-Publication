@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050b1a" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <title id="page-title">iConnect Publication — BSCS Department Journal</title>
+  <meta name="description" content="iConnect Publication — Official Publication of the BSCS Department at Capiz State University – Mambusao Satellite College." />
+
+  <!-- Open Graph Meta Tags for Facebook, Messenger, WhatsApp, Viber, Telegram, LinkedIn -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="iConnect Publication" />
+  <meta property="og:url" content="" />
+  <meta property="og:title" id="og-title" content="iConnect Publication — BSCS Department Journal" />
+  <meta property="og:description" id="og-desc" content="Read the latest technology, news, campus features, and research articles from the BSCS Department." />
+  <meta property="og:image" id="og-image" content="https://iconheheh.netlify.app/assets/images/articles/gallery-1.jpg" />
+  <meta property="og:image:secure_url" id="og-image-secure" content="https://iconheheh.netlify.app/assets/images/articles/gallery-1.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Card Link Preview Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" id="twitter-title" content="iConnect Publication — BSCS Department Journal" />
+  <meta name="twitter:description" id="twitter-desc" content="Read the latest technology, news, campus features, and research articles from the BSCS Department." />
+  <meta name="twitter:image" id="twitter-image" content="https://iconheheh.netlify.app/assets/images/articles/gallery-1.jpg" />
+
+  <!-- Data Script & Client-Side Dynamic Meta Updater (runs before page paint) -->
+  <script>
+    (function () {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var id = params.get('id');
+        var custom = JSON.parse(localStorage.getItem('iconnect_published_articles')) || [];
+        var base = window.articlesData || [];
+        var merged = custom.concat(base);
+        var article = merged.find(function(a) { return a.id === id; }) || merged[0];
+        
+        if (article) {
+          var origin = window.location.origin;
+          var path = window.location.pathname.replace(/[^\/]*$/, '');
+          // Support both image and featuredImage fields
+          var img = article.image || article.featuredImage || './assets/images/articles/gallery-1.jpg';
+          var fullImgUrl = img.indexOf('://') !== -1 ? img : (origin + path + img.replace(/^\.\//, ''));
+          var excerpt = (article.excerpt || (article.content || '').replace(/<[^>]*>/g, '')).slice(0, 160) + '...';
+          var pageTitle = article.title + ' | iConnect Publication';
+          var pageUrl = origin + path + 'article.html?id=' + (article.id || id);
+
+          // Update <title>
+          document.title = pageTitle;
+          var titleEl = document.getElementById('page-title');
+          if (titleEl) titleEl.textContent = pageTitle;
+
+          // Helper to set meta by id or property/name
+          var setById = function (elId, val) {
+            var el = document.getElementById(elId);
+            if (el) el.setAttribute('content', val);
+          };
+          var setByProp = function (attr, prop, val) {
+            var el = document.querySelector('meta[' + attr + '="' + prop + '"]');
+            if (el) el.setAttribute('content', val);
+          };
+
+          // Open Graph
+          setById('og-title', pageTitle);
+          setById('og-desc', excerpt);
+          setById('og-image', fullImgUrl);
+          setById('og-image-secure', fullImgUrl);
+          setByProp('property', 'og:url', pageUrl);
+
+          // Twitter Card
+          setById('twitter-title', pageTitle);
+          setById('twitter-desc', excerpt);
+          setById('twitter-image', fullImgUrl);
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+
+  <!-- Favicon & Apple Touch Icon -->
+  <link rel="icon" type="image/png" href="./assets/logo/iconnect-logo-3d.png" />
+  <link rel="apple-touch-icon" href="./assets/logo/iconnect-share-thumbnail.jpg" />
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="./css/style.css?v=33" />
+</head>
+<body class="article-page" style="background-color: var(--bg-deep);">
+
+  <!-- Background Canvas (Subtle Animated Mode for Reading) -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navigation Bar -->
+  <header class="navbar scrolled" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand">
+        <img src="./assets/logo/iconnect-logo-3d.png" alt="iConnect Logo" class="nav-logo-img" />
+        <div class="nav-brand-text">
+          <span class="nav-brand-title"><span class="i-ripple-container">i</span><span>CONNECT</span></span>
+          <span class="nav-brand-sub">BSCS Publication</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+
+          <!-- Explore Dropdown for All Categories -->
+          <li class="nav-item-has-dropdown">
+            <a href="javascript:void(0)" class="nav-link">Explore</a>
+            <ul class="nav-dropdown nav-dropdown-explore" id="explore-dropdown-menu">
+              <li>
+                <a href="javascript:void(0)" class="nav-dropdown-link" onclick="onNavCategoryClick('All')">
+                  <span class="sub-title">All Stories</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Faculty Directory Direct Link -->
+          <li><a href="faculty.html" class="nav-link">Faculty Directory</a></li>
+
+          <!-- Editorial Board Direct Link -->
+          <li><a href="editorial-board.html" class="nav-link">Editorial Board</a></li>
+
+          <!-- About Dropdown -->
+          <li class="nav-item-has-dropdown">
+            <a href="about.html" class="nav-link">About</a>
+            <ul class="nav-dropdown">
+              <li>
+                <a href="about.html" class="nav-dropdown-link">
+                  <span class="sub-title">About iConnect</span>
+                  <span class="sub-desc">Publication Overview</span>
+                </a>
+              </li>
+              <li>
+                <a href="iconnect-mvg.html" class="nav-dropdown-link">
+                  <span class="sub-title">iConnect Mission &amp; Vision</span>
+                  <span class="sub-desc">Goals &amp; Core Principles</span>
+                </a>
+              </li>
+              <li>
+                <a href="capsu-vmg.html" class="nav-dropdown-link">
+                  <span class="sub-title">CAPSU Vision &amp; Mission</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="index.html" class="reader-back-btn desktop-only-btn" style="padding: 0.45rem 0.95rem; font-size: 0.82rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Home
+        </a>
+        <div class="nav-hamburger" id="nav-hamburger" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Single Article Container -->
+  <main class="container" style="padding-top: 7rem; padding-bottom: 6rem;">
+    <div id="single-article-render">
+      <!-- Dynamically populated via js/render.js -->
+    </div>
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3 class="footer-brand-title">i<span>CONNECT</span></h3>
+          <p style="color:var(--cheddar-yellow); font-family:var(--font-mono); font-size:0.85rem; font-weight:600; margin-bottom:0.75rem;">
+            The Official Publication of the BSCS Department
+          </p>
+          <p class="footer-brand-desc">
+            Capiz State University – Mambusao Satellite College<br />
+            Mambusao, Capiz, Philippines
+          </p>
+          <p style="font-style:italic; font-size:0.875rem; color:var(--text-subtle);">
+            "Be the voice. Be the connection. Be the next link."
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#latest-stories">Latest Stories</a></li>
+            <li><a href="index.html#about">About iConnect</a></li>
+            <li><a href="capsu-vmg.html">CAPSU Vision &amp; Mission</a></li>
+            <li><a href="index.html#team">Editorial Board</a></li>
+            <li><a href="index.html#network">Network Visualizer</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 iConnect Publication. All Rights Reserved. Sole Publisher: Art Jayson Osuyos.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Site Visitor Counter -->
+  <div class="site-visitor-bar" id="site-visitor-counter"></div>
+
+      <!-- JavaScript Modules -->
+  <script src="./articles/index.js?v=1000"></script>
+  <script src="./js/slider.js?v=1000"></script>
+  <script src="./js/about.js?v=1000"></script>
+  <script src="./js/faculty.js?v=1000"></script>
+  <script src="./js/editorial.js?v=1000"></script>
+  <script src="./js/creatives.js?v=1000"></script>
+  <script src="./js/announcements.js?v=1000"></script>
+  <script src="./js/metadata.js?v=1000"></script>
+  <script src="./js/ecosystem.js?v=1000"></script>
+  <script src="./js/network.js?v=1000"></script>
+  <script src="./js/render.js?v=1000"></script>
+  <script src="./js/search.js?v=1000"></script>
+  <script src="./js/engagement.js?v=1000"></script>
+  <script src="./js/app.js?v=1000"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.renderSingleArticlePage) window.renderSingleArticlePage();
+      if (window.initVisitorCounter) window.initVisitorCounter();
+    });
+  </script>
+</body>
+</html>

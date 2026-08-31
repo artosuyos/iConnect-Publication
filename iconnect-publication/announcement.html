@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Announcement | iConnect Publication</title>
+  <meta name="description" content="Official Publication Announcement — BSCS Department, Capiz State University." />
+  <meta name="theme-color" content="#050b1a" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <!-- Open Graph / Social Media Preview Meta Tags (Messenger, Facebook, Twitter, WhatsApp, Discord) -->
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="iConnect Publication" />
+  <meta property="og:title" id="og-title" content="Publication Announcement | iConnect" />
+  <meta property="og:description" id="og-desc" content="Official campus announcement and bulletin item from the BSCS Department." />
+  <meta property="og:image" id="og-image" content="./assets/logo/iconnect-share-thumbnail.jpg" />
+  <meta property="og:image:secure_url" id="og-image-secure" content="./assets/logo/iconnect-share-thumbnail.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" id="og-url" content="" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" id="twitter-title" content="Publication Announcement | iConnect" />
+  <meta name="twitter:description" id="twitter-desc" content="Official campus announcement and bulletin item from the BSCS Department." />
+  <meta name="twitter:image" id="twitter-image" content="./assets/logo/iconnect-share-thumbnail.jpg" />
+
+  <!-- Pre-load Announcements Data & Dynamic Head Meta Updater -->
+  <script>
+    (function () {
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var id = params.get('id');
+        var custom = JSON.parse(localStorage.getItem('iconnect_announcements_items')) || [];
+        var base = (typeof announcementsData !== 'undefined') ? announcementsData : [];
+        var merged = custom.length > 0 ? custom : base;
+        var ann = merged.find(function(a) { return String(a.id) === String(id); }) || merged[0];
+        
+        if (ann) {
+          document.title = ann.title + ' | iConnect Announcement';
+          var origin = window.location.origin;
+          var path = window.location.pathname.replace(/[^\/]*$/, '');
+          var img = ann.shareThumbnail || ann.image || './assets/logo/iconnect-share-thumbnail.jpg';
+          var fullImgUrl = img.indexOf('://') !== -1 ? img : (origin + path + img.replace(/^\.\//, ''));
+          var excerpt = (ann.body || '').replace(/<[^>]*>/g, '').slice(0, 160) + '...';
+
+          var setMeta = function (id, val) {
+            var el = document.getElementById(id);
+            if (el) el.setAttribute('content', val);
+          };
+          setMeta('og-title', ann.title + ' | iConnect Announcement');
+          setMeta('og-desc', excerpt);
+          setMeta('og-image', fullImgUrl);
+          setMeta('og-image-secure', fullImgUrl);
+          setMeta('og-url', window.location.href);
+          setMeta('twitter-title', ann.title + ' | iConnect Announcement');
+          setMeta('twitter-desc', excerpt);
+          setMeta('twitter-image', fullImgUrl);
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="./assets/logo/iconnect-logo-3d.png" />
+  <link rel="stylesheet" href="./css/style.css?v=40" />
+
+  <style>
+    .ann-reader-card {
+      max-width: 820px;
+      margin: 8rem auto 4rem;
+      background: rgba(10, 18, 40, 0.75);
+      border: 1px solid var(--border-navy);
+      border-radius: 24px;
+      padding: 2.5rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+    @media (max-width: 768px) {
+      .ann-reader-card { padding: 1.5rem; margin-top: 6rem; }
+    }
+    .ann-hero-img-box {
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      margin: 1.75rem 0 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+      background: #000;
+    }
+    .ann-hero-img {
+      width: 100%;
+      max-height: 520px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
+    .ann-body-styled {
+      font-size: 1.1rem;
+      line-height: 1.85;
+      color: #cbd5e1;
+    }
+    .ann-body-styled p { margin-bottom: 1.25rem; }
+    .ann-body-styled ul, .ann-body-styled ol { margin: 1rem 0 1.5rem 1.5rem; }
+    .ann-body-styled li { margin-bottom: 0.5rem; }
+    .ann-body-styled a { color: var(--cyber-cyan); text-decoration: underline; }
+    .ann-body-styled b, .ann-body-styled strong { color: #ffffff; font-weight: 700; }
+    .ann-body-styled u { text-decoration: underline; text-underline-offset: 3px; }
+  </style>
+</head>
+<body style="background-color: var(--bg-deep);">
+
+  <!-- Canvas Background -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navbar -->
+  <header class="navbar scrolled" id="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand">
+        <img src="./assets/logo/iconnect-logo-3d.png" alt="iConnect Logo" class="nav-logo-img" />
+        <div class="nav-brand-text">
+          <span class="nav-brand-title"><span class="i-ripple-container">i</span><span>CONNECT</span></span>
+          <span class="nav-brand-sub">Official BSCS Publication</span>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <a href="index.html#announcements" class="reader-back-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to Announcements
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Reader Body Container -->
+  <main class="container">
+    <div id="single-announcement-render">
+      <!-- Dynamically populated -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>&copy; 2026 iConnect Publication — BSCS Department, Capiz State University. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+    <!-- JavaScript Modules -->
+  <script src="./articles/index.js?v=1000"></script>
+  <script src="./js/slider.js?v=1000"></script>
+  <script src="./js/about.js?v=1000"></script>
+  <script src="./js/faculty.js?v=1000"></script>
+  <script src="./js/editorial.js?v=1000"></script>
+  <script src="./js/creatives.js?v=1000"></script>
+  <script src="./js/announcements.js?v=1000"></script>
+  <script src="./js/metadata.js?v=1000"></script>
+  <script src="./js/ecosystem.js?v=1000"></script>
+  <script src="./js/network.js?v=1000"></script>
+  <script src="./js/render.js?v=1000"></script>
+  <script src="./js/search.js?v=1000"></script>
+  <script src="./js/engagement.js?v=1000"></script>
+  <script src="./js/app.js?v=1000"></script>
+  <script>document.addEventListener('DOMContentLoaded', function () { if (window.initVisitorCounter) window.initVisitorCounter(); });</script>
+</body>
+</html>
