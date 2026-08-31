@@ -2001,22 +2001,21 @@
       // Detect the site base URL from current location or prompt
       var baseUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
         ? prompt(
-            '📤 What is your production site URL?\n(This is baked into the OG meta tags for social sharing)\n\nExample: https://gleeful-granita-91fc93.netlify.app',
-            'https://gleeful-granita-91fc93.netlify.app'
+            '📤 What is your production site URL?\n(This is baked into the OG meta tags for social sharing)\n\nExample: https://iconnect-publication.vercel.app',
+            ''
           )
         : (window.location.origin);
 
-      if (!baseUrl) return; // user cancelled
-      baseUrl = baseUrl.replace(/\/$/, '');
+      baseUrl = (baseUrl || '').replace(/\/$/, '');
 
       var slug    = article.id;
       var title   = (article.title || 'iConnect Article').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
       var rawEx   = (article.excerpt || article.content || '').replace(/<[^>]*>/g,'').trim().slice(0,160);
       var desc    = (rawEx ? rawEx + '...' : 'Read this article on iConnect Publication.').replace(/"/g,'&quot;');
       var imgSrc  = article.image || article.featuredImage || '';
-      var imgUrl  = /^https?:\/\//.test(imgSrc) ? imgSrc : (baseUrl + '/' + imgSrc.replace(/^\.\//,''));
-      var artUrl  = baseUrl + '/article.html?id=' + encodeURIComponent(slug);
-      var canUrl  = baseUrl + '/article/' + slug + '/';
+      var imgUrl  = /^https?:\/\//.test(imgSrc) ? imgSrc : ((baseUrl || '') + '/' + imgSrc.replace(/^\.\//,''));
+      var artUrl  = '/article.html?id=' + encodeURIComponent(slug);
+      var canUrl  = baseUrl ? (baseUrl + '/article/' + slug + '/') : ('/article/' + slug + '/');
       var author  = (article.author || 'iConnect Publication').replace(/"/g,'&quot;');
       var cat     = (article.category || 'News').replace(/"/g,'&quot;');
       var date    = (article.date || '').replace(/"/g,'&quot;');
@@ -2047,8 +2046,9 @@
         '  <meta name="twitter:title"            content="' + title + ' | iConnect Publication" />\n' +
         '  <meta name="twitter:description"      content="' + desc + '" />\n' +
         '  <meta name="twitter:image"            content="' + imgUrl + '" />\n' +
-        '  <link rel="icon" type="image/png" href="' + baseUrl + '/assets/logo/iconnect-logo-3d.png" />\n' +
-        '  <script>window.location.replace("' + artUrl + '");<\/script>\n' +
+        '  <link rel="icon" type="image/png" href="/assets/logo/iconnect-logo-3d.png" />\n' +
+        '  <link rel="apple-touch-icon" href="/assets/logo/iconnect-share-thumbnail.jpg" />\n' +
+        '  <script>(function(){var target=(window.location.origin||\'\')+\'/article.html?id=' + encodeURIComponent(slug) + '\';window.location.replace(target);})();<\/script>\n' +
         '  <noscript><meta http-equiv="refresh" content="0; url=' + artUrl + '" /></noscript>\n' +
         '  <style>*{margin:0;padding:0;box-sizing:border-box}body{background:#050b1a;color:#e0e6f0;font-family:-apple-system,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:2rem}.w{max-width:520px}.ic{font-size:2.5rem;margin-bottom:1rem}.t{font-size:1.3rem;font-weight:700;color:#00f0ff;line-height:1.4;margin-bottom:.5rem}.s{color:#94a3b8;font-size:.9rem}.btn{display:inline-block;margin-top:1.5rem;padding:.6rem 1.5rem;background:rgba(0,240,255,.1);border:1px solid #00f0ff;border-radius:8px;color:#00f0ff;text-decoration:none;font-size:.9rem}</style>\n' +
         '</head>\n<body>\n' +
@@ -2070,7 +2070,7 @@
         'To make this article shareable on Facebook, WhatsApp, Telegram etc.:\n\n' +
         '1. In your project, create the folder:\n   article/' + slug + '/\n\n' +
         '2. Place the downloaded index.html inside that folder.\n\n' +
-        '3. Push to GitHub and deploy to Netlify / Vercel.\n\n' +
+        '3. Push to GitHub and deploy to Vercel.\n\n' +
         '4. Share this URL:\n   ' + canUrl
       );
     }
