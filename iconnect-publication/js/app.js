@@ -1104,10 +1104,170 @@ document.addEventListener('DOMContentLoaded', function () {
     container.innerHTML = html;
   }
 
+  /* ==========================================================================
+     IN FOCUS VIDEO SHOWCASE SECTION RENDERER
+     ========================================================================== */
+  window.currentInFocusActiveId = null;
+
+  window.switchInFocusVideo = function (id) {
+    window.currentInFocusActiveId = id;
+    renderInFocusSection();
+    const frame = document.getElementById('infocus-cinema-player');
+    if (frame) {
+      frame.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
+  function parseYouTubeId(url) {
+    if (!url || typeof url !== 'string') return null;
+    var str = url.trim();
+    var srcMatch = str.match(/src=["']([^"']+)["']/i);
+    if (srcMatch && srcMatch[1]) str = srcMatch[1].trim();
+    str = str.replace(/^["']|["']$/g, '');
+
+    var shortMatch = str.match(/youtu\.be\/([\w-]{11})/i);
+    if (shortMatch && shortMatch[1]) return shortMatch[1];
+    var shortsMatch = str.match(/youtube\.com\/shorts\/([\w-]{11})/i);
+    if (shortsMatch && shortsMatch[1]) return shortsMatch[1];
+    var embedMatch = str.match(/youtube\.com\/embed\/([\w-]{11})/i);
+    if (embedMatch && embedMatch[1]) return embedMatch[1];
+    var liveMatch = str.match(/youtube\.com\/live\/([\w-]{11})/i);
+    if (liveMatch && liveMatch[1]) return liveMatch[1];
+    var watchMatch = str.match(/youtube\.com\/watch\?(?:[^&]+&)*v=([\w-]{11})/i);
+    if (watchMatch && watchMatch[1]) return watchMatch[1];
+    var vMatch = str.match(/youtube\.com\/v\/([\w-]{11})/i);
+    if (vMatch && vMatch[1]) return vMatch[1];
+    return null;
+  }
+
+  function renderInFocusSection() {
+    try {
+      const section = document.getElementById('in-focus');
+      if (!section) return;
+
+      if (typeof window.isInFocusVisible === 'function' && !window.isInFocusVisible()) {
+        section.style.display = 'none';
+        return;
+      } else {
+        section.style.display = '';
+      }
+
+      const headerData = (typeof window.getMergedInFocusHeader === 'function')
+        ? window.getMergedInFocusHeader()
+        : (window.infocusHeaderData || {
+            badge: "Video Showcase & Spotlight",
+            title: "In Focus",
+            description: "Beyond the headlines, see the moments unfold. In Focus captures the stories, events, and experiences that define the BSCS community."
+          });
+
+      const badgeEl = document.getElementById('infocus-badge');
+      const titleEl = document.getElementById('infocus-title');
+      const descEl  = document.getElementById('infocus-desc');
+      if (badgeEl) badgeEl.textContent = headerData.badge || 'Video Showcase & Spotlight';
+      if (titleEl) titleEl.textContent = headerData.title || 'In Focus';
+      if (descEl)  descEl.textContent  = headerData.description || '';
+
+      const container = document.getElementById('infocus-showcase-wrapper');
+      if (!container) return;
+
+      const allVideos = (typeof window.getMergedInFocusVideos === 'function')
+        ? window.getMergedInFocusVideos()
+        : (window.infocusVideosData || []);
+
+      if (!Array.isArray(allVideos) || allVideos.length === 0) {
+        container.innerHTML = '<div style="text-align:center; padding:3rem; color:var(--text-muted);">No videos currently featured.</div>';
+        return;
+      }
+
+      // Determine active video
+      let activeVideo = null;
+      if (window.currentInFocusActiveId) {
+        activeVideo = allVideos.find(function (v) { return v.id === window.currentInFocusActiveId; });
+      }
+      if (!activeVideo) {
+        activeVideo = allVideos.find(function (v) { return v.featured; }) || allVideos[0];
+      }
+      window.currentInFocusActiveId = activeVideo.id;
+
+      // Build Cinema Player HTML
+      const ytid = parseYouTubeId(activeVideo.videoUrl) || (typeof window.extractYouTubeId === 'function' ? window.extractYouTubeId(activeVideo.videoUrl) : null);
+
+      let mediaEmbed = '';
+      if (ytid) {
+        mediaEmbed = '<iframe src="https://www.youtube-nocookie.com/embed/' + ytid + '?rel=0&modestbranding=1" title="' + (activeVideo.title || 'In Focus Video') + '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+      } else {
+        mediaEmbed = '<video src="' + activeVideo.videoUrl + '" controls poster="' + (activeVideo.thumbnail || '') + '"></video>';
+      }
+
+    let html = '<div class="infocus-showcase-container">' +
+      '<div class="infocus-cinema-card" id="infocus-cinema-player">' +
+        '<div class="infocus-player-frame">' +
+          mediaEmbed +
+        '</div>' +
+        '<div class="infocus-cinema-details">' +
+          '<div class="infocus-meta-bar">' +
+            '<span class="infocus-cat-badge">' + (activeVideo.category || 'Spotlight') + '</span>' +
+            (activeVideo.featured ? '<span class="infocus-spotlight-tag">⭐ Featured Spotlight</span>' : '') +
+            '<span style="font-family:var(--font-mono); font-size:0.8rem; color:var(--text-subtle); margin-left:auto;">' +
+              '⏱️ ' + (activeVideo.duration || '00:00') + ' &bull; 📅 ' + (activeVideo.date || '') +
+            '</span>' +
+          '</div>' +
+          '<h3 class="infocus-cinema-title">' + (activeVideo.title || 'In Focus Video') + '</h3>' +
+          '<p class="infocus-cinema-desc">' + (activeVideo.description || '') + '</p>' +
+        '</div>' +
+      '</div>';
+
+    // Multi-video playlist cards if more than 1 video
+    if (allVideos.length > 1) {
+      html += '<div class="infocus-playlist-header">' +
+        '<h4 style="font-family:var(--font-heading); font-size:1.15rem; color:#fff; margin:0; display:flex; align-items:center; gap:0.5rem;">' +
+          '🎬 More Stories In Focus <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--cheddar-yellow); background:rgba(244,180,26,0.15); padding:0.15rem 0.5rem; border-radius:999px;">' + allVideos.length + ' Videos</span>' +
+        '</h4>' +
+      '</div>' +
+      '<div class="infocus-playlist-grid">';
+
+      allVideos.forEach(function (v) {
+        const vYtid = (typeof window.extractYouTubeId === 'function') ? window.extractYouTubeId(v.videoUrl) : null;
+        const vThumb = v.thumbnail || (vYtid ? ('https://img.youtube.com/vi/' + vYtid + '/hqdefault.jpg') : 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600');
+        const isActive = (v.id === activeVideo.id);
+
+        html += '<div class="infocus-playlist-card ' + (isActive ? 'active' : '') + '" onclick="switchInFocusVideo(\'' + v.id + '\')">' +
+          '<div class="infocus-card-thumb-wrap">' +
+            '<img src="' + vThumb + '" alt="' + (v.title || 'Video Thumbnail') + '" class="infocus-card-thumb" onerror="this.src=\'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=600\';" />' +
+            '<div class="infocus-card-play-btn">' +
+              '<div class="infocus-play-icon">▶</div>' +
+            '</div>' +
+            '<span class="infocus-card-duration">' + (v.duration || '00:00') + '</span>' +
+          '</div>' +
+          '<div class="infocus-card-body">' +
+            '<div style="display:flex; align-items:center; gap:0.4rem; margin-bottom:0.35rem;">' +
+              '<span style="font-family:var(--font-mono); font-size:0.68rem; font-weight:700; color:var(--cheddar-yellow); text-transform:uppercase;">' + (v.category || 'Spotlight') + '</span>' +
+              (isActive ? '<span style="font-family:var(--font-mono); font-size:0.68rem; font-weight:800; color:var(--cheddar-yellow); margin-left:auto;">NOW PLAYING</span>' : '') +
+            '</div>' +
+            '<h5 class="infocus-card-title">' + (v.title || 'Untitled Video') + '</h5>' +
+            '<p class="infocus-card-desc">' + (v.description || '') + '</p>' +
+          '</div>' +
+        '</div>';
+      });
+
+      html += '</div>';
+    }
+
+    html += '</div>'; // close infocus-showcase-container
+
+    container.innerHTML = html;
+    } catch (e) {
+      console.error('In Focus render error:', e);
+    }
+  }
+
+  window.renderInFocusSection = renderInFocusSection;
+
   // Run secondary section renders
   if (typeof window.renderWhyIConnectSection === 'function') {
     window.renderWhyIConnectSection('why-iconnect-container');
   }
+  renderInFocusSection();
   renderFacultyOrgChart();
   renderEditorialTeam();
   renderAnnouncements();
@@ -1348,6 +1508,16 @@ window.applySectionVisibility = function () {
   const ecosystemSection = document.getElementById('network') || document.querySelector('.network-section');
   if (ecosystemSection) {
     ecosystemSection.style.display = isEcosystemVisible ? '' : 'none';
+  }
+
+  // 6. In Focus Video Showcase Section (#in-focus)
+  const isInFocusVisible = (typeof window.isInFocusVisible === 'function')
+    ? window.isInFocusVisible()
+    : (localStorage.getItem('iconnect_show_infocus') !== 'false');
+
+  const infocusSection = document.getElementById('in-focus');
+  if (infocusSection) {
+    infocusSection.style.display = isInFocusVisible ? '' : 'none';
   }
 };
 
