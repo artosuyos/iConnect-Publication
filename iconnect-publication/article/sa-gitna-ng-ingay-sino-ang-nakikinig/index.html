@@ -4,65 +4,209 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#050b1a" />
-  <link rel="canonical" href="/article/sa-gitna-ng-ingay-sino-ang-nakikinig/" />
+  <link rel="canonical" href="https://www.iconnectpublication.org/article/sa-gitna-ng-ingay-sino-ang-nakikinig/" />
 
   <title>Sa Gitna ng Ingay, Sino ang Nakikinig? | iConnect Publication</title>
   <meta name="description" content="Sa gitna ng mga krisis, suliraning panlipunan, at ingay ng social media, naririnig pa ba natin ang boses ng karaniwang Pilipino—at bilang kabataan, ano ang maaa..." />
 
-  <!-- Open Graph — static, crawler-readable sharing metadata -->
+  <!-- Open Graph Meta Tags -->
   <meta property="og:type"              content="article" />
   <meta property="og:site_name"         content="iConnect Publication" />
   <meta property="og:title"             content="Sa Gitna ng Ingay, Sino ang Nakikinig? | iConnect Publication" />
   <meta property="og:description"       content="Sa gitna ng mga krisis, suliraning panlipunan, at ingay ng social media, naririnig pa ba natin ang boses ng karaniwang Pilipino—at bilang kabataan, ano ang maaa..." />
-  <meta property="og:url"               content="/article/sa-gitna-ng-ingay-sino-ang-nakikinig/" />
+  <meta property="og:url"               content="https://www.iconnectpublication.org/article/sa-gitna-ng-ingay-sino-ang-nakikinig/" />
   <meta property="og:image"             content="https://res.cloudinary.com/xlzx4db8/image/upload/v1788086870/ad790208-9abd-4c40-bfc9-a99085d903d6xax.webp" />
   <meta property="og:image:secure_url"  content="https://res.cloudinary.com/xlzx4db8/image/upload/v1788086870/ad790208-9abd-4c40-bfc9-a99085d903d6xax.webp" />
   <meta property="og:image:width"       content="1200" />
   <meta property="og:image:height"      content="630" />
   <meta property="og:locale"            content="en_PH" />
   <meta property="article:published_time" content="August 20, 2026" />
-  <meta property="article:author"       content="Ellah A. Andalecio" />
+  <meta property="article:author"       content="Words and Layout by Ellah A. Andalecio" />
   <meta property="article:section"      content="Opinion" />
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card"             content="summary_large_image" />
+  <meta name="twitter:url"              content="https://www.iconnectpublication.org/article/sa-gitna-ng-ingay-sino-ang-nakikinig/" />
   <meta name="twitter:title"            content="Sa Gitna ng Ingay, Sino ang Nakikinig? | iConnect Publication" />
   <meta name="twitter:description"      content="Sa gitna ng mga krisis, suliraning panlipunan, at ingay ng social media, naririnig pa ba natin ang boses ng karaniwang Pilipino—at bilang kabataan, ano ang maaa..." />
   <meta name="twitter:image"            content="https://res.cloudinary.com/xlzx4db8/image/upload/v1788086870/ad790208-9abd-4c40-bfc9-a99085d903d6xax.webp" />
 
+  <!-- Favicon & Touch Icons -->
   <link rel="icon" type="image/png" href="/assets/logo/iconnect-logo-3d.png" />
   <link rel="apple-touch-icon"       href="/assets/logo/iconnect-share-thumbnail.jpg" />
 
-  <!-- Instant dynamic redirect for browsers to current origin -->
-  <script>
-    (function () {
-      var target = (window.location.origin || '') + '/article.html?id=' + encodeURIComponent('sa-gitna-ng-ingay-sino-ang-nakikinig');
-      window.location.replace(target);
-    })();
-  </script>
-  <noscript><meta http-equiv="refresh" content="0; url=/article.html?id=sa-gitna-ng-ingay-sino-ang-nakikinig" /></noscript>
-
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{background:#050b1a;color:#e0e6f0;
-      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-      display:flex;align-items:center;justify-content:center;
-      min-height:100vh;text-align:center;padding:2rem}
-    .w{max-width:520px}
-    .ic{font-size:2.5rem;margin-bottom:1rem}
-    .t{font-size:1.3rem;font-weight:700;color:#00f0ff;margin-bottom:.5rem;line-height:1.4}
-    .s{color:#94a3b8;font-size:.9rem}
-    .btn{display:inline-block;margin-top:1.5rem;padding:.6rem 1.5rem;
-      background:rgba(0,240,255,.1);border:1px solid #00f0ff;border-radius:8px;
-      color:#00f0ff;text-decoration:none;font-size:.9rem}
-  </style>
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css?v=33" />
 </head>
-<body>
-  <div class="w">
-    <div class="ic">📰</div>
-    <div class="t">Sa Gitna ng Ingay, Sino ang Nakikinig?</div>
-    <div class="s">iConnect Publication — Loading article…</div>
-    <a href="/article.html?id=sa-gitna-ng-ingay-sino-ang-nakikinig" class="btn">Open Article →</a>
-  </div>
+<body class="article-page" style="background-color: var(--bg-deep);">
+
+  <!-- Background Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navigation Bar -->
+  <header class="navbar scrolled" id="navbar">
+    <div class="container nav-container">
+      <a href="/" class="nav-brand">
+        <img src="/assets/logo/iconnect-logo-3d.png" alt="iConnect Logo" class="nav-logo-img" />
+        <div class="nav-brand-text">
+          <span class="nav-brand-title"><span class="i-ripple-container">i</span><span>CONNECT</span></span>
+          <span class="nav-brand-sub">BSCS Publication</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li class="nav-item-has-dropdown">
+            <a href="javascript:void(0)" class="nav-link">Explore</a>
+            <ul class="nav-dropdown nav-dropdown-explore" id="explore-dropdown-menu">
+              <li><a href="/#latest-stories" class="nav-dropdown-link"><span class="sub-title">All Stories</span></a></li>
+            </ul>
+          </li>
+          <li><a href="/faculty.html" class="nav-link">Faculty Directory</a></li>
+          <li><a href="/editorial-board.html" class="nav-link">Editorial Board</a></li>
+          <li class="nav-item-has-dropdown">
+            <a href="/about.html" class="nav-link">About</a>
+            <ul class="nav-dropdown">
+              <li><a href="/about.html" class="nav-dropdown-link"><span class="sub-title">About iConnect</span><span class="sub-desc">Publication Overview</span></a></li>
+              <li><a href="/iconnect-mvg.html" class="nav-dropdown-link"><span class="sub-title">iConnect Mission &amp; Vision</span><span class="sub-desc">Goals &amp; Core Principles</span></a></li>
+              <li><a href="/capsu-vmg.html" class="nav-dropdown-link"><span class="sub-title">CAPSU Vision &amp; Mission</span></a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="/" class="reader-back-btn desktop-only-btn" style="padding: 0.45rem 0.95rem; font-size: 0.82rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Home
+        </a>
+        <div class="nav-hamburger" id="nav-hamburger" aria-label="Toggle Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Single Article Main Container -->
+  <main class="container" style="padding-top: 7rem; padding-bottom: 6rem;">
+    <div id="single-article-render">
+      <div class="reader-container" style="margin-top:1rem;">
+        <a href="/" class="reader-back-btn" style="margin-bottom:1.5rem; display:inline-flex; align-items:center; gap:0.5rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to Publication
+        </a>
+        <span class="reader-category">Opinion</span>
+        <h1 class="reader-title">Sa Gitna ng Ingay, Sino ang Nakikinig?</h1>
+        
+    <div class="reader-meta reader-meta-has-authors" style="display:flex; flex-direction:column; align-items:flex-start; gap:0.35rem; padding-bottom:1.5rem; border-bottom:1px solid var(--border-navy); margin-bottom:2rem; width:100%;">
+      <div class="reader-meta-authors" style="display:flex; align-items:center; gap:0; row-gap:0.75rem; flex-wrap:wrap; width:100%;">
+      <div class="reader-meta-item reader-meta-author" style="display:inline-flex; align-items:center; gap:0.65rem;">
+        <div class="author-avatar" style="width:42px; height:42px; min-width:42px; min-height:42px; border-radius:50%; background:var(--bg-navy-elevated, #0a1128); border:2px solid var(--cheddar-yellow, #f4b41a); color:var(--cheddar-yellow, #f4b41a); display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 0 10px rgba(244,180,26,0.2);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        </div>
+        <div style="display:flex; flex-direction:column; justify-content:center;">
+          <div style="font-weight:400; color:#ffffff; font-size:0.95rem; line-height:1.25;">Words and Layout by Ellah A. Andalecio</div>
+          
+        </div>
+      </div></div>
+      <div class="reader-meta-sub" style="display:flex; align-items:center; gap:0.65rem; margin-top:0.15rem; flex-wrap:wrap; width:100%; padding-left:calc(42px + 0.65rem);">
+      <div class="reader-meta-date" style="display:inline-flex; align-items:center; gap:0.4rem; color:var(--text-muted); font-size:0.88rem; line-height:1;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0.75; display:block; flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span>August 20, 2026</span>
+      </div></div>
+    </div>
+        <p class="reader-excerpt" style="font-style:italic; color:var(--text-muted, #94a3b8); font-size:1.05rem; line-height:1.65; margin:0 0 1.25rem 0;">Sa gitna ng mga krisis, suliraning panlipunan, at ingay ng social media, naririnig pa ba natin ang boses ng karaniwang Pilipino—at bilang kabataan, ano ang maaari nating gawin?</p>
+        <div id="engagement-bar-placeholder" style="margin: 0.5rem 0 2rem 0;"></div>
+        <div class="reader-hero-img-wrapper">
+          <img src="https://res.cloudinary.com/xlzx4db8/image/upload/v1788086870/ad790208-9abd-4c40-bfc9-a99085d903d6xax.webp" alt="Sa Gitna ng Ingay, Sino ang Nakikinig?" class="reader-hero-img" />
+        </div>
+        <div class="reader-body-content"><div><span style="font-size: 18.4px;">Sa gitna ng sunod-sunod na krisis at usaping kinahaharap ng bansa, isang tanong ang dapat nating harapin: 𝗻𝗮𝗿𝗶𝗿𝗶𝗻𝗶𝗴 𝗽𝗮 𝗯𝗮 𝗻𝗮𝘁𝗶𝗻 𝗮𝗻𝗴 𝗯𝗼𝘀𝗲𝘀 𝗻𝗴 𝗸𝗮𝗿𝗮𝗻𝗶𝘄𝗮𝗻𝗴 𝗣𝗶𝗹𝗶𝗽𝗶𝗻𝗼?</span></div><div><span style="font-size: 18.4px;"><br></span></div><div><span style="font-size: 18.4px;">Sa bawat pag-gamit ng social media, sunod-sunod ang balitang nababasa—pagtaas ng presyo ng bilihin, kakulangan sa trabaho, mababang sahod, problema sa edukasyon, kalamidad, korapsyon, at mga isyung patuloy na naghahati sa opinyon ng bawat Pilipino.</span></div><div><span style="font-size: 18.4px;"><br></span></div><div><span style="font-size: 18.4px;">Ngunit sa dami ng balitang napapanood, naririnig at nababasa, hindi ba nakapagtataka kung bakit parang mas mabilis nating nakakalimutan ang mga problemang tunay na nakaaapekto sa buhay nating mga Pilipino?&nbsp;</span></div><div><span style="font-size: 18.4px;"><br></span></div><div><span style="font-size: 18.4px;">May estudyanteng pumapasok nang walang sapat na pagkain. May pamilyang kailangang pagkasyahin ang maliit na kita sa patuloy na pagtaas ng gastusin. May gurong nagtuturo sa kabila ng kakulangan sa kagamitan. At may mga Pilipinong araw-araw na nagtatrabaho ngunit patuloy pa ring naghihirap.</span></div><div><span style="font-size: 18.4px;"><br></span></div><div><span style="font-size: 18.4px;">Samantala, sa&nbsp; balita, tila mas mabilis kumalat ang away kaysa solusyon, maling impormasyon kaysa katotohanan, at ingay kaysa makabuluhang usapan.</span></div><div><span style="font-size: 18.4px;">Hindi masama ang maging masaya. Hindi rin masama ang maglibang. Ngunit sa panahong maraming Pilipino ang humaharap sa tunay na problema, kaya pa ba nating mamulat at tumingin ng lampas sa ating mga screen?</span></div><div><span style="font-size: 18.4px;"><br></span></div><div><span style="font-size: 18.4px;">Bilang kabataan, madalas nating marinig na tayo ang pag-asa ng bayan. Ngunit paano magiging pag-asa kung hindi natin alam kung ano ang nangyayari sa paligid natin? Paano tayo makikialam sa kinabukasan kung pinipili nating huwag pansinin ang kasalukuyan?</span></div><div><span style="font-size: 18.4px;"><br></span></div><div><span style="font-size: 18.4px;">Ang pagiging Pilipino ay hindi lamang tungkol sa watawat, wika, tradisyon, o mga pagdiriwang. Kasama rin dito ang pagkakaroon ng malasakit sa kapwa, pagtatanong sa mali, paninindigan sa tama, at paggamit ng ating tinig para sa mga taong hindi palaging naririnig.</span></div><div><span style="font-size: 18.4px;"><br></span></div><div><span style="font-size: 18.4px;">Sa huli, hindi sapat na alam lang natin ang mga problema ng bansa. Ang tunay na tanong ay: 𝗞𝗮𝗽𝗮𝗴 𝗮𝗹𝗮𝗺 𝗻𝗮 𝗻𝗮𝘁𝗶𝗻, 𝗮𝗻𝗼 𝗮𝗻𝗴 𝗮𝘁𝗶𝗻𝗴 𝗴𝗮𝗴𝗮𝘄𝗶𝗻?</span></div><div><span style="font-size: 18.4px;"><br></span></div><div><span style="font-size: 18.4px;">Dahil sa bansang puno ng ingay, marahil ang higit nating kailangan ngayon ay hindi panibagong sigaw—kundi mga Pilipinong marunong makinig, mag-isip, at gumalaw.</span></div></div>
+        <div style="margin-top:4rem;padding-top:2.5rem;border-top:1px solid var(--border-navy);">
+          <h3 style="font-family:var(--font-heading);font-size:1.5rem;color:#fff;margin-bottom:1.5rem;">Related Publication Stories</h3>
+          <div class="articles-grid" id="related-articles-grid">
+            
+      <div class="article-card" onclick="window.location.href='/article/the-last-commit/'">
+        <div class="article-card-img-wrapper" style="height:160px;">
+          <img src="https://res.cloudinary.com/io18jc16/image/upload/v1788099045/BSCS_CAPSU_iConnect_Pubmat_18.webp" alt="The Last Commit" class="article-card-img" />
+          <span class="article-card-badge">Literary</span>
+        </div>
+        <div class="article-card-body" style="padding:1.25rem;">
+          <h4 style="font-family:var(--font-heading);font-weight:700;color:#fff;font-size:1.05rem;margin-bottom:.5rem;">The Last Commit</h4>
+          <a href="/article/the-last-commit/" class="article-read-btn">Read Related &rarr;</a>
+        </div>
+      </div>
+      <div class="article-card" onclick="window.location.href='/article/bscs-department-joins-the-asean-celebration-2026/'">
+        <div class="article-card-img-wrapper" style="height:160px;">
+          <img src="https://res.cloudinary.com/io18jc16/image/upload/v1788183005/786071054_122212578200430479_125625728596138478_n.webp" alt="BSCS Department Joins the ASEAN Celebration 2026" class="article-card-img" />
+          <span class="article-card-badge">Campus</span>
+        </div>
+        <div class="article-card-body" style="padding:1.25rem;">
+          <h4 style="font-family:var(--font-heading);font-weight:700;color:#fff;font-size:1.05rem;margin-bottom:.5rem;">BSCS Department Joins the ASEAN Celebration 2026</h4>
+          <a href="/article/bscs-department-joins-the-asean-celebration-2026/" class="article-read-btn">Read Related &rarr;</a>
+        </div>
+      </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h3 class="footer-brand-title">i<span>CONNECT</span></h3>
+          <p style="color:var(--cheddar-yellow); font-family:var(--font-mono); font-size:0.85rem; font-weight:600; margin-bottom:0.75rem;">
+            The Official Publication of the BSCS Department
+          </p>
+          <p class="footer-brand-desc">
+            Capiz State University – Mambusao Satellite College<br />
+            Mambusao, Capiz, Philippines
+          </p>
+          <p style="font-style:italic; font-size:0.875rem; color:var(--text-subtle);">
+            "Be the voice. Be the connection. Be the next link."
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="/#latest-stories">Latest Stories</a></li>
+            <li><a href="/#about">About iConnect</a></li>
+            <li><a href="/capsu-vmg.html">CAPSU Vision &amp; Mission</a></li>
+            <li><a href="/#team">Editorial Board</a></li>
+            <li><a href="/#network">Network Visualizer</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 iConnect Publication. All Rights Reserved. BSCS Department, CAPSU Mambusao Satellite College.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Modules -->
+  <script src="/articles/index.js?v=20260831b"></script>
+  <script src="/js/infocus.js?v=20260831b"></script>
+  <script src="/js/slider.js?v=20260831b"></script>
+  <script src="/js/about.js?v=20260831b"></script>
+  <script src="/js/faculty.js?v=20260831b"></script>
+  <script src="/js/editorial.js?v=20260831b"></script>
+  <script src="/js/creatives.js?v=20260831b"></script>
+  <script src="/js/announcements.js?v=20260831b"></script>
+  <script src="/js/metadata.js?v=20260831b"></script>
+  <script src="/js/ecosystem.js?v=20260831b"></script>
+  <script src="/js/network.js?v=20260831b"></script>
+  <script src="/js/render.js?v=20260831b"></script>
+  <script src="/js/search.js?v=20260831b"></script>
+  <script src="/js/engagement.js?v=20260831b"></script>
+  <script src="/js/app.js?v=20260831b"></script>
 </body>
 </html>
