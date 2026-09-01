@@ -694,10 +694,10 @@ document.addEventListener('DOMContentLoaded', function () {
     var item = items.find(function (a) { return String(a.id) === String(id); });
     if (!item) return;
 
-    var shareUrl = window.location.origin + window.location.pathname.replace(/[^\/]*$/, '') + 'announcement.html?id=' + encodeURIComponent(item.id);
+    var shareUrl = window.location.origin + '/announcement.html?id=' + encodeURIComponent(item.id);
     var title = item.title || 'Publication Announcement';
     var safeTitle = title.replace(/'/g, "\\'");
-    var thumbImg = item.shareThumbnail || item.image || './assets/logo/iconnect-share-thumbnail.jpg';
+    var thumbImg = item.shareThumbnail || item.image || '/assets/logo/iconnect-share-thumbnail.jpg';
 
     // Native Web Share on Mobile
     if (navigator.share && /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {

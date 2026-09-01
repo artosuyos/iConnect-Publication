@@ -176,16 +176,10 @@
     fbSet('articles/' + articleId + '/hearts', newCount);
   };
 
-  /* --- Helper: Get Direct Article Share URL (uses /article/slug/ stub) --- */
-  /* Returns the /article/[slug]/ stub URL so social crawlers (Facebook,
-     Messenger, WhatsApp, Telegram, etc.) receive the article-specific static
-     OG meta tags (title + cover photo) before any JavaScript runs.
-     Browsers hitting this URL are instantly redirected to article.html?id=slug. */
+  /* --- Helper: Get Direct Article Share URL (uses /article/slug/ permalink) --- */
   function getDirectArticleUrl(articleId) {
-    var loc = window.location;
-    var path = loc.pathname;
-    var basePath = path.substring(0, path.lastIndexOf('/') + 1);
-    return loc.origin + basePath + 'article/' + articleId + '/';
+    var origin = window.location.origin || 'https://www.iconnectpublication.org';
+    return origin + '/article/' + encodeURIComponent(articleId) + '/';
   }
 
   /* ------------------------------------------------------------------
