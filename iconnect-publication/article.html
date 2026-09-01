@@ -44,13 +44,12 @@
         
         if (article) {
           var origin = window.location.origin;
-          var path = window.location.pathname.replace(/[^\/]*$/, '');
           // Support both image and featuredImage fields
           var img = article.image || article.featuredImage || './assets/images/articles/gallery-1.jpg';
-          var fullImgUrl = img.indexOf('://') !== -1 ? img : (origin + path + img.replace(/^\.\//, ''));
+          var fullImgUrl = img.indexOf('://') !== -1 ? img : (origin + '/' + img.replace(/^\.\//, ''));
           var excerpt = (article.excerpt || (article.content || '').replace(/<[^>]*>/g, '')).slice(0, 160) + '...';
           var pageTitle = article.title + ' | iConnect Publication';
-          var pageUrl = origin + path + 'article.html?id=' + encodeURIComponent(article.id || id);
+          var pageUrl = origin + '/article/' + encodeURIComponent(article.id || id) + '/';
 
           // Update <title>
           document.title = pageTitle;

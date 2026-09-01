@@ -1,5 +1,7 @@
 {
   "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": true,
   "headers": [
     {
       "source": "/article/(.*)",
@@ -21,6 +23,16 @@
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "Referrer-Policy",        "value": "strict-origin-when-cross-origin" }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/article/:slug*/",
+      "destination": "/article/:slug*/index.html"
+    },
+    {
+      "source": "/article/:slug*",
+      "destination": "/article.html"
     }
   ]
 }
