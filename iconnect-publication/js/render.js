@@ -506,7 +506,7 @@
             <p class="article-card-excerpt">${article.excerpt}</p>
             <div class="article-card-footer">
               <span style="font-size:.825rem;color:var(--text-muted);">${article.author || ''}</span>
-              <a href="article.html?id=${article.id}" class="article-read-btn" onclick="event.stopPropagation();">
+              <a href="/article/${article.id}/" class="article-read-btn" onclick="event.preventDefault(); event.stopPropagation(); navigateToArticle('${article.id}');">
                 Read <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
               </a>
             </div>
@@ -824,9 +824,9 @@
      ------------------------------------------------------------------ */
   window.navigateToArticle = function (id) {
     if (document.getElementById('article-reader-modal')) {
-      openArticleReaderModal(id);
+      window.openArticleReaderModal(id, true);
     } else {
-      window.location.href = 'article.html?id=' + id;
+      window.location.href = '/article/' + encodeURIComponent(id) + '/';
     }
   };
 
@@ -1158,10 +1158,18 @@
   };
 
   /* ------------------------------------------------------------------
-     SINGLE ARTICLE PAGE (article.html?id=slug)
+     SINGLE ARTICLE PAGE (article.html?id=slug or /article/slug/)
      ------------------------------------------------------------------ */
   window.renderSingleArticlePage = function () {
-    const id = new URLSearchParams(window.location.search).get('id');
+    var id = null;
+    var pathMatch = window.location.pathname.match(/\/article\/([^\/]+)\/?$/i);
+    if (pathMatch && pathMatch[1]) {
+      id = decodeURIComponent(pathMatch[1]);
+    } else {
+      var params = new URLSearchParams(window.location.search);
+      id = params.get('id') || params.get('article');
+    }
+
     const articles = (typeof window.loadArticlesData === 'function') ? window.loadArticlesData() : (window.iConnectArticles || []);
     var article = null;
     if (id) {
@@ -1174,14 +1182,23 @@
     }
     if (!article) return;
 
-    document.title = article.title + ' | iConnect Publication';
+    var pageTitle = article.title + ' | iConnect Publication';
+    document.title = pageTitle;
+
+    // Normalize browser address bar to clean permalink /article/{id}/
+    var cleanUrl = '/article/' + encodeURIComponent(article.id) + '/';
+    if (window.location.pathname !== cleanUrl) {
+      try {
+        history.replaceState({ articleId: article.id, isArticleReader: true }, pageTitle, cleanUrl);
+      } catch (e) {}
+    }
 
     // Dynamic Social Share Preview Meta Tags (Facebook, Messenger, Twitter, WhatsApp, iMessage)
     (function updateMeta(art) {
       if (!art) return;
-      var pageUrl = window.location.href;
+      var pageUrl = window.location.origin + '/article/' + encodeURIComponent(art.id) + '/';
       var imgUrl = window.getImageUrl(art);
-      var absImgUrl = imgUrl.indexOf('://') !== -1 ? imgUrl : (window.location.origin + window.location.pathname.replace(/[^\/]*$/, '') + imgUrl.replace(/^\.\//, ''));
+      var absImgUrl = imgUrl.indexOf('://') !== -1 ? imgUrl : (window.location.origin + '/' + imgUrl.replace(/^\.\//, ''));
       var excerpt = (art.excerpt || art.content.replace(/<[^>]*>/g, '')).slice(0, 160) + '...';
 
       var setMeta = function (prop, content) {
@@ -1203,6 +1220,9 @@
       setMeta('twitter:title', art.title + ' | iConnect Publication');
       setMeta('twitter:description', excerpt);
       setMeta('twitter:image', absImgUrl);
+
+      var canEl = document.querySelector('link[rel="canonical"]');
+      if (canEl) canEl.setAttribute('href', pageUrl);
     })(article);
 
     const wrap = document.getElementById('single-article-render');
@@ -1217,6 +1237,10 @@
 
     wrap.innerHTML = `
       <div class="reader-container" style="margin-top:1rem;">
+        <a href="/" class="reader-back-btn" style="margin-bottom:1.5rem; display:inline-flex; align-items:center; gap:0.5rem;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to Publication
+        </a>
         <span class="reader-category">${article.category}</span>
         <h1 class="reader-title">${article.title}</h1>
         ${metaHtml}
@@ -1247,7 +1271,7 @@
     const relGrid = document.getElementById('related-articles-grid');
     if (relGrid) {
       relGrid.innerHTML = related.map(r => `
-        <div class="article-card" onclick="window.location.href='article.html?id=${r.id}'">
+        <div class="article-card" onclick="window.location.href='/article/${r.id}/'">
           <div class="article-card-img-wrapper" style="height:160px;">
             <img src="${window.getImageUrl(r)}"
                  onerror="this.onerror=null;this.src='${DEFAULT_FALLBACK_IMG}';"
@@ -1256,7 +1280,7 @@
           </div>
           <div class="article-card-body" style="padding:1.25rem;">
             <h4 style="font-family:var(--font-heading);font-weight:700;color:#fff;font-size:1.05rem;margin-bottom:.5rem;">${r.title}</h4>
-            <span class="article-read-btn">Read Related &rarr;</span>
+            <a href="/article/${r.id}/" class="article-read-btn">Read Related &rarr;</a>
           </div>
         </div>`).join('');
     }
@@ -1265,22 +1289,32 @@
     if (typeof window.initArticleLightbox === 'function') {
       window.initArticleLightbox(wrap);
     }
-
   };
 
   /* ------------------------------------------------------------------
-     READER MODAL (used on index.html)
+     READER MODAL (used on index.html with clean permalink routing)
      ------------------------------------------------------------------ */
-  window.openArticleReaderModal = function (id) {
+  window.openArticleReaderModal = function (id, pushHistory) {
     const modal = document.getElementById('article-reader-modal');
-    if (!modal || !window.iConnectArticles) return;
+    if (!modal) {
+      window.location.href = '/article/' + encodeURIComponent(id) + '/';
+      return;
+    }
 
-    const article = window.iConnectArticles.find(a => a.id === id);
+    const articles = (typeof window.loadArticlesData === 'function') ? window.loadArticlesData() : (window.iConnectArticles || []);
+    if (!articles || articles.length === 0) return;
+
+    const article = articles.find(a => a && (a.id === id || String(a.id) === String(id) || (a.slug && a.slug === id)));
     if (!article) return;
 
+    // Save previous URL before first opening if not already an article URL
+    if (!window.location.pathname.startsWith('/article/')) {
+      window._preArticleUrl = window.location.pathname + window.location.search + window.location.hash;
+    }
+
     const img = window.getImageUrl(article);
-    document.getElementById('reader-category').textContent = article.category;
-    document.getElementById('reader-title').textContent    = article.title;
+    document.getElementById('reader-category').textContent = article.category || 'Stories';
+    document.getElementById('reader-title').textContent    = article.title || 'Article';
     document.getElementById('reader-meta').innerHTML = window.buildArticleMetaBarHTML(article);
 
     const modalExcerpt = document.getElementById('reader-modal-excerpt');
@@ -1310,8 +1344,8 @@
 
     const relGrid = document.getElementById('reader-related-grid');
     if (relGrid) {
-      relGrid.innerHTML = window.iConnectArticles.filter(a => a.id !== id).slice(0, 2).map(r => `
-        <div class="article-card" onclick="openArticleReaderModal('${r.id}')">
+      relGrid.innerHTML = articles.filter(a => a.id !== article.id).slice(0, 2).map(r => `
+        <div class="article-card" onclick="navigateToArticle('${r.id}')">
           <div class="article-card-img-wrapper" style="height:160px;">
             <img src="${window.getImageUrl(r)}"
                  onerror="this.onerror=null;this.src='${DEFAULT_FALLBACK_IMG}';"
@@ -1320,7 +1354,7 @@
           </div>
           <div class="article-card-body" style="padding:1.25rem;">
             <h4 style="font-family:var(--font-heading);font-weight:700;color:#fff;font-size:1.05rem;margin-bottom:.5rem;">${r.title}</h4>
-            <span class="article-read-btn">Read Related &rarr;</span>
+            <a href="/article/${r.id}/" class="article-read-btn" onclick="event.preventDefault(); event.stopPropagation(); navigateToArticle('${r.id}');">Read Related &rarr;</a>
           </div>
         </div>`).join('');
     }
@@ -1329,22 +1363,63 @@
     document.body.style.overflow = 'hidden';
     modal.scrollTop = 0;
 
+    // Update document title and clean permalink in browser address bar
+    const pageTitle = article.title + ' | iConnect Publication';
+    document.title = pageTitle;
+
+    const targetUrl = '/article/' + encodeURIComponent(article.id) + '/';
+    if (pushHistory !== false) {
+      if (window.location.pathname !== targetUrl) {
+        try {
+          history.pushState({ articleId: article.id, isArticleReader: true }, pageTitle, targetUrl);
+        } catch (e) {}
+      }
+    }
+
     // Init lightbox for images inside the modal body
     if (typeof window.initArticleLightbox === 'function') {
       window.initArticleLightbox(modal);
     }
   };
 
-  window.closeArticleReaderModal = function () {
+  window.closeArticleReaderModal = function (updateHistory) {
     const modal = document.getElementById('article-reader-modal');
     if (modal) {
       modal.classList.remove('active');
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = '';
+    }
+    document.title = 'iConnect Publication | Official BSCS Department Student Publication';
+
+    if (updateHistory !== false) {
+      if (window.location.pathname.startsWith('/article/')) {
+        const returnUrl = window._preArticleUrl || '/';
+        try {
+          history.pushState({ isArticleReader: false }, document.title, returnUrl);
+        } catch (e) {}
+      }
     }
   };
 
   // Alias — both names work
   window.closeArticleReader = window.closeArticleReaderModal;
+
+  // Handle browser Back and Forward history buttons
+  if (typeof window !== 'undefined') {
+    window.addEventListener('popstate', function () {
+      const path = window.location.pathname;
+      const match = path.match(/\/article\/([^\/]+)\/?$/i);
+      if (match && match[1]) {
+        const slug = decodeURIComponent(match[1]);
+        if (typeof window.openArticleReaderModal === 'function') {
+          window.openArticleReaderModal(slug, false);
+        }
+      } else {
+        if (typeof window.closeArticleReaderModal === 'function') {
+          window.closeArticleReaderModal(false);
+        }
+      }
+    });
+  }
 
   /* ------------------------------------------------------------------
      SINGLE ANNOUNCEMENT PAGE (announcement.html?id=1)

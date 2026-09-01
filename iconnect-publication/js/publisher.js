@@ -1649,7 +1649,7 @@
       localStorage.removeItem(DRAFT_KEY);
 
       // 5. Open live article prompt
-      var viewUrl = 'article.html?id=' + encodeURIComponent(article.id);
+      var viewUrl = '/article/' + encodeURIComponent(article.id) + '/';
       if (confirm('🎉 Article Published Successfully!\n\n"' + article.title + '" is now live on the iConnect Publication platform with view counting, heart likes, and social sharing.\n\nClick OK to view your live article now, or Cancel to keep editing.')) {
         window.open(viewUrl, '_blank');
       }
@@ -1848,7 +1848,7 @@
             '<button type="button" class="toolbar-btn" onclick="PublisherApp.moveArticle(\'' + art.id + '\', \'up\')" ' + (globalIdx === 0 ? 'disabled style="opacity:0.35; cursor:not-allowed;"' : '') + ' title="Move Up (Display 1 step before on Homepage)">⬆</button>' +
             '<button type="button" class="toolbar-btn" onclick="PublisherApp.moveArticle(\'' + art.id + '\', \'down\')" ' + (globalIdx === allArticles.length - 1 ? 'disabled style="opacity:0.35; cursor:not-allowed;"' : '') + ' title="Move Down (Display 1 step after on Homepage)">⬇</button>' +
             '<button type="button" class="toolbar-btn" onclick="PublisherApp.editArticle(\'' + art.id + '\')" title="Edit Story">✏️ Edit</button>' +
-            '<a class="toolbar-btn" href="article.html?id=' + art.id + '" target="_blank" title="View Published Story">👁 View</a>' +
+            '<a class="toolbar-btn" href="/article/' + encodeURIComponent(art.id) + '/" target="_blank" title="View Published Story">👁 View</a>' +
             '<button type="button" class="toolbar-btn" onclick="PublisherApp.downloadShareStub(\'' + art.id + '\')" title="Download Share Link Stub" style="color:#a855f7; border-color:rgba(168,85,247,0.3);">📤 Share</button>' +
             '<button type="button" class="toolbar-btn" onclick="PublisherApp.deleteArticle(\'' + art.id + '\')" style="color:#ff6b8a; border-color:rgba(255,107,138,0.3);" title="Delete Story">🗑</button>' +
           '</div>' +

@@ -196,6 +196,21 @@ document.addEventListener('DOMContentLoaded', function () {
     if (typeof window.initSearchEngine === 'function') {
       window.initSearchEngine();
     }
+
+    // Direct permalink deep-linking on index.html: /article/{id}/ or ?id={id}
+    if (document.getElementById('article-reader-modal') && typeof window.openArticleReaderModal === 'function') {
+      const pathMatch = window.location.pathname.match(/\/article\/([^\/]+)\/?$/i);
+      if (pathMatch && pathMatch[1]) {
+        const slug = decodeURIComponent(pathMatch[1]);
+        window.openArticleReaderModal(slug, false);
+      } else {
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryId = urlParams.get('id') || urlParams.get('article');
+        if (queryId) {
+          window.openArticleReaderModal(queryId, true);
+        }
+      }
+    }
   }
 
   /* --------------------------------------------------------------------------
