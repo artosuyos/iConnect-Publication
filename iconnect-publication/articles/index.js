@@ -10,7 +10,7 @@ var articlesData = [
     featured: false,
     author: "The iConnect Publication",
     role: "",
-    date: "",
+    date: "September 2, 2026",
     readTime: "",
     image: "https://res.cloudinary.com/io18jc16/image/upload/v1788338619/123.jpg",
     excerpt: "The Oral Defense begins as 26 fourth-year BSCS groups face the Computer Science faculty to present, demonstrate, and defend the projects they have built.",
