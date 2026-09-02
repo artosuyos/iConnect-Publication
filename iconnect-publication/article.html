@@ -35,12 +35,12 @@
   <script>
     (function () {
       try {
-        var params = new URLSearchParams(window.location.search);
-        var id = params.get('id');
+        var pathMatch = window.location.pathname.match(/\/article\/([^\/]+)\/?$/i);
+        var id = (pathMatch && pathMatch[1]) ? decodeURIComponent(pathMatch[1]) : (new URLSearchParams(window.location.search).get('id') || new URLSearchParams(window.location.search).get('article'));
         var custom = JSON.parse(localStorage.getItem('iconnect_published_articles')) || [];
         var base = window.articlesData || [];
         var merged = custom.concat(base);
-        var article = merged.find(function(a) { return a.id === id; }) || merged[0];
+        var article = merged.find(function(a) { return a && (a.id === id || String(a.id) === String(id) || (a.slug && a.slug === id)); }) || merged[0];
         
         if (article) {
           var origin = window.location.origin;

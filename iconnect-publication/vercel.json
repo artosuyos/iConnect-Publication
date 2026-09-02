@@ -27,7 +27,7 @@
   "rewrites": [
     {
       "source": "/article/:slug*",
-      "destination": "/article/:slug*/index.html"
+      "destination": "/article.html"
     }
   ]
 }
