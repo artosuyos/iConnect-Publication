@@ -1,0 +1,14 @@
+﻿{
+  "name": "iconnect-publication",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Official Website and Article Publishing Platform for iConnect Publication",
+  "scripts": {
+    "build": "node generate-article-pages.js https://www.iconnectpublication.org",
+    "generate": "node generate-article-pages.js https://www.iconnectpublication.org",
+    "start": "node generate-article-pages.js https://www.iconnectpublication.org"
+  },
+  "keywords": ["iconnect", "publication", "bscs"],
+  "author": "iConnect Publication",
+  "license": "ISC"
+}
