@@ -5906,3 +5906,382 @@ input[type="checkbox"]:checked + .fac-toggle-track {
     grid-template-columns: 1fr;
   }
 }
+
+/* ================================================================
+   APPLE VISION PRO AR INTERACTIVE PHOTO GALLERY
+   Spatial Glassmorphic Photo Grid & Immersive Viewer
+   ================================================================ */
+.vision-pro-gallery-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 3rem auto;
+  clear: both;
+  perspective: 1400px;
+  box-sizing: border-box;
+}
+
+.vision-pro-window {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 100%), rgba(8, 14, 30, 0.72);
+  backdrop-filter: blur(32px) saturate(190%);
+  -webkit-backdrop-filter: blur(32px) saturate(190%);
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 35px 90px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+  padding: 2.25rem 2.25rem 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+}
+
+.vision-pro-window::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 50% 15%, rgba(0, 240, 255, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.vision-pro-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
+  z-index: 1;
+}
+
+.vision-pro-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.vision-pro-title {
+  font-family: var(--font-heading, 'Inter', sans-serif);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  letter-spacing: -0.01em;
+}
+
+.vision-pro-subtitle {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.82rem;
+  color: var(--text-muted, #94a3b8);
+  margin: 0;
+}
+
+.vision-pro-count-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(0, 240, 255, 0.12);
+  color: var(--cyber-cyan, #00f0ff);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* ================================================================
+   APPLE VISION PRO AR INTERACTIVE PHOTO GALLERY
+   Fixed Spatial Glass Floating Design & Clean Interactive Hover
+   ================================================================ */
+.vision-pro-gallery-container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 3rem auto;
+  clear: both;
+  box-sizing: border-box;
+}
+
+.vision-pro-window {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.03) 100%), rgba(8, 14, 30, 0.82);
+  backdrop-filter: blur(30px) saturate(190%);
+  -webkit-backdrop-filter: blur(30px) saturate(190%);
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  padding: 2rem 2rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.vision-pro-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem;
+  position: relative;
+  z-index: 2;
+}
+
+.vision-pro-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.vision-pro-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+.vision-pro-grid.cols-5 { grid-template-columns: repeat(5, 1fr); }
+.vision-pro-grid.cols-6 { grid-template-columns: repeat(6, 1fr); }
+
+/* --- Fixed Spatial Floating Photo Cards --- */
+.vision-pro-card {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #050b1a;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+  user-select: none;
+}
+
+.vision-pro-card:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.85), 0 0 30px rgba(244, 180, 26, 0.45);
+  border-color: var(--cheddar-yellow, #f4b41a);
+  z-index: 10;
+}
+
+.vision-pro-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.3s ease;
+}
+
+.vision-pro-card:hover .vision-pro-card-img {
+  transform: scale(1.08);
+  filter: brightness(1.06);
+}
+
+.vision-pro-date-pill {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.52);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 8px;
+  padding: 0.18rem 0.55rem;
+  color: #ffffff;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.vision-pro-caption-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 100%);
+  padding: 1.5rem 0.65rem 0.55rem;
+  color: #ffffff;
+  font-size: 0.72rem;
+  line-height: 1.25;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+  text-align: center;
+  z-index: 2;
+}
+
+.vision-pro-card:hover .vision-pro-caption-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Centered Glowing Cheddar Yellow Immersive View Pill Button */
+.vision-pro-bottom-capsule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto 0;
+  width: fit-content;
+  position: relative;
+  z-index: 2;
+}
+
+.vision-pro-capsule-btn {
+  background: linear-gradient(135deg, rgba(244, 180, 26, 0.2) 0%, rgba(244, 180, 26, 0.08) 100%), rgba(10, 18, 40, 0.88);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1.5px solid var(--cheddar-yellow, #f4b41a);
+  color: var(--cheddar-yellow, #f4b41a);
+  border-radius: 999px;
+  padding: 0.65rem 1.85rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  box-shadow: 0 0 25px rgba(244, 180, 26, 0.4), 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  user-select: none;
+  animation: cheddarPillPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes cheddarPillPulse {
+  0% {
+    box-shadow: 0 0 20px rgba(244, 180, 26, 0.35), 0 8px 25px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 35px rgba(244, 180, 26, 0.65), 0 12px 35px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+}
+
+.vision-pro-capsule-btn svg {
+  color: var(--cheddar-yellow, #f4b41a);
+  transition: transform 0.3s ease;
+}
+
+.vision-pro-capsule-btn:hover {
+  background: var(--cheddar-yellow, #f4b41a);
+  color: #050b1a;
+  border-color: #ffd05b;
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 0 45px rgba(244, 180, 26, 0.85), 0 16px 40px rgba(0, 0, 0, 0.8);
+}
+
+.vision-pro-capsule-btn:hover svg {
+  color: #050b1a;
+  transform: scale(1.2) rotate(8deg);
+}
+
+/* Italicized Magnifier Hint Below Immersive Button */
+.vision-pro-hint-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 0.95rem;
+  color: var(--text-muted, #94a3b8);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  opacity: 0.85;
+  user-select: none;
+  text-align: center;
+}
+
+.vision-pro-hint-icon {
+  color: var(--cheddar-yellow, #f4b41a);
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+/* Publisher-Only Gallery Delete/Remove Button */
+.pub-gallery-remove-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 59, 48, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 20;
+  box-shadow: 0 4px 14px rgba(255, 59, 48, 0.6);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.pub-gallery-remove-btn:hover {
+  background: #ff3b30;
+  transform: scale(1.15) rotate(90deg);
+}
+
+/* Outside Publisher Editor: Hide Remove Button */
+.reader-body-content .pub-gallery-remove-btn,
+.article-page .pub-gallery-remove-btn {
+  display: none !important;
+}
+
+.vision-pro-gallery-caption {
+  font-size: 0.88rem;
+  color: var(--text-muted, #94a3b8);
+  text-align: center;
+  margin-top: 0.85rem;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
+
+/* Vision Pro Responsive Breakdown */
+@media (max-width: 1024px) {
+  .vision-pro-grid,
+  .vision-pro-grid.cols-5,
+  .vision-pro-grid.cols-6 {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.95rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .vision-pro-window {
+    padding: 1.35rem 1.15rem 1.25rem;
+    border-radius: 22px;
+  }
+  .vision-pro-grid,
+  .vision-pro-grid.cols-5,
+  .vision-pro-grid.cols-6,
+  .vision-pro-grid.cols-4,
+  .vision-pro-grid.cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+  .vision-pro-card {
+    border-radius: 16px;
+  }
+  .vision-pro-date-pill {
+    top: 6px;
+    left: 6px;
+    font-size: 0.65rem;
+    padding: 0.12rem 0.4rem;
+  }
+  .vision-pro-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .vision-pro-grid,
+  .vision-pro-grid.cols-5,
+  .vision-pro-grid.cols-6,
+  .vision-pro-grid.cols-4,
+  .vision-pro-grid.cols-3 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+  }
+}
