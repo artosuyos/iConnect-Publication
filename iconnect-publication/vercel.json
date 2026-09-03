@@ -1,18 +1,19 @@
 {
   "version": 2,
   "cleanUrls": true,
+  "trailingSlash": true,
   "headers": [
     {
       "source": "/article/(.*)",
       "headers": [
-        { "key": "X-Robots-Tag",       "value": "index, follow" },
-        { "key": "Cache-Control",       "value": "public, max-age=3600" }
+        { "key": "X-Robots-Tag",   "value": "index, follow" },
+        { "key": "Cache-Control",   "value": "public, max-age=3600" }
       ]
     },
     {
       "source": "/article.html",
       "headers": [
-        { "key": "Cache-Control",       "value": "public, max-age=60" }
+        { "key": "Cache-Control",   "value": "public, max-age=60" }
       ]
     },
     {
@@ -24,10 +25,13 @@
       ]
     }
   ],
-  "rewrites": [
+  "routes": [
     {
-      "source": "/article/:slug*",
-      "destination": "/article.html"
+      "handle": "filesystem"
+    },
+    {
+      "src": "/article/.*",
+      "dest": "/article.html"
     }
   ]
 }
