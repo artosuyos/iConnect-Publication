@@ -852,6 +852,329 @@
       list.appendChild(row);
     },
 
+    /* --- Apple Vision Pro AR Photo Gallery Engine --- */
+    openVisionProGalleryModal: function () {
+      this.saveSelection();
+      var modal = document.getElementById('pub-vision-pro-gallery-modal');
+      var list = document.getElementById('pub-vp-photos-list');
+
+      // If empty on first open, seed sample slots for immediate preview
+      if (list && list.children.length === 0) {
+        var sampleUrls = [
+          'https://res.cloudinary.com/io18jc16/image/upload/v1788338619/123.jpg',
+          'https://res.cloudinary.com/io18jc16/image/upload/v1788099045/BSCS_CAPSU_iConnect_Pubmat_18.webp',
+          'https://res.cloudinary.com/io18jc16/image/upload/v1788099045/BSCS_CAPSU_iConnect_Pubmat_19.webp',
+          'https://res.cloudinary.com/io18jc16/image/upload/v1788099045/BSCS_CAPSU_iConnect_Pubmat_20.webp',
+          'https://res.cloudinary.com/io18jc16/image/upload/v1788099045/BSCS_CAPSU_iConnect_Pubmat_21.webp'
+        ];
+        var sampleDates = ['12/2/23', '12/2/23', '12/3/23', '12/3/23', '12/4/23'];
+        var self = this;
+        sampleUrls.forEach(function (url, idx) {
+          self.addVisionProSlot(url, sampleDates[idx] || '12/2/23', '');
+        });
+      }
+
+      this.updateVisionProPreview();
+      if (modal) modal.classList.add('active');
+    },
+
+    closeVisionProGalleryModal: function () {
+      var modal = document.getElementById('pub-vision-pro-gallery-modal');
+      if (modal) modal.classList.remove('active');
+    },
+
+    addVisionProSlot: function (defaultUrl, defaultTag, defaultCaption) {
+      var list = document.getElementById('pub-vp-photos-list');
+      if (!list) return;
+      var self = this;
+      var slotId = 'vp-slot-' + Math.random().toString(36).substr(2, 9);
+      var row = document.createElement('div');
+      row.className = 'vp-photo-slot';
+      row.id = slotId;
+      row.style.cssText = 'display:flex; gap:0.65rem; align-items:center; background:rgba(5,11,26,0.7); padding:0.55rem 0.75rem; border-radius:12px; border:1px solid rgba(255,255,255,0.1);';
+
+      var urlVal = typeof defaultUrl === 'string' ? defaultUrl : '';
+      var tagVal = typeof defaultTag === 'string' ? defaultTag : ((document.getElementById('vp-default-tag') && document.getElementById('vp-default-tag').value.trim()) || '');
+      var capVal = typeof defaultCaption === 'string' ? defaultCaption : '';
+
+      row.innerHTML =
+        '<div style="width:48px; height:48px; min-width:48px; border-radius:10px; overflow:hidden; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; flex-shrink:0;">' +
+          '<img class="vp-slot-thumb" src="' + (urlVal || '/assets/images/articles/gallery-1.jpg') + '" style="width:100%; height:100%; object-fit:cover; display:' + (urlVal ? 'block' : 'none') + ';" />' +
+          '<span class="vp-slot-placeholder" style="font-size:1.1rem; color:var(--text-subtle); display:' + (urlVal ? 'none' : 'block') + ';">🥽</span>' +
+        '</div>' +
+        '<div style="flex:2; min-width:140px;">' +
+          '<input type="text" class="form-input vp-slot-url" placeholder="Photo URL (Cloudinary / Web URL)..." value="' + urlVal + '" style="padding:0.35rem 0.6rem; font-size:0.82rem;" />' +
+        '</div>' +
+        '<div style="width:100px; flex-shrink:0;">' +
+          '<input type="text" class="form-input vp-slot-tag" placeholder="Date / Tag" value="' + tagVal + '" title="Tag / Date stamp (e.g. 12/2/23)" style="padding:0.35rem 0.5rem; font-size:0.8rem; font-family:var(--font-mono); text-align:center;" />' +
+        '</div>' +
+        '<div style="flex:1.5; min-width:110px;">' +
+          '<input type="text" class="form-input vp-slot-caption" placeholder="Caption (optional)" value="' + capVal + '" style="padding:0.35rem 0.55rem; font-size:0.82rem;" />' +
+        '</div>' +
+        '<label class="toolbar-btn" style="font-size:0.75rem; padding:0.35rem 0.55rem; cursor:pointer; margin:0; flex-shrink:0;" title="Upload local photo file">' +
+          '📁<input type="file" accept="image/*" class="vp-slot-file" style="display:none;" />' +
+        '</label>' +
+        '<button type="button" class="toolbar-btn vp-slot-del-btn" style="color:#ff6b8a; border-color:rgba(255,107,138,0.3); padding:0.35rem 0.55rem; flex-shrink:0;" title="Remove this photo">🗑</button>';
+
+      var urlInput = row.querySelector('.vp-slot-url');
+      var tagInput = row.querySelector('.vp-slot-tag');
+      var capInput = row.querySelector('.vp-slot-caption');
+      var fileInput = row.querySelector('.vp-slot-file');
+      var thumbImg = row.querySelector('.vp-slot-thumb');
+      var placeholder = row.querySelector('.vp-slot-placeholder');
+      var delBtn = row.querySelector('.vp-slot-del-btn');
+
+      var triggerUpdate = function () {
+        var v = urlInput.value.trim();
+        if (v) {
+          thumbImg.src = v;
+          thumbImg.style.display = 'block';
+          placeholder.style.display = 'none';
+        } else {
+          thumbImg.style.display = 'none';
+          placeholder.style.display = 'block';
+        }
+        self.updateVisionProPreview();
+      };
+
+      urlInput.addEventListener('input', triggerUpdate);
+      tagInput.addEventListener('input', triggerUpdate);
+      capInput.addEventListener('input', triggerUpdate);
+
+      fileInput.addEventListener('change', function (e) {
+        var file = e.target.files && e.target.files[0];
+        if (!file) return;
+        compressImageFile(file, 1600, 0.85, function (dataUrl) {
+          if (!dataUrl) return;
+          urlInput.value = dataUrl;
+          thumbImg.src = dataUrl;
+          thumbImg.style.display = 'block';
+          placeholder.style.display = 'none';
+          self.updateVisionProPreview();
+        });
+      });
+
+      delBtn.addEventListener('click', function () {
+        row.remove();
+        self.updateVisionProPreview();
+      });
+
+      list.appendChild(row);
+      this.updateVisionProPreview();
+    },
+
+    handleBatchVisionProFiles: function (files) {
+      if (!files || files.length === 0) return;
+      var self = this;
+      var defaultTag = (document.getElementById('vp-default-tag') && document.getElementById('vp-default-tag').value.trim()) || '';
+      var fileArray = Array.prototype.slice.call(files);
+
+      fileArray.forEach(function (file, index) {
+        compressImageFile(file, 1600, 0.85, function (dataUrl) {
+          if (!dataUrl) return;
+          var tag = defaultTag || (new Date().toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' }));
+          self.addVisionProSlot(dataUrl, tag, '');
+        });
+      });
+    },
+
+    handleBatchVisionProUrls: function () {
+      var textarea = document.getElementById('vp-batch-urls-input');
+      if (!textarea) return;
+      var raw = textarea.value.trim();
+      if (!raw) return;
+
+      var urls = raw.split(/[\n,]+/).map(function (u) { return u.trim(); }).filter(Boolean);
+      var defaultTag = (document.getElementById('vp-default-tag') && document.getElementById('vp-default-tag').value.trim()) || '';
+      var self = this;
+
+      urls.forEach(function (url) {
+        var tag = defaultTag || (new Date().toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' }));
+        self.addVisionProSlot(url, tag, '');
+      });
+
+      textarea.value = '';
+    },
+
+    applyDefaultTagToAll: function (tag) {
+      var list = document.getElementById('pub-vp-photos-list');
+      if (!list) return;
+      var tagInputs = list.querySelectorAll('.vp-slot-tag');
+      tagInputs.forEach(function (inp) {
+        inp.value = tag;
+      });
+      this.updateVisionProPreview();
+    },
+
+    clearAllVisionProSlots: function () {
+      var list = document.getElementById('pub-vp-photos-list');
+      if (list) list.innerHTML = '';
+      this.updateVisionProPreview();
+    },
+
+    updateVisionProPreview: function () {
+      var previewContainer = document.getElementById('vp-modal-live-preview');
+      var counterEl = document.getElementById('vp-slot-counter');
+      if (!previewContainer) return;
+
+      var list = document.getElementById('pub-vp-photos-list');
+      var slots = list ? list.querySelectorAll('.vp-photo-slot') : [];
+      var photos = [];
+
+      slots.forEach(function (slot) {
+        var urlInp = slot.querySelector('.vp-slot-url');
+        var tagInp = slot.querySelector('.vp-slot-tag');
+        var capInp = slot.querySelector('.vp-slot-caption');
+        var u = urlInp ? urlInp.value.trim() : '';
+        if (u) {
+          photos.push({
+            url: u,
+            tag: tagInp ? tagInp.value.trim() : '',
+            caption: capInp ? capInp.value.trim() : ''
+          });
+        }
+      });
+
+      if (counterEl) {
+        counterEl.textContent = '(' + photos.length + ' photo' + (photos.length === 1 ? '' : 's') + ')';
+      }
+
+      var title = (document.getElementById('vp-gallery-title') && document.getElementById('vp-gallery-title').value.trim()) || '';
+      var subtitle = (document.getElementById('vp-gallery-subtitle') && document.getElementById('vp-gallery-subtitle').value.trim()) || '';
+      var cols = (document.getElementById('vp-gallery-cols') && document.getElementById('vp-gallery-cols').value) || 'cols-5';
+
+      if (photos.length === 0) {
+        previewContainer.innerHTML = '<div style="text-align:center; padding:2rem; color:var(--text-subtle); font-family:var(--font-mono); font-size:0.85rem;">No photos added yet. Upload files or paste URLs above to preview spatial gallery.</div>';
+        return;
+      }
+
+      var headerHTML = (title || subtitle) ? (
+        '<div class="vision-pro-header">' +
+          '<div class="vision-pro-title-wrap">' +
+            (title ? '<h3 class="vision-pro-title">🥽 ' + title + '</h3>' : '') +
+            (subtitle ? '<p class="vision-pro-subtitle">' + subtitle + '</p>' : '') +
+          '</div>' +
+          '<div class="vision-pro-count-badge">' + photos.length + ' Photos</div>' +
+        '</div>'
+      ) : '';
+
+      var gridCardsHTML = photos.map(function (p) {
+        var tagHTML = p.tag ? '<span class="vision-pro-date-pill">' + p.tag + '</span>' : '';
+        var capHTML = p.caption ? '<div class="vision-pro-caption-overlay">' + p.caption + '</div>' : '';
+        return (
+          '<div class="vision-pro-card" title="Click to zoom photo">' +
+            tagHTML +
+            '<img src="' + p.url + '" alt="' + (p.caption || 'Gallery photo') + '" class="vision-pro-card-img" />' +
+            capHTML +
+          '</div>'
+        );
+      }).join('');
+
+      previewContainer.innerHTML =
+        '<div class="vision-pro-gallery-container" style="margin:0 auto;">' +
+          '<div class="vision-pro-window">' +
+            headerHTML +
+            '<div class="vision-pro-grid ' + cols + '">' +
+              gridCardsHTML +
+            '</div>' +
+            '<div class="vision-pro-bottom-capsule">' +
+              '<button type="button" class="vision-pro-capsule-btn" title="Open Full-Screen Immersive Lightbox">' +
+                '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>' +
+                '<span>Immersive View</span> ↗' +
+              '</button>' +
+            '</div>' +
+            '<div class="vision-pro-hint-text">' +
+              '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="vision-pro-hint-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>' +
+              '<em>Click any photo to view in high resolution</em>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+    },
+
+    insertVisionProGallery: function () {
+      var list = document.getElementById('pub-vp-photos-list');
+      var slots = list ? list.querySelectorAll('.vp-photo-slot') : [];
+      var photos = [];
+
+      slots.forEach(function (slot) {
+        var urlInp = slot.querySelector('.vp-slot-url');
+        var tagInp = slot.querySelector('.vp-slot-tag');
+        var capInp = slot.querySelector('.vp-slot-caption');
+        var u = urlInp ? urlInp.value.trim() : '';
+        if (u) {
+          photos.push({
+            url: u,
+            tag: tagInp ? tagInp.value.trim() : '',
+            caption: capInp ? capInp.value.trim() : ''
+          });
+        }
+      });
+
+      if (photos.length === 0) {
+        alert('Please add at least one photo before inserting the Gallery.');
+        return;
+      }
+
+      var title = (document.getElementById('vp-gallery-title') && document.getElementById('vp-gallery-title').value.trim()) || '';
+      var subtitle = (document.getElementById('vp-gallery-subtitle') && document.getElementById('vp-gallery-subtitle').value.trim()) || '';
+      var cols = (document.getElementById('vp-gallery-cols') && document.getElementById('vp-gallery-cols').value) || 'cols-5';
+
+      var headerHTML = (title || subtitle) ? (
+        '<div class="vision-pro-header">' +
+          '<div class="vision-pro-title-wrap">' +
+            (title ? '<h3 class="vision-pro-title">🥽 ' + title + '</h3>' : '') +
+            (subtitle ? '<p class="vision-pro-subtitle">' + subtitle + '</p>' : '') +
+          '</div>' +
+          '<div class="vision-pro-count-badge">' + photos.length + ' Photos</div>' +
+        '</div>'
+      ) : '';
+
+      var gridCardsHTML = photos.map(function (p) {
+        var tagHTML = p.tag ? '<span class="vision-pro-date-pill">' + p.tag + '</span>' : '';
+        var capHTML = p.caption ? '<div class="vision-pro-caption-overlay">' + p.caption + '</div>' : '';
+        return (
+          '<div class="vision-pro-card" title="Click to zoom photo">' +
+            tagHTML +
+            '<img src="' + p.url + '" alt="' + (p.caption || 'Gallery photo') + '" class="vision-pro-card-img" />' +
+            capHTML +
+          '</div>'
+        );
+      }).join('');
+
+      var galleryHTML =
+        '<div class="vision-pro-gallery-container">' +
+          '<div class="vision-pro-window" style="position:relative;">' +
+            '<button type="button" class="pub-gallery-remove-btn" title="Remove this Gallery from story" onclick="this.closest(\'.vision-pro-gallery-container\').remove(); if(window.PublisherApp){PublisherApp.updateWordCount(); PublisherApp.autoSaveDraft();}">✕</button>' +
+            headerHTML +
+            '<div class="vision-pro-grid ' + cols + '">' +
+              gridCardsHTML +
+            '</div>' +
+            '<div class="vision-pro-bottom-capsule">' +
+              '<button type="button" class="vision-pro-capsule-btn" title="Open Full-Screen Immersive Lightbox">' +
+                '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>' +
+                '<span>Immersive View</span> ↗' +
+              '</button>' +
+            '</div>' +
+            '<div class="vision-pro-hint-text">' +
+              '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="vision-pro-hint-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>' +
+              '<em>Click any photo to view in high resolution</em>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<p><br></p>';
+
+      this.closeVisionProGalleryModal();
+
+      if (this.currentMode === 'visual') {
+        this.insertHTMLAtCursor(galleryHTML);
+      } else if (this.htmlEditor) {
+        this.htmlEditor.value += '\n' + galleryHTML;
+      }
+
+      this.updateWordCount();
+      this.autoSaveDraft();
+    },
+
     /* --- Video Insertion Engine (Upload File & URL / YouTube) --- */
     /* --- Video Insertion Engine (YouTube, Vimeo, MP4 File Upload) --- */
     currentVideoTab: 'yt',
@@ -1103,6 +1426,21 @@
             }
           });
 
+          // 3. Ensure gallery containers in editor canvas have .pub-gallery-remove-btn
+          var galContainers = temp.querySelectorAll('.vision-pro-gallery-container');
+          galContainers.forEach(function (gc) {
+            var win = gc.querySelector('.vision-pro-window') || gc;
+            if (!win.querySelector('.pub-gallery-remove-btn')) {
+              var remBtn = document.createElement('button');
+              remBtn.type = 'button';
+              remBtn.className = 'pub-gallery-remove-btn';
+              remBtn.title = 'Remove this Gallery from story';
+              remBtn.setAttribute('onclick', "this.closest('.vision-pro-gallery-container').remove(); if(window.PublisherApp){PublisherApp.updateWordCount(); PublisherApp.autoSaveDraft();}");
+              remBtn.innerHTML = '✕';
+              win.insertBefore(remBtn, win.firstChild);
+            }
+          });
+
           return temp.innerHTML;
         } catch (e) {
           console.warn('Error converting embeds for editor:', e);
@@ -1117,6 +1455,10 @@
         try {
           var temp = document.createElement('div');
           temp.innerHTML = html;
+
+          // Strip publisher-only gallery remove buttons
+          var removeBtns = temp.querySelectorAll('.pub-gallery-remove-btn');
+          removeBtns.forEach(function (btn) { btn.remove(); });
 
           var editorCards = temp.querySelectorAll('.pub-editor-video-card, [data-video-id]');
           editorCards.forEach(function (card) {
@@ -1779,6 +2121,10 @@
             '</div>' +
             '<div class="reader-body-content" style="line-height:1.85; font-size:1.1rem; color:#cbd5e1;">' + (typeof window.normalizeYouTubeEmbeds === 'function' ? window.normalizeYouTubeEmbeds(article.content) : article.content) + '</div>' +
           '</div>';
+
+        if (typeof window.initArticleLightbox === 'function') {
+          window.initArticleLightbox(this.previewContainer);
+        }
       }
       if (this.previewModal) {
         this.previewModal.classList.add('active');
