@@ -1,7 +1,14 @@
 {
   "version": 2,
+  "buildCommand": "node generate-article-pages.js https://www.iconnectpublication.org",
+  "outputDirectory": ".",
   "cleanUrls": true,
-  "trailingSlash": true,
+  "rewrites": [
+    {
+      "source": "/article/:slug*",
+      "destination": "/article.html"
+    }
+  ],
   "headers": [
     {
       "source": "/article/(.*)",
@@ -23,15 +30,6 @@
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "Referrer-Policy",        "value": "strict-origin-when-cross-origin" }
       ]
-    }
-  ],
-  "routes": [
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/article/.*",
-      "dest": "/article.html"
     }
   ]
 }
