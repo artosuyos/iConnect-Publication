@@ -1,7 +1,4 @@
 {
-  "version": 2,
-  "buildCommand": "node generate-article-pages.js https://www.iconnectpublication.org",
-  "outputDirectory": ".",
   "cleanUrls": true,
   "rewrites": [
     {
