@@ -4,6 +4,19 @@
 
 var articlesData = [
   {
+    id: "-tech-titans-gear-up-for-the-battle-ahead",
+    title: "🏆 TECH TITANS GEAR UP FOR THE BATTLE AHEAD",
+    category: "BSCS Department",
+    featured: false,
+    author: "Jefferson Sibug",
+    role: "",
+    date: "September 3, 2026",
+    readTime: "",
+    image: "https://res.cloudinary.com/io18jc16/image/upload/v1788489029/TEAM_TITAN_2.jpg",
+    excerpt: "The Tech Titans are gearing up to represent the BSCS Department with pride, skill, teamwork, and determination at the upcoming Intramural Meet 2026.",
+    content: `<div>The <b>Computer Science</b> Department conducted a meeting to discuss preparations for the upcoming Intramural Meet 2026, scheduled for September 22–24, 2026. The meeting brought together students and representatives to plan, organize, and coordinate the various events and activities in preparation for the upcoming competition.</div><div><br></div><div>The Tech Titans, representing the BSCS Department, will compete against a team composed of members from the BAEL, BSOA, and BSFT Departments. Both teams are expected to participate in various activities that will test their skills, talents, teamwork, and sportsmanship.</div><div><br></div><div>The competition will cover Socio-Cultural, and Sports. From the court to the stage and the creative field, students will have the chance to represent their team and show what they can do.</div><div><br></div><div>But the Intramural Meet is not only about winning. It is also about teamwork, friendship, sportsmanship, and school spirit. Every player, performer, artist, and supporter has a role to play in making the event meaningful.</div><div><br></div><div>As the competition gets closer, one thing is clear: the Tech Titans are ready to step up, compete, and represent BSCS with pride.<br><br><b>The games are coming. The teams are ready. And now, it’s time to show what the Tech Titans can do.</b> 🏆</div><div><br></div><div><div class="vision-pro-gallery-container"><div class="vision-pro-window"><div class="vision-pro-grid cols-3"><div class="vision-pro-card" title="Click to zoom photo"><img src="https://res.cloudinary.com/io18jc16/image/upload/v1788489052/db9881fb-0019-4cd8-bf8f-8413c1501f10.jpg" alt="Gallery photo" class="vision-pro-card-img"></div><div class="vision-pro-card" title="Click to zoom photo"><img src="https://res.cloudinary.com/io18jc16/image/upload/v1788489054/68f0dc78-8953-4f8c-a642-f5968d78bab2.jpg" alt="Gallery photo" class="vision-pro-card-img"></div><div class="vision-pro-card" title="Click to zoom photo"><img src="https://res.cloudinary.com/io18jc16/image/upload/v1788489053/08a45ac2-dc59-42b1-b620-abe6f720b70e.jpg" alt="Gallery photo" class="vision-pro-card-img"></div></div><div class="vision-pro-bottom-capsule"><button type="button" class="vision-pro-capsule-btn" title="Open Full-Screen Immersive Lightbox"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"></path></svg>Immersive View ↗</button></div><div class="vision-pro-hint-text"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="vision-pro-hint-icon"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg><em>Click any photo to view in high resolution</em></div></div></div><p><br></p></div><div><br></div>`
+  },
+  {
     id: "bscs-students-join-safe-program-on-safety-and-preparedness",
     title: "BSCS Students Join S.A.F.E. Program on Safety and Preparedness",
     category: "Campus",
