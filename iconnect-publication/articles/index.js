@@ -4,7 +4,7 @@
 
 var articlesData = [
   {
-    id: "-tech-titans-gear-up-for-the-battle-ahead",
+    id: "tech-titans-gear-up-for-the-battle-ahead",
     title: "🏆 TECH TITANS GEAR UP FOR THE BATTLE AHEAD",
     category: "BSCS Department",
     featured: false,

@@ -363,9 +363,25 @@ articles.forEach(function (article) {
 
   if (!fs.existsSync(slugDir)) fs.mkdirSync(slugDir, { recursive: true });
 
-  fs.writeFileSync(outFile, generateArticleHTML(article, slug, articles), 'utf8');
+  const htmlContent = generateArticleHTML(article, slug, articles);
+  fs.writeFileSync(outFile, htmlContent, 'utf8');
   console.log(`  ✅  /article/${slug}/  →  "${article.title}"`);
   generated++;
+
+  // If slug had leading/trailing hyphens or clean variant differs, also write alias directory
+  const cleanSlug = slug.replace(/^[-_]+|[-_]+$/g, '');
+  if (cleanSlug && cleanSlug !== slug) {
+    const cleanDir = path.join(articleDir, cleanSlug);
+    if (!fs.existsSync(cleanDir)) fs.mkdirSync(cleanDir, { recursive: true });
+    fs.writeFileSync(path.join(cleanDir, 'index.html'), htmlContent, 'utf8');
+    console.log(`  ✅  /article/${cleanSlug}/ (alias)  →  "${article.title}"`);
+  } else if (cleanSlug && !slug.startsWith('-')) {
+    // Also create the hyphen-prefixed alias in case a user bookmarked or visited with leading hyphen
+    const hyphenSlug = '-' + cleanSlug;
+    const hyphenDir = path.join(articleDir, hyphenSlug);
+    if (!fs.existsSync(hyphenDir)) fs.mkdirSync(hyphenDir, { recursive: true });
+    fs.writeFileSync(path.join(hyphenDir, 'index.html'), htmlContent, 'utf8');
+  }
 });
 
 console.log(`\n🎉  Done! Generated ${generated} full article pages. ${skipped ? `Skipped: ${skipped}.` : ''}`);

@@ -1173,8 +1173,11 @@
     const articles = (typeof window.loadArticlesData === 'function') ? window.loadArticlesData() : (window.iConnectArticles || []);
     var article = null;
     if (id) {
+      var cleanId = id.replace(/^[-_]+|[-_]+$/g, '');
       article = articles.find(function (a) {
-        return a && (a.id === id || String(a.id) === String(id) || (a.slug && a.slug === id));
+        if (!a) return false;
+        var aClean = (a.id || a.slug || '').replace(/^[-_]+|[-_]+$/g, '');
+        return a.id === id || String(a.id) === String(id) || (a.slug && a.slug === id) || (cleanId && aClean === cleanId);
       });
     }
     if (!article && articles.length > 0) {
@@ -1304,7 +1307,12 @@
     const articles = (typeof window.loadArticlesData === 'function') ? window.loadArticlesData() : (window.iConnectArticles || []);
     if (!articles || articles.length === 0) return;
 
-    const article = articles.find(a => a && (a.id === id || String(a.id) === String(id) || (a.slug && a.slug === id)));
+    var cleanId = id ? id.replace(/^[-_]+|[-_]+$/g, '') : '';
+    const article = articles.find(function (a) {
+      if (!a) return false;
+      var aClean = (a.id || a.slug || '').replace(/^[-_]+|[-_]+$/g, '');
+      return a.id === id || String(a.id) === String(id) || (a.slug && a.slug === id) || (cleanId && aClean === cleanId);
+    });
     if (!article) return;
 
     // Save previous URL before first opening if not already an article URL

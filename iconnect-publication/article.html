@@ -39,8 +39,12 @@
         var id = (pathMatch && pathMatch[1]) ? decodeURIComponent(pathMatch[1]) : (new URLSearchParams(window.location.search).get('id') || new URLSearchParams(window.location.search).get('article'));
         var custom = JSON.parse(localStorage.getItem('iconnect_published_articles')) || [];
         var base = window.articlesData || [];
-        var merged = custom.concat(base);
-        var article = merged.find(function(a) { return a && (a.id === id || String(a.id) === String(id) || (a.slug && a.slug === id)); }) || merged[0];
+        var cleanId = id ? id.replace(/^[-_]+|[-_]+$/g, '') : '';
+        var article = merged.find(function(a) {
+          if (!a) return false;
+          var aClean = (a.id || a.slug || '').replace(/^[-_]+|[-_]+$/g, '');
+          return a.id === id || String(a.id) === String(id) || (a.slug && a.slug === id) || (cleanId && aClean === cleanId);
+        }) || merged[0];
         
         if (article) {
           var origin = window.location.origin;
