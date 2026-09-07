@@ -1,14 +1,9 @@
 {
   "cleanUrls": true,
-  "trailingSlash": true,
-  "rewrites": [
+  "routes": [
     {
-      "source": "/article/:slug*",
-      "destination": "/article.html"
-    },
-    {
-      "source": "/article/(.*)",
-      "destination": "/article.html"
+      "src": "^/article/([^/]+)/?.*$",
+      "dest": "/article.html?id=$1"
     }
   ],
   "headers": [
