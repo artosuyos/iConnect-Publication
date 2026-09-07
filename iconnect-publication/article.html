@@ -31,6 +31,9 @@
   <meta name="twitter:description" id="twitter-desc" content="Read the latest technology, news, campus features, and research articles from the BSCS Department." />
   <meta name="twitter:image" id="twitter-image" content="/assets/images/articles/gallery-1.jpg" />
 
+  <!-- Articles Datastore -->
+  <script src="/articles/index.js"></script>
+
   <!-- Data Script & Client-Side Dynamic Meta Updater (runs before page paint) -->
   <script>
     (function () {
@@ -39,6 +42,7 @@
         var id = (pathMatch && pathMatch[1]) ? decodeURIComponent(pathMatch[1]) : (new URLSearchParams(window.location.search).get('id') || new URLSearchParams(window.location.search).get('article'));
         var custom = JSON.parse(localStorage.getItem('iconnect_published_articles')) || [];
         var base = window.articlesData || [];
+        var merged = custom.concat(base);
         var cleanId = id ? id.replace(/^[-_]+|[-_]+$/g, '') : '';
         var article = merged.find(function(a) {
           if (!a) return false;

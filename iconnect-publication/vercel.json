@@ -1,8 +1,13 @@
 {
   "cleanUrls": true,
+  "trailingSlash": true,
   "rewrites": [
     {
       "source": "/article/:slug*",
+      "destination": "/article.html"
+    },
+    {
+      "source": "/article/(.*)",
       "destination": "/article.html"
     }
   ],
