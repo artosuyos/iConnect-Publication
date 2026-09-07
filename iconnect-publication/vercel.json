@@ -1,9 +1,13 @@
 {
   "cleanUrls": true,
-  "routes": [
+  "rewrites": [
     {
-      "src": "^/article/([^/]+)/?.*$",
-      "dest": "/article.html?id=$1"
+      "source": "/article/:slug*",
+      "destination": "/article.html"
+    },
+    {
+      "source": "/article/(.*)",
+      "destination": "/article.html"
     }
   ],
   "headers": [
