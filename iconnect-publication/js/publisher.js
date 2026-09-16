@@ -163,8 +163,8 @@
         var idxA = customOrder.indexOf(a.id);
         var idxB = customOrder.indexOf(b.id);
         if (idxA === -1 && idxB === -1) return 0;
-        if (idxA === -1) return 1;
-        if (idxB === -1) return -1;
+        if (idxA === -1) return -1;
+        if (idxB === -1) return 1;
         return idxA - idxB;
       });
     }
@@ -1958,19 +1958,24 @@
 
       var article = this.buildArticleObject();
 
-      // 1. Save to custom published articles list (localStorage)
+      // 1. Save to custom published articles list (localStorage datastore)
       var customArticles = getCustomArticles();
 
-      // Check if updating an existing article with same id
-      var existingIndex = customArticles.findIndex(function (a) { return a.id === article.id; });
-      if (existingIndex !== -1) {
-        customArticles[existingIndex] = article;
-      } else {
-        // Add to top of list
-        customArticles.unshift(article);
-      }
+      // Remove previous entry with same id if updating, then unshift to the very beginning (first position)
+      customArticles = customArticles.filter(function (a) { return a.id !== article.id; });
+      customArticles.unshift(article);
 
       saveCustomArticlesSafely(customArticles);
+
+      // Place at index 0 (first position) of custom order datastore as well
+      try {
+        var customOrder = JSON.parse(localStorage.getItem('iconnect_articles_order')) || [];
+        if (Array.isArray(customOrder)) {
+          customOrder = customOrder.filter(function (id) { return id !== article.id; });
+          customOrder.unshift(article.id);
+          localStorage.setItem('iconnect_articles_order', JSON.stringify(customOrder));
+        }
+      } catch (e) {}
 
       // 2. Remove from deleted articles tracking if present
       try {

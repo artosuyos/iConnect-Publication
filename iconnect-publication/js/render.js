@@ -181,8 +181,8 @@
         var idxA = customOrder.indexOf(a.id);
         var idxB = customOrder.indexOf(b.id);
         if (idxA === -1 && idxB === -1) return 0;
-        if (idxA === -1) return 1;
-        if (idxB === -1) return -1;
+        if (idxA === -1) return -1;
+        if (idxB === -1) return 1;
         return idxA - idxB;
       });
     }
